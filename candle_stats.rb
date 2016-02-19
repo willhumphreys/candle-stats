@@ -2,7 +2,7 @@ require 'json'
 
 file = File.read('EURGBP.json')
 data_hash = JSON.parse(file)
-quotes = data_hash['query']['results']['quote']
+quotes = data_hash['results']
 
 quote_count = 0
 down_day_counter = 0
@@ -11,10 +11,10 @@ next_day_down_counter = 0
 next_day_opens_in_range_count = 0
 
 def is_a_down_day(quote)
-  quote['Close'] < quote['Open']
+  quote['close'] < quote['open']
 end
 
-quotes.each_cons(2) do |second, first|
+quotes.each_cons(2) do |first, second|
   quote_count += 1
 
   if is_a_down_day(first)
@@ -24,7 +24,7 @@ quotes.each_cons(2) do |second, first|
     end
   end
 
-  if second['Open'] > first['Low'] && second['Open'] < first['High']
+  if second['open'] >= first['low'] && second['open'] <= first['high']
     next_day_opens_in_range_count += 1
   else
     puts 'This shouldn\'t happen often'
@@ -39,4 +39,4 @@ puts "If today is down what are the odds tomorrow is down to: #{today_down_tomor
 
 #Does today open inside the range of the previous day
 next_day_opens_in_range = (next_day_opens_in_range_count.to_f / quote_count * 100).ceil
-puts "Next day opens in range: #{next_day_opens_in_range}%"
+puts "Next day opens in range: #{next_day_opens_in_range}% (#{next_day_opens_in_range_count})"

@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    debase (0.2.2.beta6)
+      debase-ruby_core_source
+    debase-ruby_core_source (0.8.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  debase (= 0.2.2.beta6)
+
+BUNDLED WITH
+   1.11.2
