@@ -1,0 +1,3028 @@
+{
+  "query": {
+    "count": 295,
+    "created": "2016-02-19T14:13:28Z",
+    "lang": "en-US",
+    "diagnostics": {
+      "url": [
+        {
+          "execution-start-time": "0",
+          "execution-stop-time": "3",
+          "execution-time": "3",
+          "content": "http://www.datatables.org/yahoo/finance/yahoo.finance.historicaldata.xml"
+        },
+        {
+          "execution-start-time": "7",
+          "execution-stop-time": "24",
+          "execution-time": "17",
+          "content": "http://ichart.finance.yahoo.com/table.csv?a=0&b=1&e=18&g=d&c=2015&d=1&f=2016&s=EUR%3dX"
+        },
+        {
+          "execution-start-time": "29",
+          "execution-stop-time": "44",
+          "execution-time": "15",
+          "content": "http://ichart.finance.yahoo.com/table.csv?a=0&b=1&e=18&g=d&c=2015&d=1&f=2016&s=EUR%3dX"
+        }
+      ],
+      "publiclyCallable": "true",
+      "cache": [
+        {
+          "execution-start-time": "6",
+          "execution-stop-time": "6",
+          "execution-time": "0",
+          "method": "GET",
+          "type": "MEMCACHED",
+          "content": "719de7da478027508c7025895d2dc98e"
+        },
+        {
+          "execution-start-time": "27",
+          "execution-stop-time": "28",
+          "execution-time": "1",
+          "method": "GET",
+          "type": "MEMCACHED",
+          "content": "ef75c343b223419beaacb260aac86e2c"
+        }
+      ],
+      "query": [
+        {
+          "execution-start-time": "6",
+          "execution-stop-time": "27",
+          "execution-time": "21",
+          "params": "{url=[http://ichart.finance.yahoo.com/table.csv?a=0&b=1&e=18&g=d&c=2015&d=1&f=2016&s=EUR%3dX]}",
+          "content": "select * from csv(0,1) where url=@url"
+        },
+        {
+          "execution-start-time": "28",
+          "execution-stop-time": "47",
+          "execution-time": "19",
+          "params": "{columnsNames=[Date,Open,High,Low,Close,Volume,Adj_Close], url=[http://ichart.finance.yahoo.com/table.csv?a=0&b=1&e=18&g=d&c=2015&d=1&f=2016&s=EUR%3dX]}",
+          "content": "select * from csv(2,0) where url=@url and columns=@columnsNames"
+        }
+      ],
+      "javascript": {
+        "execution-start-time": "5",
+        "execution-stop-time": "2367",
+        "execution-time": "2362",
+        "instructions-used": "33072758",
+        "table-name": "yahoo.finance.historicaldata"
+      },
+      "user-time": "2373",
+      "service-time": "36",
+      "build-version": "0.2.395"
+    },
+    "results": {
+      "quote": [
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-18",
+          "Open": "0.89912",
+          "High": "0.903016",
+          "Low": "0.8967",
+          "Close": "0.89904",
+          "Volume": "000",
+          "Adj_Close": "0.89904"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-17",
+          "Open": "0.89718",
+          "High": "0.900252",
+          "Low": "0.894454",
+          "Close": "0.8971",
+          "Volume": "000",
+          "Adj_Close": "0.8971"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-16",
+          "Open": "0.8946",
+          "High": "0.898473",
+          "Low": "0.893495",
+          "Close": "0.89493",
+          "Volume": "000",
+          "Adj_Close": "0.89493"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-15",
+          "Open": "0.89079",
+          "High": "0.898473",
+          "Low": "0.88972",
+          "Close": "0.89079",
+          "Volume": "000",
+          "Adj_Close": "0.89079"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-12",
+          "Open": "0.8836",
+          "High": "0.890472",
+          "Low": "0.88232",
+          "Close": "0.88355",
+          "Volume": "000",
+          "Adj_Close": "0.88355"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-11",
+          "Open": "0.88621",
+          "High": "0.886839",
+          "Low": "0.879662",
+          "Close": "0.88645",
+          "Volume": "000",
+          "Adj_Close": "0.88645"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-10",
+          "Open": "0.88574",
+          "High": "0.89555",
+          "Low": "0.88425",
+          "Close": "0.88574",
+          "Volume": "000",
+          "Adj_Close": "0.88574"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-09",
+          "Open": "0.89358",
+          "High": "0.895736",
+          "Low": "0.883861",
+          "Close": "0.89367",
+          "Volume": "000",
+          "Adj_Close": "0.89367"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-08",
+          "Open": "0.8971",
+          "High": "0.901876",
+          "Low": "0.893655",
+          "Close": "0.89726",
+          "Volume": "000",
+          "Adj_Close": "0.89726"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-05",
+          "Open": "0.89286",
+          "High": "0.90009",
+          "Low": "0.8915",
+          "Close": "0.89286",
+          "Volume": "000",
+          "Adj_Close": "0.89286"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-04",
+          "Open": "0.90155",
+          "High": "0.903179",
+          "Low": "0.889838",
+          "Close": "0.90163",
+          "Volume": "000",
+          "Adj_Close": "0.90163"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-03",
+          "Open": "0.91558",
+          "High": "0.916926",
+          "Low": "0.90269",
+          "Close": "0.91558",
+          "Volume": "000",
+          "Adj_Close": "0.91558"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-02",
+          "Open": "0.91752",
+          "High": "0.91783",
+          "Low": "0.914077",
+          "Close": "0.91766",
+          "Volume": "000",
+          "Adj_Close": "0.91766"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-02-01",
+          "Open": "0.92368",
+          "High": "0.92368",
+          "Low": "0.916422",
+          "Close": "0.92371",
+          "Volume": "000",
+          "Adj_Close": "0.92371"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-29",
+          "Open": "0.91433",
+          "High": "0.924214",
+          "Low": "0.91348",
+          "Close": "0.91433",
+          "Volume": "000",
+          "Adj_Close": "0.91433"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-28",
+          "Open": "0.91709",
+          "High": "0.919963",
+          "Low": "0.913242",
+          "Close": "0.91676",
+          "Volume": "000",
+          "Adj_Close": "0.91676"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-27",
+          "Open": "0.92047",
+          "High": "0.9214",
+          "Low": "0.916422",
+          "Close": "0.92039",
+          "Volume": "000",
+          "Adj_Close": "0.92039"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-26",
+          "Open": "0.92134",
+          "High": "0.924214",
+          "Low": "0.919118",
+          "Close": "0.9214",
+          "Volume": "000",
+          "Adj_Close": "0.9214"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-25",
+          "Open": "0.92601",
+          "High": "0.92661",
+          "Low": "0.921659",
+          "Close": "0.92601",
+          "Volume": "000",
+          "Adj_Close": "0.92601"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-22",
+          "Open": "0.92073",
+          "High": "0.92627",
+          "Low": "0.920471",
+          "Close": "0.92064",
+          "Volume": "000",
+          "Adj_Close": "0.92064"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-21",
+          "Open": "0.91937",
+          "High": "0.927472",
+          "Low": "0.915583",
+          "Close": "0.91937",
+          "Volume": "000",
+          "Adj_Close": "0.91937"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-20",
+          "Open": "0.91646",
+          "High": "0.91803",
+          "Low": "0.911079",
+          "Close": "0.91634",
+          "Volume": "000",
+          "Adj_Close": "0.91634"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-19",
+          "Open": "0.91785",
+          "High": "0.920641",
+          "Low": "0.91659",
+          "Close": "0.91785",
+          "Volume": "000",
+          "Adj_Close": "0.91785"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-18",
+          "Open": "0.91583",
+          "High": "0.919456",
+          "Low": "0.91516",
+          "Close": "0.91575",
+          "Volume": "000",
+          "Adj_Close": "0.91575"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-15",
+          "Open": "0.921",
+          "High": "0.921",
+          "Low": "0.910581",
+          "Close": "0.9209",
+          "Volume": "000",
+          "Adj_Close": "0.9209"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-14",
+          "Open": "0.91844",
+          "High": "0.92251",
+          "Low": "0.913242",
+          "Close": "0.91861",
+          "Volume": "000",
+          "Adj_Close": "0.91861"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-13",
+          "Open": "0.92217",
+          "High": "0.925412",
+          "Low": "0.91878",
+          "Close": "0.92217",
+          "Volume": "000",
+          "Adj_Close": "0.92217"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-12",
+          "Open": "0.9209",
+          "High": "0.923873",
+          "Low": "0.917263",
+          "Close": "0.92098",
+          "Volume": "000",
+          "Adj_Close": "0.92098"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-11",
+          "Open": "0.91416",
+          "High": "0.921489",
+          "Low": "0.91358",
+          "Close": "0.91399",
+          "Volume": "000",
+          "Adj_Close": "0.91399"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-08",
+          "Open": "0.91516",
+          "High": "0.92524",
+          "Low": "0.915",
+          "Close": "0.91525",
+          "Volume": "000",
+          "Adj_Close": "0.91525"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-07",
+          "Open": "0.92782",
+          "High": "0.92816",
+          "Low": "0.919456",
+          "Close": "0.92773",
+          "Volume": "000",
+          "Adj_Close": "0.92773"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-06",
+          "Open": "0.93006",
+          "High": "0.932662",
+          "Low": "0.92833",
+          "Close": "0.93006",
+          "Volume": "000",
+          "Adj_Close": "0.93006"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-05",
+          "Open": "0.9237",
+          "High": "0.933532",
+          "Low": "0.92242",
+          "Close": "0.92357",
+          "Volume": "000",
+          "Adj_Close": "0.92357"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-04",
+          "Open": "0.92123",
+          "High": "0.925412",
+          "Low": "0.913576",
+          "Close": "0.92132",
+          "Volume": "000",
+          "Adj_Close": "0.92132"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2016-01-01",
+          "Open": "0.92089",
+          "High": "0.92089",
+          "Low": "0.92022",
+          "Close": "0.92089",
+          "Volume": "000",
+          "Adj_Close": "0.92089"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-31",
+          "Open": "0.91424",
+          "High": "0.920302",
+          "Low": "0.91416",
+          "Close": "0.91458",
+          "Volume": "000",
+          "Adj_Close": "0.91458"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-30",
+          "Open": "0.91508",
+          "High": "0.91659",
+          "Low": "0.913242",
+          "Close": "0.91508",
+          "Volume": "000",
+          "Adj_Close": "0.91508"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-29",
+          "Open": "0.911",
+          "High": "0.91659",
+          "Low": "0.909091",
+          "Close": "0.91114",
+          "Volume": "000",
+          "Adj_Close": "0.91114"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-28",
+          "Open": "0.91191",
+          "High": "0.912575",
+          "Low": "0.909091",
+          "Close": "0.91191",
+          "Volume": "000",
+          "Adj_Close": "0.91191"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-25",
+          "Open": "0.91198",
+          "High": "0.91349",
+          "Low": "0.91116",
+          "Close": "0.91158",
+          "Volume": "000",
+          "Adj_Close": "0.91158"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-24",
+          "Open": "0.91659",
+          "High": "0.91659",
+          "Low": "0.91183",
+          "Close": "0.91666",
+          "Volume": "000",
+          "Adj_Close": "0.91666"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-23",
+          "Open": "0.91324",
+          "High": "0.9187",
+          "Low": "0.91283",
+          "Close": "0.91324",
+          "Volume": "000",
+          "Adj_Close": "0.91324"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-22",
+          "Open": "0.91642",
+          "High": "0.91701",
+          "Low": "0.910415",
+          "Close": "0.91634",
+          "Volume": "000",
+          "Adj_Close": "0.91634"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-21",
+          "Open": "0.91995",
+          "High": "0.921489",
+          "Low": "0.915751",
+          "Close": "0.91997",
+          "Volume": "000",
+          "Adj_Close": "0.91997"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-18",
+          "Open": "0.92217",
+          "High": "0.925412",
+          "Low": "0.919963",
+          "Close": "0.92216",
+          "Volume": "000",
+          "Adj_Close": "0.92216"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-17",
+          "Open": "0.91962",
+          "High": "0.92306",
+          "Low": "0.91836",
+          "Close": "0.91958",
+          "Volume": "000",
+          "Adj_Close": "0.91958"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-16",
+          "Open": "0.91441",
+          "High": "0.91632",
+          "Low": "0.912575",
+          "Close": "0.91439",
+          "Volume": "000",
+          "Adj_Close": "0.91439"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-15",
+          "Open": "0.90973",
+          "High": "0.915583",
+          "Low": "0.903342",
+          "Close": "0.90967",
+          "Volume": "000",
+          "Adj_Close": "0.90967"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-14",
+          "Open": "0.90992",
+          "High": "0.91349",
+          "Low": "0.905797",
+          "Close": "0.91042",
+          "Volume": "000",
+          "Adj_Close": "0.91042"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-11",
+          "Open": "0.91341",
+          "High": "0.91508",
+          "Low": "0.906618",
+          "Close": "0.9134",
+          "Volume": "000",
+          "Adj_Close": "0.9134"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-10",
+          "Open": "0.90769",
+          "High": "0.915081",
+          "Low": "0.90719",
+          "Close": "0.90761",
+          "Volume": "000",
+          "Adj_Close": "0.90761"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-09",
+          "Open": "0.91785",
+          "High": "0.91895",
+          "Low": "0.909918",
+          "Close": "0.91794",
+          "Volume": "000",
+          "Adj_Close": "0.91794"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-08",
+          "Open": "0.92285",
+          "High": "0.92324",
+          "Low": "0.917431",
+          "Close": "0.92302",
+          "Volume": "000",
+          "Adj_Close": "0.92302"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-07",
+          "Open": "0.91886",
+          "High": "0.926097",
+          "Low": "0.91886",
+          "Close": "0.91878",
+          "Volume": "000",
+          "Adj_Close": "0.91878"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-04",
+          "Open": "0.91589",
+          "High": "0.92098",
+          "Low": "0.91308",
+          "Close": "0.91609",
+          "Volume": "000",
+          "Adj_Close": "0.91609"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-03",
+          "Open": "0.94233",
+          "High": "0.948587",
+          "Low": "0.918105",
+          "Close": "0.94224",
+          "Volume": "000",
+          "Adj_Close": "0.94224"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-02",
+          "Open": "0.941",
+          "High": "0.94679",
+          "Low": "0.93985",
+          "Close": "0.9411",
+          "Volume": "000",
+          "Adj_Close": "0.9411"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-12-01",
+          "Open": "0.94581",
+          "High": "0.94643",
+          "Low": "0.93985",
+          "Close": "0.94581",
+          "Volume": "000",
+          "Adj_Close": "0.94581"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-30",
+          "Open": "0.94491",
+          "High": "0.946611",
+          "Low": "0.94366",
+          "Close": "0.94491",
+          "Volume": "000",
+          "Adj_Close": "0.94491"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-27",
+          "Open": "0.943",
+          "High": "0.946074",
+          "Low": "0.940026",
+          "Close": "0.943",
+          "Volume": "000",
+          "Adj_Close": "0.943"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-26",
+          "Open": "0.94118",
+          "High": "0.943218",
+          "Low": "0.940734",
+          "Close": "0.94118",
+          "Volume": "000",
+          "Adj_Close": "0.94118"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-25",
+          "Open": "0.9395",
+          "High": "0.945537",
+          "Low": "0.935454",
+          "Close": "0.93951",
+          "Volume": "000",
+          "Adj_Close": "0.93951"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-24",
+          "Open": "0.93994",
+          "High": "0.94128",
+          "Low": "0.937031",
+          "Close": "0.93967",
+          "Volume": "000",
+          "Adj_Close": "0.93967"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-23",
+          "Open": "0.93985",
+          "High": "0.94313",
+          "Low": "0.938615",
+          "Close": "0.93976",
+          "Volume": "000",
+          "Adj_Close": "0.93976"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-20",
+          "Open": "0.93223",
+          "High": "0.937734",
+          "Low": "0.931966",
+          "Close": "0.9323",
+          "Volume": "000",
+          "Adj_Close": "0.9323"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-19",
+          "Open": "0.93694",
+          "High": "0.937207",
+          "Low": "0.931619",
+          "Close": "0.93721",
+          "Volume": "000",
+          "Adj_Close": "0.93721"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-18",
+          "Open": "0.9395",
+          "High": "0.94053",
+          "Low": "0.935279",
+          "Close": "0.93951",
+          "Volume": "000",
+          "Adj_Close": "0.93951"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-17",
+          "Open": "0.93554",
+          "High": "0.939496",
+          "Low": "0.93528",
+          "Close": "0.93563",
+          "Volume": "000",
+          "Adj_Close": "0.93563"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-16",
+          "Open": "0.93449",
+          "High": "0.93449",
+          "Low": "0.929368",
+          "Close": "0.93458",
+          "Volume": "000",
+          "Adj_Close": "0.93458"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-13",
+          "Open": "0.92516",
+          "High": "0.932662",
+          "Low": "0.92498",
+          "Close": "0.92464",
+          "Volume": "000",
+          "Adj_Close": "0.92464"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-12",
+          "Open": "0.92894",
+          "High": "0.935104",
+          "Low": "0.925926",
+          "Close": "0.92911",
+          "Volume": "000",
+          "Adj_Close": "0.92911"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-11",
+          "Open": "0.93127",
+          "High": "0.933881",
+          "Low": "0.92825",
+          "Close": "0.93131",
+          "Volume": "000",
+          "Adj_Close": "0.93131"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-10",
+          "Open": "0.92939",
+          "High": "0.93668",
+          "Low": "0.92913",
+          "Close": "0.92941",
+          "Volume": "000",
+          "Adj_Close": "0.92941"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-09",
+          "Open": "0.93176",
+          "High": "0.93197",
+          "Low": "0.926784",
+          "Close": "0.93167",
+          "Volume": "000",
+          "Adj_Close": "0.93167"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-06",
+          "Open": "0.9187",
+          "High": "0.93356",
+          "Low": "0.91785",
+          "Close": "0.91878",
+          "Volume": "000",
+          "Adj_Close": "0.91878"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-05",
+          "Open": "0.9203",
+          "High": "0.92276",
+          "Low": "0.917431",
+          "Close": "0.92013",
+          "Volume": "000",
+          "Adj_Close": "0.92013"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-04",
+          "Open": "0.91199",
+          "High": "0.921829",
+          "Low": "0.91183",
+          "Close": "0.91208",
+          "Volume": "000",
+          "Adj_Close": "0.91208"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-03",
+          "Open": "0.90769",
+          "High": "0.914244",
+          "Low": "0.906454",
+          "Close": "0.90777",
+          "Volume": "000",
+          "Adj_Close": "0.90777"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-11-02",
+          "Open": "0.90703",
+          "High": "0.90876",
+          "Low": "0.904159",
+          "Close": "0.90695",
+          "Volume": "000",
+          "Adj_Close": "0.90695"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-30",
+          "Open": "0.90975",
+          "High": "0.91158",
+          "Low": "0.903179",
+          "Close": "0.9096",
+          "Volume": "000",
+          "Adj_Close": "0.9096"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-29",
+          "Open": "0.91525",
+          "High": "0.91659",
+          "Low": "0.910581",
+          "Close": "0.915",
+          "Volume": "000",
+          "Adj_Close": "0.915"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-28",
+          "Open": "0.90613",
+          "High": "0.90686",
+          "Low": "0.900901",
+          "Close": "0.90604",
+          "Volume": "000",
+          "Adj_Close": "0.90604"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-27",
+          "Open": "0.90408",
+          "High": "0.906454",
+          "Low": "0.90269",
+          "Close": "0.90367",
+          "Volume": "000",
+          "Adj_Close": "0.90367"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-26",
+          "Open": "0.90741",
+          "High": "0.908595",
+          "Low": "0.904159",
+          "Close": "0.90741",
+          "Volume": "000",
+          "Adj_Close": "0.90741"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-23",
+          "Open": "0.9022",
+          "High": "0.90818",
+          "Low": "0.89759",
+          "Close": "0.90245",
+          "Volume": "000",
+          "Adj_Close": "0.90245"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-22",
+          "Open": "0.88129",
+          "High": "0.897827",
+          "Low": "0.8809",
+          "Close": "0.88121",
+          "Volume": "000",
+          "Adj_Close": "0.88121"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-21",
+          "Open": "0.88059",
+          "High": "0.88199",
+          "Low": "0.878889",
+          "Close": "0.88075",
+          "Volume": "000",
+          "Adj_Close": "0.88075"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-20",
+          "Open": "0.88246",
+          "High": "0.88294",
+          "Low": "0.877963",
+          "Close": "0.88269",
+          "Volume": "000",
+          "Adj_Close": "0.88269"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-19",
+          "Open": "0.88028",
+          "High": "0.884291",
+          "Low": "0.878735",
+          "Close": "0.8802",
+          "Volume": "000",
+          "Adj_Close": "0.8802"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-16",
+          "Open": "0.87974",
+          "High": "0.881881",
+          "Low": "0.877193",
+          "Close": "0.87965",
+          "Volume": "000",
+          "Adj_Close": "0.87965"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-15",
+          "Open": "0.87146",
+          "High": "0.879871",
+          "Low": "0.870004",
+          "Close": "0.87142",
+          "Volume": "000",
+          "Adj_Close": "0.87142"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-14",
+          "Open": "0.87834",
+          "High": "0.87834",
+          "Low": "0.873362",
+          "Close": "0.87835",
+          "Volume": "000",
+          "Adj_Close": "0.87835"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-13",
+          "Open": "0.88075",
+          "High": "0.88129",
+          "Low": "0.876424",
+          "Close": "0.88063",
+          "Volume": "000",
+          "Adj_Close": "0.88063"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-12",
+          "Open": "0.87958",
+          "High": "0.880406",
+          "Low": "0.877193",
+          "Close": "0.87951",
+          "Volume": "000",
+          "Adj_Close": "0.87951"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-09",
+          "Open": "0.88605",
+          "High": "0.88731",
+          "Low": "0.878835",
+          "Close": "0.88598",
+          "Volume": "000",
+          "Adj_Close": "0.88598"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-08",
+          "Open": "0.88952",
+          "High": "0.8897",
+          "Low": "0.883931",
+          "Close": "0.88968",
+          "Volume": "000",
+          "Adj_Close": "0.88968"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-07",
+          "Open": "0.88708",
+          "High": "0.891727",
+          "Low": "0.88619",
+          "Close": "0.88747",
+          "Volume": "000",
+          "Adj_Close": "0.88747"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-06",
+          "Open": "0.89302",
+          "High": "0.89477",
+          "Low": "0.886525",
+          "Close": "0.89324",
+          "Volume": "000",
+          "Adj_Close": "0.89324"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-05",
+          "Open": "0.89115",
+          "High": "0.8931",
+          "Low": "0.885897",
+          "Close": "0.89071",
+          "Volume": "000",
+          "Adj_Close": "0.89071"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-02",
+          "Open": "0.89326",
+          "High": "0.896716",
+          "Low": "0.883759",
+          "Close": "0.89338",
+          "Volume": "000",
+          "Adj_Close": "0.89338"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-10-01",
+          "Open": "0.89513",
+          "High": "0.89775",
+          "Low": "0.892061",
+          "Close": "0.89509",
+          "Volume": "000",
+          "Adj_Close": "0.89509"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-30",
+          "Open": "0.88857",
+          "High": "0.896218",
+          "Low": "0.88794",
+          "Close": "0.88842",
+          "Volume": "000",
+          "Adj_Close": "0.88842"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-29",
+          "Open": "0.89019",
+          "High": "0.893272",
+          "Low": "0.886501",
+          "Close": "0.89039",
+          "Volume": "000",
+          "Adj_Close": "0.89039"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-28",
+          "Open": "0.89282",
+          "High": "0.896692",
+          "Low": "0.889569",
+          "Close": "0.89272",
+          "Volume": "000",
+          "Adj_Close": "0.89272"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-25",
+          "Open": "0.89436",
+          "High": "0.899418",
+          "Low": "0.892507",
+          "Close": "0.89454",
+          "Volume": "000",
+          "Adj_Close": "0.89454"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-24",
+          "Open": "0.89381",
+          "High": "0.89552",
+          "Low": "0.885261",
+          "Close": "0.89366",
+          "Volume": "000",
+          "Adj_Close": "0.89366"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-23",
+          "Open": "0.89912",
+          "High": "0.90035",
+          "Low": "0.893607",
+          "Close": "0.89922",
+          "Volume": "000",
+          "Adj_Close": "0.89922"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-21",
+          "Open": "0.8855",
+          "High": "0.894142",
+          "Low": "0.882613",
+          "Close": "0.88558",
+          "Volume": "000",
+          "Adj_Close": "0.88558"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-18",
+          "Open": "0.87673",
+          "High": "0.880925",
+          "Low": "0.8726",
+          "Close": "0.87712",
+          "Volume": "000",
+          "Adj_Close": "0.87712"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-17",
+          "Open": "0.88543",
+          "High": "0.8859",
+          "Low": "0.881834",
+          "Close": "0.88558",
+          "Volume": "000",
+          "Adj_Close": "0.88558"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-16",
+          "Open": "0.88708",
+          "High": "0.891663",
+          "Low": "0.884048",
+          "Close": "0.88717",
+          "Volume": "000",
+          "Adj_Close": "0.88717"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-15",
+          "Open": "0.8841",
+          "High": "0.888115",
+          "Low": "0.88261",
+          "Close": "0.88436",
+          "Volume": "000",
+          "Adj_Close": "0.88436"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-14",
+          "Open": "0.88152",
+          "High": "0.88592",
+          "Low": "0.879345",
+          "Close": "0.88152",
+          "Volume": "000",
+          "Adj_Close": "0.88152"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-11",
+          "Open": "0.8863",
+          "High": "0.888431",
+          "Low": "0.881663",
+          "Close": "0.88567",
+          "Volume": "000",
+          "Adj_Close": "0.88567"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-10",
+          "Open": "0.89131",
+          "High": "0.894863",
+          "Low": "0.886525",
+          "Close": "0.89121",
+          "Volume": "000",
+          "Adj_Close": "0.89121"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-09",
+          "Open": "0.89222",
+          "High": "0.898214",
+          "Low": "0.892061",
+          "Close": "0.89227",
+          "Volume": "000",
+          "Adj_Close": "0.89227"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-08",
+          "Open": "0.89614",
+          "High": "0.896563",
+          "Low": "0.890472",
+          "Close": "0.89574",
+          "Volume": "000",
+          "Adj_Close": "0.89574"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-07",
+          "Open": "0.89614",
+          "High": "0.898941",
+          "Low": "0.894454",
+          "Close": "0.8967",
+          "Volume": "000",
+          "Adj_Close": "0.8967"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-04",
+          "Open": "0.8988",
+          "High": "0.901339",
+          "Low": "0.896057",
+          "Close": "0.8988",
+          "Volume": "000",
+          "Adj_Close": "0.8988"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-03",
+          "Open": "0.89166",
+          "High": "0.901738",
+          "Low": "0.888889",
+          "Close": "0.89158",
+          "Volume": "000",
+          "Adj_Close": "0.89158"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-02",
+          "Open": "0.88525",
+          "High": "0.891035",
+          "Low": "0.884956",
+          "Close": "0.88547",
+          "Volume": "000",
+          "Adj_Close": "0.88547"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-09-01",
+          "Open": "0.89079",
+          "High": "0.89084",
+          "Low": "0.882433",
+          "Close": "0.8908",
+          "Volume": "000",
+          "Adj_Close": "0.8908"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-31",
+          "Open": "0.89192",
+          "High": "0.893983",
+          "Low": "0.887784",
+          "Close": "0.89174",
+          "Volume": "000",
+          "Adj_Close": "0.89174"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-28",
+          "Open": "0.88928",
+          "High": "0.896322",
+          "Low": "0.884173",
+          "Close": "0.88905",
+          "Volume": "000",
+          "Adj_Close": "0.88905"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-27",
+          "Open": "0.88187",
+          "High": "0.891933",
+          "Low": "0.880158",
+          "Close": "0.88183",
+          "Volume": "000",
+          "Adj_Close": "0.88183"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-26",
+          "Open": "0.86544",
+          "High": "0.880669",
+          "Low": "0.86513",
+          "Close": "0.86573",
+          "Volume": "000",
+          "Adj_Close": "0.86573"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-25",
+          "Open": "0.86338",
+          "High": "0.87717",
+          "Low": "0.862813",
+          "Close": "0.86333",
+          "Volume": "000",
+          "Adj_Close": "0.86333"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-24",
+          "Open": "0.87889",
+          "High": "0.87928",
+          "Low": "0.854263",
+          "Close": "0.87897",
+          "Volume": "000",
+          "Adj_Close": "0.87897"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-21",
+          "Open": "0.89",
+          "High": "0.89031",
+          "Low": "0.879577",
+          "Close": "0.88992",
+          "Volume": "000",
+          "Adj_Close": "0.88992"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-20",
+          "Open": "0.89928",
+          "High": "0.90022",
+          "Low": "0.891266",
+          "Close": "0.89944",
+          "Volume": "000",
+          "Adj_Close": "0.89944"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-19",
+          "Open": "0.90654",
+          "High": "0.907408",
+          "Low": "0.902527",
+          "Close": "0.90655",
+          "Volume": "000",
+          "Adj_Close": "0.90655"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-18",
+          "Open": "0.90276",
+          "High": "0.907285",
+          "Low": "0.900901",
+          "Close": "0.90269",
+          "Volume": "000",
+          "Adj_Close": "0.90269"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-17",
+          "Open": "0.90131",
+          "High": "0.903955",
+          "Low": "0.898796",
+          "Close": "0.90147",
+          "Volume": "000",
+          "Adj_Close": "0.90147"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-14",
+          "Open": "0.89614",
+          "High": "0.900812",
+          "Low": "0.893655",
+          "Close": "0.89598",
+          "Volume": "000",
+          "Adj_Close": "0.89598"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-13",
+          "Open": "0.89639",
+          "High": "0.90238",
+          "Low": "0.89373",
+          "Close": "0.89598",
+          "Volume": "000",
+          "Adj_Close": "0.89598"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-12",
+          "Open": "0.90549",
+          "High": "0.90637",
+          "Low": "0.892037",
+          "Close": "0.90563",
+          "Volume": "000",
+          "Adj_Close": "0.90563"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-11",
+          "Open": "0.90761",
+          "High": "0.912284",
+          "Low": "0.902047",
+          "Close": "0.90769",
+          "Volume": "000",
+          "Adj_Close": "0.90769"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-10",
+          "Open": "0.91249",
+          "High": "0.915156",
+          "Low": "0.909091",
+          "Close": "0.91199",
+          "Volume": "000",
+          "Adj_Close": "0.91199"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-07",
+          "Open": "0.91558",
+          "High": "0.920887",
+          "Low": "0.911693",
+          "Close": "0.91516",
+          "Volume": "000",
+          "Adj_Close": "0.91516"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-06",
+          "Open": "0.91709",
+          "High": "0.919329",
+          "Low": "0.914528",
+          "Close": "0.91717",
+          "Volume": "000",
+          "Adj_Close": "0.91717"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-05",
+          "Open": "0.91861",
+          "High": "0.921633",
+          "Low": "0.915852",
+          "Close": "0.91836",
+          "Volume": "000",
+          "Adj_Close": "0.91836"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-04",
+          "Open": "0.91291",
+          "High": "0.91462",
+          "Low": "0.909422",
+          "Close": "0.91274",
+          "Volume": "000",
+          "Adj_Close": "0.91274"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-08-03",
+          "Open": "0.91166",
+          "High": "0.913743",
+          "Low": "0.909471",
+          "Close": "0.91166",
+          "Volume": "000",
+          "Adj_Close": "0.91166"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-31",
+          "Open": "0.91393",
+          "High": "0.915424",
+          "Low": "0.900066",
+          "Close": "0.91414",
+          "Volume": "000",
+          "Adj_Close": "0.91414"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-30",
+          "Open": "0.91042",
+          "High": "0.916481",
+          "Low": "0.909918",
+          "Close": "0.91041",
+          "Volume": "000",
+          "Adj_Close": "0.91041"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-29",
+          "Open": "0.90371",
+          "High": "0.907919",
+          "Low": "0.90204",
+          "Close": "0.90367",
+          "Volume": "000",
+          "Adj_Close": "0.90367"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-28",
+          "Open": "0.90163",
+          "High": "0.907194",
+          "Low": "0.90082",
+          "Close": "0.90171",
+          "Volume": "000",
+          "Adj_Close": "0.90171"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-27",
+          "Open": "0.91124",
+          "High": "0.91124",
+          "Low": "0.898473",
+          "Close": "0.91138",
+          "Volume": "000",
+          "Adj_Close": "0.91138"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-24",
+          "Open": "0.91005",
+          "High": "0.915089",
+          "Low": "0.90942",
+          "Close": "0.91",
+          "Volume": "000",
+          "Adj_Close": "0.91"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-23",
+          "Open": "0.91516",
+          "High": "0.91542",
+          "Low": "0.907441",
+          "Close": "0.91516",
+          "Volume": "000",
+          "Adj_Close": "0.91516"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-22",
+          "Open": "0.91416",
+          "High": "0.918999",
+          "Low": "0.911577",
+          "Close": "0.91408",
+          "Volume": "000",
+          "Adj_Close": "0.91408"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-21",
+          "Open": "0.92295",
+          "High": "0.924838",
+          "Low": "0.914018",
+          "Close": "0.9229",
+          "Volume": "000",
+          "Adj_Close": "0.9229"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-20",
+          "Open": "0.92311",
+          "High": "0.92408",
+          "Low": "0.919794",
+          "Close": "0.92334",
+          "Volume": "000",
+          "Adj_Close": "0.92334"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-17",
+          "Open": "0.91861",
+          "High": "0.922177",
+          "Low": "0.91659",
+          "Close": "0.91861",
+          "Volume": "000",
+          "Adj_Close": "0.91861"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-16",
+          "Open": "0.91417",
+          "High": "0.920861",
+          "Low": "0.913242",
+          "Close": "0.91378",
+          "Volume": "000",
+          "Adj_Close": "0.91378"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-15",
+          "Open": "0.90835",
+          "High": "0.914403",
+          "Low": "0.905797",
+          "Close": "0.90843",
+          "Volume": "000",
+          "Adj_Close": "0.90843"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-14",
+          "Open": "0.91032",
+          "High": "0.911702",
+          "Low": "0.903016",
+          "Close": "0.90988",
+          "Volume": "000",
+          "Adj_Close": "0.90988"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-13",
+          "Open": "0.89855",
+          "High": "0.908455",
+          "Low": "0.893049",
+          "Close": "0.89855",
+          "Volume": "000",
+          "Adj_Close": "0.89855"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-10",
+          "Open": "0.90391",
+          "High": "0.90447",
+          "Low": "0.891266",
+          "Close": "0.90391",
+          "Volume": "000",
+          "Adj_Close": "0.90391"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-09",
+          "Open": "0.90315",
+          "High": "0.907202",
+          "Low": "0.899588",
+          "Close": "0.90326",
+          "Volume": "000",
+          "Adj_Close": "0.90326"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-08",
+          "Open": "0.90827",
+          "High": "0.91116",
+          "Low": "0.901705",
+          "Close": "0.90827",
+          "Volume": "000",
+          "Adj_Close": "0.90827"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-07",
+          "Open": "0.90514",
+          "High": "0.916019",
+          "Low": "0.90476",
+          "Close": "0.90506",
+          "Volume": "000",
+          "Adj_Close": "0.90506"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-06",
+          "Open": "0.90926",
+          "High": "0.90926",
+          "Low": "0.901599",
+          "Close": "0.9095",
+          "Volume": "000",
+          "Adj_Close": "0.9095"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-03",
+          "Open": "0.90204",
+          "High": "0.902307",
+          "Low": "0.899281",
+          "Close": "0.90196",
+          "Volume": "000",
+          "Adj_Close": "0.90196"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-02",
+          "Open": "0.90604",
+          "High": "0.90604",
+          "Low": "0.899151",
+          "Close": "0.90632",
+          "Volume": "000",
+          "Adj_Close": "0.90632"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-07-01",
+          "Open": "0.89807",
+          "High": "0.904061",
+          "Low": "0.895448",
+          "Close": "0.89807",
+          "Volume": "000",
+          "Adj_Close": "0.89807"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-30",
+          "Open": "0.89158",
+          "High": "0.899038",
+          "Low": "0.889775",
+          "Close": "0.89103",
+          "Volume": "000",
+          "Adj_Close": "0.89103"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-29",
+          "Open": "0.9105",
+          "High": "0.9105",
+          "Low": "0.893064",
+          "Close": "0.91116",
+          "Volume": "000",
+          "Adj_Close": "0.91116"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-26",
+          "Open": "0.89255",
+          "High": "0.897964",
+          "Low": "0.891266",
+          "Close": "0.89262",
+          "Volume": "000",
+          "Adj_Close": "0.89262"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-25",
+          "Open": "0.89229",
+          "High": "0.896322",
+          "Low": "0.89094",
+          "Close": "0.8923",
+          "Volume": "000",
+          "Adj_Close": "0.8923"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-24",
+          "Open": "0.89469",
+          "High": "0.89583",
+          "Low": "0.88968",
+          "Close": "0.89508",
+          "Volume": "000",
+          "Adj_Close": "0.89508"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-23",
+          "Open": "0.88135",
+          "High": "0.897851",
+          "Low": "0.88135",
+          "Close": "0.88113",
+          "Volume": "000",
+          "Adj_Close": "0.88113"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-22",
+          "Open": "0.8801",
+          "High": "0.883704",
+          "Low": "0.876424",
+          "Close": "0.87928",
+          "Volume": "000",
+          "Adj_Close": "0.87928"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-19",
+          "Open": "0.87928",
+          "High": "0.88527",
+          "Low": "0.87812",
+          "Close": "0.87945",
+          "Volume": "000",
+          "Adj_Close": "0.87945"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-18",
+          "Open": "0.87996",
+          "High": "0.881756",
+          "Low": "0.875013",
+          "Close": "0.87951",
+          "Volume": "000",
+          "Adj_Close": "0.87951"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-17",
+          "Open": "0.88949",
+          "High": "0.890512",
+          "Low": "0.885653",
+          "Close": "0.88952",
+          "Volume": "000",
+          "Adj_Close": "0.88952"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-16",
+          "Open": "0.88676",
+          "High": "0.891933",
+          "Low": "0.882605",
+          "Close": "0.88676",
+          "Volume": "000",
+          "Adj_Close": "0.88676"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-15",
+          "Open": "0.89143",
+          "High": "0.893535",
+          "Low": "0.888249",
+          "Close": "0.89127",
+          "Volume": "000",
+          "Adj_Close": "0.89127"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-12",
+          "Open": "0.88928",
+          "High": "0.89666",
+          "Low": "0.885481",
+          "Close": "0.88963",
+          "Volume": "000",
+          "Adj_Close": "0.88963"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-11",
+          "Open": "0.88394",
+          "High": "0.893751",
+          "Low": "0.88335",
+          "Close": "0.88402",
+          "Volume": "000",
+          "Adj_Close": "0.88402"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-10",
+          "Open": "0.88548",
+          "High": "0.887579",
+          "Low": "0.87858",
+          "Close": "0.88503",
+          "Volume": "000",
+          "Adj_Close": "0.88503"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-09",
+          "Open": "0.88637",
+          "High": "0.891528",
+          "Low": "0.881858",
+          "Close": "0.88645",
+          "Volume": "000",
+          "Adj_Close": "0.88645"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-08",
+          "Open": "0.90046",
+          "High": "0.90187",
+          "Low": "0.889458",
+          "Close": "0.90024",
+          "Volume": "000",
+          "Adj_Close": "0.90024"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-05",
+          "Open": "0.89158",
+          "High": "0.90483",
+          "Low": "0.886509",
+          "Close": "0.89223",
+          "Volume": "000",
+          "Adj_Close": "0.89223"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-04",
+          "Open": "0.88792",
+          "High": "0.890266",
+          "Low": "0.87904",
+          "Close": "0.88827",
+          "Volume": "000",
+          "Adj_Close": "0.88827"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-03",
+          "Open": "0.897",
+          "High": "0.901974",
+          "Low": "0.886266",
+          "Close": "0.89686",
+          "Volume": "000",
+          "Adj_Close": "0.89686"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-02",
+          "Open": "0.91552",
+          "High": "0.9158",
+          "Low": "0.895552",
+          "Close": "0.9155",
+          "Volume": "000",
+          "Adj_Close": "0.9155"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-06-01",
+          "Open": "0.91249",
+          "High": "0.918366",
+          "Low": "0.910747",
+          "Close": "0.91258",
+          "Volume": "000",
+          "Adj_Close": "0.91258"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-29",
+          "Open": "0.91258",
+          "High": "0.914988",
+          "Low": "0.908802",
+          "Close": "0.91238",
+          "Volume": "000",
+          "Adj_Close": "0.91238"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-28",
+          "Open": "0.9176",
+          "High": "0.920065",
+          "Low": "0.913242",
+          "Close": "0.91743",
+          "Volume": "000",
+          "Adj_Close": "0.91743"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-27",
+          "Open": "0.91848",
+          "High": "0.924044",
+          "Low": "0.914913",
+          "Close": "0.91837",
+          "Volume": "000",
+          "Adj_Close": "0.91837"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-26",
+          "Open": "0.91147",
+          "High": "0.919523",
+          "Low": "0.91147",
+          "Close": "0.91148",
+          "Volume": "000",
+          "Adj_Close": "0.91148"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-25",
+          "Open": "0.90974",
+          "High": "0.91235",
+          "Low": "0.908265",
+          "Close": "0.90967",
+          "Volume": "000",
+          "Adj_Close": "0.90967"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-22",
+          "Open": "0.90001",
+          "High": "0.908513",
+          "Low": "0.892061",
+          "Close": "0.89994",
+          "Volume": "000",
+          "Adj_Close": "0.89994"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-21",
+          "Open": "0.90065",
+          "High": "0.90205",
+          "Low": "0.894454",
+          "Close": "0.90084",
+          "Volume": "000",
+          "Adj_Close": "0.90084"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-20",
+          "Open": "0.89712",
+          "High": "0.90369",
+          "Low": "0.8968",
+          "Close": "0.89713",
+          "Volume": "000",
+          "Adj_Close": "0.89713"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-19",
+          "Open": "0.88297",
+          "High": "0.8992",
+          "Low": "0.88291",
+          "Close": "0.88291",
+          "Volume": "000",
+          "Adj_Close": "0.88291"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-18",
+          "Open": "0.87382",
+          "High": "0.881928",
+          "Low": "0.873591",
+          "Close": "0.87374",
+          "Volume": "000",
+          "Adj_Close": "0.87374"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-15",
+          "Open": "0.87689",
+          "High": "0.883026",
+          "Low": "0.873286",
+          "Close": "0.87681",
+          "Volume": "000",
+          "Adj_Close": "0.87681"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-14",
+          "Open": "0.88121",
+          "High": "0.88166",
+          "Low": "0.873836",
+          "Close": "0.88102",
+          "Volume": "000",
+          "Adj_Close": "0.88102"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-13",
+          "Open": "0.89135",
+          "High": "0.892419",
+          "Low": "0.878518",
+          "Close": "0.89115",
+          "Volume": "000",
+          "Adj_Close": "0.89115"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-12",
+          "Open": "0.89718",
+          "High": "0.89799",
+          "Low": "0.88669",
+          "Close": "0.89731",
+          "Volume": "000",
+          "Adj_Close": "0.89731"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-11",
+          "Open": "0.8931",
+          "High": "0.898101",
+          "Low": "0.89262",
+          "Close": "0.89333",
+          "Volume": "000",
+          "Adj_Close": "0.89333"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-08",
+          "Open": "0.88928",
+          "High": "0.894039",
+          "Low": "0.885818",
+          "Close": "0.88913",
+          "Volume": "000",
+          "Adj_Close": "0.88913"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-07",
+          "Open": "0.88189",
+          "High": "0.889822",
+          "Low": "0.877917",
+          "Close": "0.88172",
+          "Volume": "000",
+          "Adj_Close": "0.88172"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-06",
+          "Open": "0.8941",
+          "High": "0.89461",
+          "Low": "0.879871",
+          "Close": "0.89395",
+          "Volume": "000",
+          "Adj_Close": "0.89395"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-05",
+          "Open": "0.89686",
+          "High": "0.903424",
+          "Low": "0.892061",
+          "Close": "0.89693",
+          "Volume": "000",
+          "Adj_Close": "0.89693"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-04",
+          "Open": "0.89358",
+          "High": "0.898957",
+          "Low": "0.891019",
+          "Close": "0.89398",
+          "Volume": "000",
+          "Adj_Close": "0.89398"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-05-01",
+          "Open": "0.89166",
+          "High": "0.893975",
+          "Low": "0.885763",
+          "Close": "0.89169",
+          "Volume": "000",
+          "Adj_Close": "0.89169"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-30",
+          "Open": "0.89983",
+          "High": "0.903098",
+          "Low": "0.889079",
+          "Close": "0.89974",
+          "Volume": "000",
+          "Adj_Close": "0.89974"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-29",
+          "Open": "0.9114",
+          "High": "0.912359",
+          "Low": "0.894775",
+          "Close": "0.91165",
+          "Volume": "000",
+          "Adj_Close": "0.91165"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-28",
+          "Open": "0.91937",
+          "High": "0.920658",
+          "Low": "0.910001",
+          "Close": "0.91929",
+          "Volume": "000",
+          "Adj_Close": "0.91929"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-27",
+          "Open": "0.92018",
+          "High": "0.923881",
+          "Low": "0.917019",
+          "Close": "0.92005",
+          "Volume": "000",
+          "Adj_Close": "0.92005"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-24",
+          "Open": "0.92463",
+          "High": "0.92698",
+          "Low": "0.9176",
+          "Close": "0.92464",
+          "Volume": "000",
+          "Adj_Close": "0.92464"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-23",
+          "Open": "0.9324",
+          "High": "0.937093",
+          "Low": "0.924368",
+          "Close": "0.93233",
+          "Volume": "000",
+          "Adj_Close": "0.93233"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-22",
+          "Open": "0.93125",
+          "High": "0.933698",
+          "Low": "0.925926",
+          "Close": "0.93095",
+          "Volume": "000",
+          "Adj_Close": "0.93095"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-21",
+          "Open": "0.93039",
+          "High": "0.937946",
+          "Low": "0.928936",
+          "Close": "0.93045",
+          "Volume": "000",
+          "Adj_Close": "0.93045"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-20",
+          "Open": "0.92505",
+          "High": "0.933167",
+          "Low": "0.92433",
+          "Close": "0.92505",
+          "Volume": "000",
+          "Adj_Close": "0.92505"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-17",
+          "Open": "0.92937",
+          "High": "0.931524",
+          "Low": "0.921922",
+          "Close": "0.92975",
+          "Volume": "000",
+          "Adj_Close": "0.92975"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-16",
+          "Open": "0.93658",
+          "High": "0.940911",
+          "Low": "0.929161",
+          "Close": "0.93661",
+          "Volume": "000",
+          "Adj_Close": "0.93661"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-15",
+          "Open": "0.93915",
+          "High": "0.945662",
+          "Low": "0.937321",
+          "Close": "0.93922",
+          "Volume": "000",
+          "Adj_Close": "0.93922"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-14",
+          "Open": "0.94563",
+          "High": "0.949442",
+          "Low": "0.933977",
+          "Close": "0.94581",
+          "Volume": "000",
+          "Adj_Close": "0.94581"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-13",
+          "Open": "0.94266",
+          "High": "0.950426",
+          "Low": "0.94162",
+          "Close": "0.94252",
+          "Volume": "000",
+          "Adj_Close": "0.94252"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-10",
+          "Open": "0.93745",
+          "High": "0.94594",
+          "Low": "0.936023",
+          "Close": "0.93729",
+          "Volume": "000",
+          "Adj_Close": "0.93729"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-09",
+          "Open": "0.92727",
+          "High": "0.937207",
+          "Low": "0.92678",
+          "Close": "0.92719",
+          "Volume": "000",
+          "Adj_Close": "0.92719"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-08",
+          "Open": "0.92379",
+          "High": "0.926827",
+          "Low": "0.918274",
+          "Close": "0.92386",
+          "Volume": "000",
+          "Adj_Close": "0.92386"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-07",
+          "Open": "0.91451",
+          "High": "0.922705",
+          "Low": "0.91278",
+          "Close": "0.91451",
+          "Volume": "000",
+          "Adj_Close": "0.91451"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-06",
+          "Open": "0.90897",
+          "High": "0.9117",
+          "Low": "0.90613",
+          "Close": "0.90898",
+          "Volume": "000",
+          "Adj_Close": "0.90898"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-03",
+          "Open": "0.91988",
+          "High": "0.92031",
+          "Low": "0.90728",
+          "Close": "0.9199",
+          "Volume": "000",
+          "Adj_Close": "0.9199"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-02",
+          "Open": "0.92852",
+          "High": "0.93",
+          "Low": "0.917692",
+          "Close": "0.92851",
+          "Volume": "000",
+          "Adj_Close": "0.92851"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-04-01",
+          "Open": "0.93101",
+          "High": "0.932723",
+          "Low": "0.9259",
+          "Close": "0.93126",
+          "Volume": "000",
+          "Adj_Close": "0.93126"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-31",
+          "Open": "0.92344",
+          "High": "0.93304",
+          "Low": "0.92221",
+          "Close": "0.92334",
+          "Volume": "000",
+          "Adj_Close": "0.92334"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-30",
+          "Open": "0.91895",
+          "High": "0.924975",
+          "Low": "0.9187",
+          "Close": "0.9187",
+          "Volume": "000",
+          "Adj_Close": "0.9187"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-27",
+          "Open": "0.91865",
+          "High": "0.925472",
+          "Low": "0.91782",
+          "Close": "0.91858",
+          "Volume": "000",
+          "Adj_Close": "0.91858"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-26",
+          "Open": "0.91187",
+          "High": "0.916372",
+          "Low": "0.905371",
+          "Close": "0.91237",
+          "Volume": "000",
+          "Adj_Close": "0.91237"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-25",
+          "Open": "0.91654",
+          "High": "0.91659",
+          "Low": "0.90802",
+          "Close": "0.91726",
+          "Volume": "000",
+          "Adj_Close": "0.91726"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-24",
+          "Open": "0.91341",
+          "High": "0.917995",
+          "Low": "0.906618",
+          "Close": "0.91366",
+          "Volume": "000",
+          "Adj_Close": "0.91366"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-23",
+          "Open": "0.9237",
+          "High": "0.928548",
+          "Low": "0.913768",
+          "Close": "0.92365",
+          "Volume": "000",
+          "Adj_Close": "0.92365"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-20",
+          "Open": "0.93697",
+          "High": "0.938333",
+          "Low": "0.92465",
+          "Close": "0.9373",
+          "Volume": "000",
+          "Adj_Close": "0.9373"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-19",
+          "Open": "0.92217",
+          "High": "0.941495",
+          "Low": "0.91625",
+          "Close": "0.92166",
+          "Volume": "000",
+          "Adj_Close": "0.92166"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-18",
+          "Open": "0.94376",
+          "High": "0.945135",
+          "Low": "0.93932",
+          "Close": "0.94357",
+          "Volume": "000",
+          "Adj_Close": "0.94357"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-17",
+          "Open": "0.94582",
+          "High": "0.9476",
+          "Low": "0.939055",
+          "Close": "0.94581",
+          "Volume": "000",
+          "Adj_Close": "0.94581"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-16",
+          "Open": "0.95379",
+          "High": "0.95379",
+          "Low": "0.942152",
+          "Close": "0.95405",
+          "Volume": "000",
+          "Adj_Close": "0.95405"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-13",
+          "Open": "0.94109",
+          "High": "0.953625",
+          "Low": "0.940734",
+          "Close": "0.94106",
+          "Volume": "000",
+          "Adj_Close": "0.94106"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-12",
+          "Open": "0.94792",
+          "High": "0.95224",
+          "Low": "0.936198",
+          "Close": "0.94798",
+          "Volume": "000",
+          "Adj_Close": "0.94798"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-11",
+          "Open": "0.93376",
+          "High": "0.946844",
+          "Low": "0.93331",
+          "Close": "0.93382",
+          "Volume": "000",
+          "Adj_Close": "0.93382"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-10",
+          "Open": "0.92287",
+          "High": "0.934064",
+          "Low": "0.92276",
+          "Close": "0.92307",
+          "Volume": "000",
+          "Adj_Close": "0.92307"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-09",
+          "Open": "0.92203",
+          "High": "0.9227",
+          "Low": "0.91659",
+          "Close": "0.922",
+          "Volume": "000",
+          "Adj_Close": "0.922"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-06",
+          "Open": "0.90629",
+          "High": "0.92147",
+          "Low": "0.90629",
+          "Close": "0.90645",
+          "Volume": "000",
+          "Adj_Close": "0.90645"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-05",
+          "Open": "0.90253",
+          "High": "0.908224",
+          "Low": "0.900179",
+          "Close": "0.90236",
+          "Volume": "000",
+          "Adj_Close": "0.90236"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-04",
+          "Open": "0.89413",
+          "High": "0.90393",
+          "Low": "0.89381",
+          "Close": "0.89428",
+          "Volume": "000",
+          "Adj_Close": "0.89428"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-03",
+          "Open": "0.89472",
+          "High": "0.896379",
+          "Low": "0.891742",
+          "Close": "0.89453",
+          "Volume": "000",
+          "Adj_Close": "0.89453"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-03-02",
+          "Open": "0.89518",
+          "High": "0.89574",
+          "Low": "0.889648",
+          "Close": "0.8959",
+          "Volume": "000",
+          "Adj_Close": "0.8959"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-27",
+          "Open": "0.89257",
+          "High": "0.89471",
+          "Low": "0.888889",
+          "Close": "0.89243",
+          "Volume": "000",
+          "Adj_Close": "0.89243"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-26",
+          "Open": "0.88007",
+          "High": "0.892642",
+          "Low": "0.878827",
+          "Close": "0.88",
+          "Volume": "000",
+          "Adj_Close": "0.88"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-25",
+          "Open": "0.88178",
+          "High": "0.882005",
+          "Low": "0.878117",
+          "Close": "0.88191",
+          "Volume": "000",
+          "Adj_Close": "0.88191"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-24",
+          "Open": "0.88229",
+          "High": "0.885685",
+          "Low": "0.881259",
+          "Close": "0.88238",
+          "Volume": "000",
+          "Adj_Close": "0.88238"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-23",
+          "Open": "0.87878",
+          "High": "0.885222",
+          "Low": "0.87773",
+          "Close": "0.87862",
+          "Volume": "000",
+          "Adj_Close": "0.87862"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-20",
+          "Open": "0.87976",
+          "High": "0.88636",
+          "Low": "0.879044",
+          "Close": "0.87976",
+          "Volume": "000",
+          "Adj_Close": "0.87976"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-19",
+          "Open": "0.87713",
+          "High": "0.880576",
+          "Low": "0.873362",
+          "Close": "0.87719",
+          "Volume": "000",
+          "Adj_Close": "0.87719"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-18",
+          "Open": "0.87681",
+          "High": "0.881228",
+          "Low": "0.87604",
+          "Close": "0.87683",
+          "Volume": "000",
+          "Adj_Close": "0.87683"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-17",
+          "Open": "0.88233",
+          "High": "0.88299",
+          "Low": "0.87395",
+          "Close": "0.8823",
+          "Volume": "000",
+          "Adj_Close": "0.8823"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-16",
+          "Open": "0.87742",
+          "High": "0.87742",
+          "Low": "0.874508",
+          "Close": "0.87719",
+          "Volume": "000",
+          "Adj_Close": "0.87719"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-13",
+          "Open": "0.87682",
+          "High": "0.87858",
+          "Low": "0.873362",
+          "Close": "0.87689",
+          "Volume": "000",
+          "Adj_Close": "0.87689"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-12",
+          "Open": "0.88431",
+          "High": "0.88447",
+          "Low": "0.877332",
+          "Close": "0.88402",
+          "Volume": "000",
+          "Adj_Close": "0.88402"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-11",
+          "Open": "0.88343",
+          "High": "0.885849",
+          "Low": "0.88246",
+          "Close": "0.88324",
+          "Volume": "000",
+          "Adj_Close": "0.88324"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-10",
+          "Open": "0.88292",
+          "High": "0.886871",
+          "Low": "0.881057",
+          "Close": "0.88285",
+          "Volume": "000",
+          "Adj_Close": "0.88285"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-09",
+          "Open": "0.8838",
+          "High": "0.887178",
+          "Low": "0.880282",
+          "Close": "0.88383",
+          "Volume": "000",
+          "Adj_Close": "0.88383"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-06",
+          "Open": "0.87177",
+          "High": "0.88339",
+          "Low": "0.871384",
+          "Close": "0.87169",
+          "Volume": "000",
+          "Adj_Close": "0.87169"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-05",
+          "Open": "0.88361",
+          "High": "0.88363",
+          "Low": "0.8726",
+          "Close": "0.88349",
+          "Volume": "000",
+          "Adj_Close": "0.88349"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-04",
+          "Open": "0.87284",
+          "High": "0.87687",
+          "Low": "0.870762",
+          "Close": "0.8728",
+          "Volume": "000",
+          "Adj_Close": "0.8728"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-03",
+          "Open": "0.88207",
+          "High": "0.883556",
+          "Low": "0.873362",
+          "Close": "0.8817",
+          "Volume": "000",
+          "Adj_Close": "0.8817"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-02-02",
+          "Open": "0.88459",
+          "High": "0.88551",
+          "Low": "0.880282",
+          "Close": "0.88425",
+          "Volume": "000",
+          "Adj_Close": "0.88425"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-30",
+          "Open": "0.88204",
+          "High": "0.886054",
+          "Low": "0.879972",
+          "Close": "0.88218",
+          "Volume": "000",
+          "Adj_Close": "0.88218"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-29",
+          "Open": "0.88615",
+          "High": "0.88778",
+          "Low": "0.879662",
+          "Close": "0.88641",
+          "Volume": "000",
+          "Adj_Close": "0.88641"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-28",
+          "Open": "0.87974",
+          "High": "0.884345",
+          "Low": "0.87858",
+          "Close": "0.87971",
+          "Volume": "000",
+          "Adj_Close": "0.87971"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-27",
+          "Open": "0.88881",
+          "High": "0.890789",
+          "Low": "0.875657",
+          "Close": "0.88907",
+          "Volume": "000",
+          "Adj_Close": "0.88907"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-26",
+          "Open": "0.8976",
+          "High": "0.8976",
+          "Low": "0.886211",
+          "Close": "0.89884",
+          "Volume": "000",
+          "Adj_Close": "0.89884"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-23",
+          "Open": "0.88133",
+          "High": "0.899135",
+          "Low": "0.8792",
+          "Close": "0.88131",
+          "Volume": "000",
+          "Adj_Close": "0.88131"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-22",
+          "Open": "0.86081",
+          "High": "0.876117",
+          "Low": "0.858893",
+          "Close": "0.86093",
+          "Volume": "000",
+          "Adj_Close": "0.86093"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-21",
+          "Open": "0.86605",
+          "High": "0.86627",
+          "Low": "0.857339",
+          "Close": "0.86603",
+          "Volume": "000",
+          "Adj_Close": "0.86603"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-20",
+          "Open": "0.86229",
+          "High": "0.864364",
+          "Low": "0.860882",
+          "Close": "0.86222",
+          "Volume": "000",
+          "Adj_Close": "0.86222"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-19",
+          "Open": "0.86477",
+          "High": "0.8655",
+          "Low": "0.859202",
+          "Close": "0.8646",
+          "Volume": "000",
+          "Adj_Close": "0.8646"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-16",
+          "Open": "0.85918",
+          "High": "0.872273",
+          "Low": "0.858369",
+          "Close": "0.8593",
+          "Volume": "000",
+          "Adj_Close": "0.8593"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-15",
+          "Open": "0.84862",
+          "High": "0.862642",
+          "Low": "0.84828",
+          "Close": "0.84847",
+          "Volume": "000",
+          "Adj_Close": "0.84847"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-14",
+          "Open": "0.84913",
+          "High": "0.852471",
+          "Low": "0.84434",
+          "Close": "0.84902",
+          "Volume": "000",
+          "Adj_Close": "0.84902"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-13",
+          "Open": "0.84514",
+          "High": "0.850593",
+          "Low": "0.84324",
+          "Close": "0.8452",
+          "Volume": "000",
+          "Adj_Close": "0.8452"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-12",
+          "Open": "0.84245",
+          "High": "0.84832",
+          "Low": "0.842318",
+          "Close": "0.84241",
+          "Volume": "000",
+          "Adj_Close": "0.84241"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-09",
+          "Open": "0.84787",
+          "High": "0.84974",
+          "Low": "0.844716",
+          "Close": "0.84774",
+          "Volume": "000",
+          "Adj_Close": "0.84774"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-08",
+          "Open": "0.84467",
+          "High": "0.850629",
+          "Low": "0.84402",
+          "Close": "0.84488",
+          "Volume": "000",
+          "Adj_Close": "0.84488"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-07",
+          "Open": "0.84212",
+          "High": "0.84717",
+          "Low": "0.840336",
+          "Close": "0.84208",
+          "Volume": "000",
+          "Adj_Close": "0.84208"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-06",
+          "Open": "0.83764",
+          "High": "0.84126",
+          "Low": "0.835422",
+          "Close": "0.83759",
+          "Volume": "000",
+          "Adj_Close": "0.83759"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-05",
+          "Open": "0.83647",
+          "High": "0.841107",
+          "Low": "0.83501",
+          "Close": "0.83707",
+          "Volume": "000",
+          "Adj_Close": "0.83707"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-02",
+          "Open": "0.82722",
+          "High": "0.832584",
+          "Low": "0.82716",
+          "Close": "0.82717",
+          "Volume": "000",
+          "Adj_Close": "0.82717"
+        },
+        {
+          "Symbol": "EUR%3dX",
+          "Date": "2015-01-01",
+          "Open": "0.82654",
+          "High": "0.82654",
+          "Low": "0.82654",
+          "Close": "0.82654",
+          "Volume": "000",
+          "Adj_Close": "0.82654"
+        }
+      ]
+    }
+  }
+}
