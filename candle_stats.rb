@@ -9,14 +9,14 @@ results = query['results']
 down_day_counter = 0
 next_day_down_counter = 0
 
-def isADownDay(quote)
+def is_a_down_day(quote)
   quote['Close'] < quote['Open']
 end
 
 results['quote'].each_cons(2) do |first, second|
-  if isADownDay(first)
+  if is_a_down_day(first)
     down_day_counter +=1
-    if isADownDay(second)
+    if is_a_down_day(second)
       next_day_down_counter +=1
     end
   end
