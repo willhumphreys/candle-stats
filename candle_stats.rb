@@ -31,3 +31,5 @@ end
 
 $down_days.display
 
+$nearest_take_out.display($quote_counter.count)
+

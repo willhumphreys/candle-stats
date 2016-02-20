@@ -60,9 +60,8 @@ class NearestTakeOut
 
   def display(quote_counter_count)
     #Does today open inside the range of the previous day
-    next_day_opens_in_range = ($next_day_opens_in_range_count.to_f / quote_counter_count.count * 100).ceil
+    next_day_opens_in_range = ($next_day_opens_in_range_count.to_f / quote_counter_count * 100).ceil
     puts "Next day opens in range: #{next_day_opens_in_range}% (#{$next_day_opens_in_range_count})"
-
 
     puts "Low taken out when nearest #{(($take_out_low.to_f / ($take_out_low + $no_low_take_out)) * 100).ceil }%. Take out count #{$take_out_low} times. Low not take out #{$no_low_take_out} times. #{($take_out_low.to_f / $no_low_take_out).round(2)}"
     puts "Wanted high go low #{(($wanted_high_got_low.to_f / ($take_out_low + $take_out_high)) * 100).ceil}%"
