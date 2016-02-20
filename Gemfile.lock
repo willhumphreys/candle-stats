@@ -4,12 +4,14 @@ GEM
     debase (0.2.2.beta6)
       debase-ruby_core_source
     debase-ruby_core_source (0.8.4)
+    json (1.8.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   debase (= 0.2.2.beta6)
+  json
 
 BUNDLED WITH
    1.11.2
