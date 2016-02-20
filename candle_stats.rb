@@ -1,14 +1,13 @@
 require 'json'
-require_relative 'down_day'
 require_relative 'candle_operations'
 require_relative 'quote_counter'
+require_relative 'down_days'
 
 file = File.read('EURGBP.json')
 data_hash = JSON.parse(file)
 quotes = data_hash['results']
 
-down_day_counter = 0
-next_day_down_counter = 0
+
 
 next_day_opens_in_range_count = 0
 
@@ -20,19 +19,16 @@ no_high_take_out = 0
 wanted_low_got_high = 0
 wanted_high_got_low = 0
 
-$down_day = DownDay.new
 $candle_operations = CandleOperations.new
 $quote_counter = QuoteCounter.new
+
+$down_days = DownDays.new
 
 quotes.each_cons(2) do |first, second|
   $quote_counter.process(first,second)
 
-  if $down_day.is_a_down_day(first)
-    down_day_counter +=1
-    if $down_day.is_a_down_day(second)
-      next_day_down_counter +=1
-    end
-  end
+
+  $down_days.process(first, second)
 
   if $candle_operations.is_day_opening_in_range(first, second)
     next_day_opens_in_range_count += 1
@@ -71,9 +67,7 @@ quotes.each_cons(2) do |first, second|
 end
 
 
-#If today is down day what are the odds the next day is a down day?
-today_down_tomorrow_down = (next_day_down_counter.to_f / down_day_counter * 100).ceil
-puts "If today is down what are the odds tomorrow is down to: #{today_down_tomorrow_down}%"
+$down_days.display
 
 #Does today open inside the range of the previous day
 next_day_opens_in_range = (next_day_opens_in_range_count.to_f / $quote_counter.count * 100).ceil

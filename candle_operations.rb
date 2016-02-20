@@ -21,4 +21,9 @@ class CandleOperations
     second['high'] > first['high']
   end
 
+  def is_a_down_day(quote)
+    quote['close'] < quote['open']
+  end
+
+
 end
