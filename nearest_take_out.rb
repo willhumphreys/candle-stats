@@ -63,9 +63,13 @@ class NearestTakeOut
     next_day_opens_in_range = (@next_day_opens_in_range_count.to_f / quote_counter_count * 100).ceil
     puts "Next day opens in range: #{next_day_opens_in_range}% (#{@next_day_opens_in_range_count})"
 
-    puts "Low taken out when nearest #{((@take_out_low.to_f / (@take_out_low + @no_low_take_out)) * 100).ceil }%. Take out count #{@take_out_low} times. Low not take out #{@no_low_take_out} times. #{(@take_out_low.to_f / @no_low_take_out).round(2)}"
+    puts "Low taken out when nearest #{((@take_out_low.to_f / (@take_out_low + @no_low_take_out)) * 100).ceil }%. "\
+    "Take out count #{@take_out_low} times. Low not take out #{@no_low_take_out} times. "\
+    "#{(@take_out_low.to_f / @no_low_take_out).round(2)}"
     puts "Wanted high go low #{((@wanted_high_got_low.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
-    puts "High taken out when nearest #{((@take_out_high.to_f/ (@take_out_high + @no_high_take_out)) * 100).ceil}%. Take out count #{@take_out_high} times. High not take out #{@no_high_take_out} times. #{(@take_out_high.to_f / @no_high_take_out).round(2)}"
+    puts "High taken out when nearest #{((@take_out_high.to_f/ (@take_out_high + @no_high_take_out)) * 100).ceil}%. "\
+    "Take out count #{@take_out_high} times. High not take out #{@no_high_take_out} times. "\
+    "#{(@take_out_high.to_f / @no_high_take_out).round(2)}"
     puts "Wanted low got high #{((@wanted_low_got_high.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
 
   end
