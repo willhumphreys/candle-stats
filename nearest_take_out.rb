@@ -2,7 +2,6 @@ require_relative 'candle_operations'
 
 class NearestTakeOut
 
-
   def initialize
     @candle_operations = CandleOperations.new
     @next_day_opens_in_range_count = 0
@@ -16,8 +15,6 @@ class NearestTakeOut
     @wanted_high_got_low = 0
 
   end
-
-
 
   def process(first, second)
 
@@ -73,6 +70,4 @@ class NearestTakeOut
     puts "Wanted low got high #{((@wanted_low_got_high.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
 
   end
-
-
 end
