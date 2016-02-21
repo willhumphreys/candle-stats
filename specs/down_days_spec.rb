@@ -1,7 +1,5 @@
 require_relative '../down_days.rb'
-
 require 'rspec'
-
 
 describe 'My behaviour' do
 
