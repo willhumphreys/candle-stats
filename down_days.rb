@@ -26,7 +26,10 @@ class DownDays
 
   def display
     #If today is down day what are the odds the next day is a down day?
-    today_down_tomorrow_down = (@both_ticks_count.to_f / @first_tick_count * 100).ceil
-    puts "If today is down what are the odds tomorrow is down to: #{today_down_tomorrow_down}%"
+    puts "If today is down what are the odds tomorrow is down to: #{calc_sequential_percentage}%"
+  end
+
+  def calc_sequential_percentage
+    (@both_ticks_count.to_f / @first_tick_count * 100).ceil
   end
 end
