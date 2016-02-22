@@ -6,7 +6,6 @@ GEM
     debase-ruby_core_source (0.8.4)
     diff-lcs (1.2.5)
     json (1.8.3)
-    rake (10.5.0)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -27,7 +26,6 @@ PLATFORMS
 DEPENDENCIES
   debase (= 0.2.2.beta6)
   json
-  rake
   rspec
 
 BUNDLED WITH
