@@ -19,6 +19,9 @@ describe 'My behaviour' do
 
     expect(@down_days.get_both_ticks_count).to equal(1)
     expect(@down_days.get_first_tick_count).to equal(1)
+
+    expect(@down_days.calc_sequential_percentage).to equal(100)
+
   end
 
   it 'should not increment the counter if the first quote is down but the second quote is up' do
@@ -32,6 +35,8 @@ describe 'My behaviour' do
 
     expect(@down_days.get_both_ticks_count).to equal(0)
     expect(@down_days.get_first_tick_count).to equal(1)
+
+    expect(@down_days.calc_sequential_percentage).to equal(0)
   end
 
 
