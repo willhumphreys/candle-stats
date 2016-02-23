@@ -15,4 +15,13 @@ describe 'The day opens in range' do
     @nearest_take_out.process(@first_quote, @second_quote)
     expect(@nearest_take_out.get_next_day_opens_range_count).to equal(1)
   end
+
+  it 'should not increment count if next day does not open in range' do
+    # noinspection RubyStringKeysInHashInspection
+    @out_of_range_quote = {'open' => 3, 'close' => 8, 'low' => 6, 'high' => 10}
+
+    @nearest_take_out.process(@first_quote, @out_of_range_quote)
+    expect(@nearest_take_out.get_next_day_opens_range_count).to equal(0)
+  end
+
 end
