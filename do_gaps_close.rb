@@ -28,7 +28,8 @@ class DoGapsClose
   end
 
   def display
-    puts "Total days #{@candle_count}. Total gap count #{@gap_count}. Closed gaps #{@gap_closed_count}"
+    puts "Total days #{@candle_count}. Total full candle gap count #{@gap_count}."\
+    " Closed full candle gaps #{@gap_closed_count}"
   end
 
 end
