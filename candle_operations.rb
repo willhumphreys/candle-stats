@@ -17,4 +17,7 @@ class CandleOperations
   def is_a_down_day(quote)
     quote['close'] < quote['open']
   end
+  def is_a_up_day(quote)
+    quote['close'] > quote['open']
+  end
 end
