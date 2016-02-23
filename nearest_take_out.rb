@@ -55,6 +55,10 @@ class NearestTakeOut
 
   end
 
+  def get_next_day_opens_range_count
+    @next_day_opens_in_range_count
+  end
+
   def display(quote_counter_count)
     #Does today open inside the range of the previous day
     next_day_opens_in_range = (@next_day_opens_in_range_count.to_f / quote_counter_count * 100).ceil
