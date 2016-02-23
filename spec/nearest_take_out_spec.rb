@@ -89,6 +89,4 @@ describe 'The day opens in range' do
     expect(@nearest_take_out.get_take_out_low_count).to equal(0)
     expect(@nearest_take_out.get_take_out_high_count).to equal(0)
   end
-
-
 end
