@@ -28,7 +28,7 @@ describe 'candle entire overlap' do
   end
 end
 
-describe 'candle overlap' do
+describe 'candle body overlap' do
   before do
     @candle_operations = CandleOperations.new
     # noinspection RubyStringKeysInHashInspection
@@ -44,15 +44,14 @@ describe 'candle overlap' do
   # noinspection RubyStringKeysInHashInspection
   @second_quote = {'open' => 1, 'close' => 1, 'low' => 1, 'high' => 1}
 
-  it 'should return false if the second candle body is below the first candle body' do
+  it 'should return true if the second candle body is below the first candle body' do
     expect(@candle_operations.gaps(@first_quote, @second_quote)).to equal(true)
   end
 
-  # noinspection RubyStringKeysInHashInspection
-  @second_quote = {'open' => 10, 'close' => 11, 'low' => 8, 'high' => 12}
-
-  it 'should return true if the second candle body overlaps the first candle body' do
-    expect(@candle_operations.gaps(@first_quote, @second_quote)).to equal(true)
+  it 'should return false if the second candle body overlaps the first candle body' do
+    # noinspection RubyStringKeysInHashInspection
+    @second_quote = {'open' => 10, 'close' => 11, 'low' => 8, 'high' => 12}
+    expect(@candle_operations.gaps(@first_quote, @second_quote)).to equal(false)
   end
 
 end
