@@ -32,14 +32,14 @@ class CandleOperations
 
   def gaps(first, second)
     fixed_open = first['open']
-    fixed_close = second['close']
+    fixed_close = first['close']
 
-    if(fixed_close < fixed_open)
+    if fixed_close < fixed_open
       fixed_close = fixed_open
       fixed_open = fixed_close
     end
 
-    !(fixed_open..fixed_close).cover?(second['open'])
+    !(fixed_open..fixed_close).include?(second['open'])
   end
 
   def gap_closes(first, second)

@@ -15,6 +15,18 @@ describe 'candle entire overlap' do
     expect(@candle_operations.full_candle_gaps(@first_quote, @second_quote)).to equal(true)
   end
 
+  it 'should return true if the second candle is entirely below the first candle' do
+    # noinspection RubyStringKeysInHashInspection
+    @second_quote = {'open' => 2, 'close' => 1, 'low' => 1, 'high' => 2}
+    expect(@candle_operations.full_candle_gaps(@first_quote, @second_quote)).to equal(true)
+  end
+
+  it 'should return true if the first candle is entirely below the second candle' do
+    # noinspection RubyStringKeysInHashInspection
+    @first_quote = {'open' => 2, 'close' => 1, 'low' => 1, 'high' => 2}
+    expect(@candle_operations.full_candle_gaps(@first_quote, @second_quote)).to equal(true)
+  end
+
   it 'should return true if the second candle is entirely above the below candle' do
     # noinspection RubyStringKeysInHashInspection
     @second_quote = {'open' => 2, 'close' => 3, 'low' => 1, 'high' => 4}

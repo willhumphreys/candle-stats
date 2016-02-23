@@ -27,4 +27,4 @@ end
 @up_days.display
 @nearest_take_out.display(@quote_counter.count)
 
-@do_gaps_close.display()
+@do_gaps_close.display

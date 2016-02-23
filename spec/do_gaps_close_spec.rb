@@ -49,7 +49,4 @@ describe 'gaps that close and do not' do
     expect(@do_gaps_close.get_gap_count).to equal(1)
     expect(@do_gaps_close.gap_closed_count).to equal(1)
   end
-
-  it ''
-
 end
