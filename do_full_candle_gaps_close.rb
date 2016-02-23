@@ -1,6 +1,6 @@
 require_relative 'candle_operations'
 
-class DoGapsClose
+class DoFullCandleGapsClose
   def initialize
     @candle_operations = CandleOperations.new
     @full_candle_gap_count = 0

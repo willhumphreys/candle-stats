@@ -1,10 +1,10 @@
-require_relative '../do_gaps_close.rb'
+require_relative '../do_full_candle_gaps_close.rb'
 require 'rspec'
 
 describe 'gaps that close and do not' do
 
   before do
-    @do_gaps_close = DoGapsClose.new
+    @do_gaps_close = DoFullCandleGapsClose.new
     # noinspection RubyStringKeysInHashInspection
     @first_quote = {'open' => 10, 'close' => 9, 'low' => 8, 'high' => 9}
     # noinspection RubyStringKeysInHashInspection
