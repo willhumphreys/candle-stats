@@ -2,21 +2,27 @@ class CandleOperations
   def is_a_low_nearer(first, second)
     (first['low'] - second['open']).abs < (first['high'] - second['open']).abs
   end
+
   def is_high_nearer(first, second)
     (first['low'] - second['open']).abs > (first['high'] - second['open']).abs
   end
+
   def is_day_opening_in_range(first, second)
     second['open'] >= first['low'] && second['open'] <= first['high']
   end
+
   def is_a_lower_low_in(first, second)
     second['low'] < first['low']
   end
+
   def is_a_higher_high_in(first, second)
     second['high'] > first['high']
   end
+
   def is_a_down_day(quote)
     quote['close'] < quote['open']
   end
+
   def is_a_up_day(quote)
     quote['close'] > quote['open']
   end
@@ -43,6 +49,18 @@ class CandleOperations
   end
 
   def gap_closes(first, second)
-    # code here
+
+    #first candle is up candle
+    if first['close'] > first['open']
+      #Second candle opens above first candle
+      #Second candle opens below first candle
+      second['open'] > first['close'] && second['low'] <= first['close'] || second['open'] < first['open'] && second['high'] > first['open']
+    else
+      #Second candle opens above first candle
+      #Second candle opens below first candle
+      second['open'] > first['open'] && second['low'] <= first['open'] || second['open'] < first['close'] && second['high'] > first['close']
+    end
+
+
   end
 end

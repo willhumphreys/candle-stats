@@ -28,8 +28,8 @@ class CandleGapsClose
   end
 
   def display
-    puts "Total days #{@candle_count}. Total full candle gap count #{@full_candle_gap_count}."\
-    " Closed full candle gaps #{@full_candle_gap_closed_count}"
+    puts "Total days #{@candle_count}. Body candle gap count #{@full_candle_gap_count}."\
+    " Closed candle gaps #{@full_candle_gap_closed_count}"
   end
 
 end
