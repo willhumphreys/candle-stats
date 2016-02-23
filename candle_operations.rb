@@ -29,4 +29,12 @@ class CandleOperations
     #gap above #gapbelow
     (second['low'] <= first['high'] && second['open'] > first['high']) || (second['high'] >= first['low'] && second['open'] < first['low'])
   end
+
+  def gaps(first, second)
+    !(first['open']..first['close']).include?(second['open'])
+  end
+
+  def gap_closes(first, second)
+    # code here
+  end
 end
