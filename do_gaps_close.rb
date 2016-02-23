@@ -7,7 +7,9 @@ class DoGapsClose
 
   def process(first, second)
 
-
+    if @candle_operations.gaps(first,second)
+      @candle_operations.gap_closes(first, second)
+    end
 
   end
 

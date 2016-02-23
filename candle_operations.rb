@@ -20,4 +20,12 @@ class CandleOperations
   def is_a_up_day(quote)
     quote['close'] > quote['open']
   end
+
+  def gaps(first, second)
+    second['high'] < first['low']  || second['low'] > first['high']
+  end
+
+  def gap_closes(first, second)
+    # code here
+  end
 end
