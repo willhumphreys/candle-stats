@@ -21,11 +21,12 @@ class CandleOperations
     quote['close'] > quote['open']
   end
 
-  def gaps(first, second)
-    second['high'] < first['low']  || second['low'] > first['high']
+  def full_candle_gaps(first, second)
+    !(first['low']..first['high']).include?(second['open'])
   end
 
-  def gap_closes(first, second)
-    # code here
+  def full_candle_gap_closes(first, second)
+    #gap above #gapbelow
+    (second['low'] <= first['high'] && second['open'] > first['high']) || (second['high'] >= first['low'] && second['open'] < first['low'])
   end
 end
