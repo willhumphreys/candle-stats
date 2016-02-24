@@ -64,8 +64,8 @@ class CandleOperations
         return second['open'] > first['open'] && second['low'] <= first['open'] ||
             second['open'] < first['close'] && second['high'] > first['close']
       end
+      return false
     end
-  else
-    false
+    return false
   end
 end
