@@ -48,24 +48,21 @@ class CandleOperations
     !(fixed_open..fixed_close).include?(second['open'])
   end
 
-  def gap_closes(first, second, minimum_gap = -1)
+  def gap_closes(first, second)
 
-    if minimum_gap == -1 || (first['close'] - second['open']).abs >= minimum_gap
 
-      #first candle is up candle
-      if first['close'] > first['open']
-        #Second candle opens above first candle
-        #Second candle opens below first candle
-        return second['open'] > first['close'] && second['low'] <= first['close'] ||
-            second['open'] < first['open'] && second['high'] > first['open']
-      else
-        #Second candle opens above first candle
-        #Second candle opens below first candle
-        return second['open'] > first['open'] && second['low'] <= first['open'] ||
-            second['open'] < first['close'] && second['high'] > first['close']
-      end
-      return false
+    #first candle is up candle
+    if first['close'] > first['open']
+      #Second candle opens above first candle
+      #Second candle opens below first candle
+      second['open'] > first['close'] && second['low'] <= first['close'] ||
+          second['open'] < first['open'] && second['high'] > first['open']
+    else
+      #Second candle opens above first candle
+      #Second candle opens below first candle
+      second['open'] > first['open'] && second['low'] <= first['open'] ||
+          second['open'] < first['close'] && second['high'] > first['close']
     end
-    return false
+
   end
 end
