@@ -57,7 +57,7 @@ describe 'gaps that close and do not' do
     # noinspection RubyStringKeysInHashInspection
     @second_quote = { 'open' => 11, 'close' => 8, 'low' => 4, 'high' => 12}
 
-    @do_full_gaps_close.process(@first_quote, @second_quote, 1)
+    @do_full_gaps_close.process(@first_quote, @second_quote)
 
     expect(@do_full_gaps_close.get_gap_count).to equal(1)
     expect(@do_full_gaps_close.gap_closed_count).to equal(1)
@@ -69,7 +69,7 @@ describe 'gaps that close and do not' do
     # noinspection RubyStringKeysInHashInspection
     @second_quote = { 'open' => 10, 'close' => 8, 'low' => 4, 'high' => 12}
 
-    @do_full_gaps_close.process(@first_quote, @second_quote, 2)
+    @do_full_gaps_close.process(@first_quote, @second_quote)
 
     expect(@do_full_gaps_close.get_gap_count).to equal(0)
     expect(@do_full_gaps_close.gap_closed_count).to equal(0)
