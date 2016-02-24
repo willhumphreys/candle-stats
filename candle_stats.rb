@@ -23,7 +23,7 @@ quotes.each_cons(2) do |first, second|
   @up_days.process(first, second)
   @nearest_take_out.process(first, second)
   @do_full_gaps_close.process(first, second)
-  @candle_gaps_close.process(first, second)
+  @candle_gaps_close.process(first, second, 10)
 end
 
 @down_days.display
