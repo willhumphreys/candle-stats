@@ -28,7 +28,10 @@ class CandleOperations
   end
 
   def full_candle_gaps(first, second)
-    !(first['low']..first['high']).include?(second['open'])
+    is_long_gap =  second['open'] < first['low']
+    is_short_gap = second['open'] > first['high']
+
+    is_long_gap || is_short_gap
   end
 
   def full_candle_gap_closes(first, second)
