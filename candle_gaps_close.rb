@@ -4,7 +4,7 @@ class CandleGapsClose
   def initialize(minimum_gap_size)
     @candle_operations = CandleOperations.new
     @full_candle_gap_count = 0
-    @full_candle_gap_closed_count = 0
+    @candle_gap_closed_count = 0
     @candle_count = 0
     @minimum_gap_size = minimum_gap_size
   end
@@ -15,7 +15,7 @@ class CandleGapsClose
     if @candle_operations.gaps(first, second)
       @full_candle_gap_count += 1
       if @candle_operations.gap_closes(first, second, @minimum_gap_size)
-        @full_candle_gap_closed_count += 1
+        @candle_gap_closed_count += 1
       end
     end
   end
@@ -25,12 +25,12 @@ class CandleGapsClose
   end
 
   def gap_closed_count
-    @full_candle_gap_closed_count
+    @candle_gap_closed_count
   end
 
   def display
     puts "Total days #{@candle_count}. Minimum gap #{@minimum_gap_size}. Body candle gap count #{@full_candle_gap_count}."\
-    " Closed candle gaps #{@full_candle_gap_closed_count}"
+    " Closed candle gaps #{@candle_gap_closed_count}"
   end
 
 end
