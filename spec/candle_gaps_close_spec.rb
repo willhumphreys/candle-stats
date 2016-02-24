@@ -25,7 +25,7 @@ describe 'candle entire overlap' do
     expect(@candle_operations.gap_closes(@first_quote, @second_quote, 1)).to equal(true)
   end
 
-  it 'should return true if the gap closes from below with mnimum gap' do
+  it 'should return true if the gap closes from below with minimum gap' do
     # noinspection RubyStringKeysInHashInspection
     @second_quote = {'open' => 7, 'close' => 9, 'low' => 5, 'high' => 10}
     expect(@candle_operations.gap_closes(@first_quote, @second_quote, 1)).to equal(true)
