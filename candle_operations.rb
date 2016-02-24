@@ -48,7 +48,7 @@ class CandleOperations
     !(fixed_open..fixed_close).include?(second['open'])
   end
 
-  def gap_closes(first, second)
+  def gap_closes(first, second, *minimum_gap)
 
     #first candle is up candle
     if first['close'] > first['open']
