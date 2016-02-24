@@ -15,8 +15,8 @@ quotes = data_hash['results']
 @down_days = DownDays.new
 @up_days = UpDays.new
 @do_full_gaps_close = DoFullCandleGapsClose.new
-@candle_gaps_close_4 = CandleGapsClose.new
-@candle_gaps_close_5 = CandleGapsClose.new
+@candle_gaps_close_4 = CandleGapsClose.new(0.0001)
+@candle_gaps_close_5 = CandleGapsClose.new(0.00001)
 
 quotes.each_cons(2) do |first, second|
   @quote_counter.process(first,second)
@@ -24,8 +24,8 @@ quotes.each_cons(2) do |first, second|
   @up_days.process(first, second)
   @nearest_take_out.process(first, second)
   @do_full_gaps_close.process(first, second)
-  @candle_gaps_close_4.process(first, second, 0.0001)
-  @candle_gaps_close_5.process(first, second, 0.00001)
+  @candle_gaps_close_4.process(first, second)
+  @candle_gaps_close_5.process(first, second)
 end
 
 @down_days.display
