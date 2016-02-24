@@ -56,11 +56,13 @@ class CandleOperations
       if first['close'] > first['open']
         #Second candle opens above first candle
         #Second candle opens below first candle
-        return second['open'] > first['close'] && second['low'] <= first['close'] || second['open'] < first['open'] && second['high'] > first['open']
+        return second['open'] > first['close'] && second['low'] <= first['close'] ||
+            second['open'] < first['open'] && second['high'] > first['open']
       else
         #Second candle opens above first candle
         #Second candle opens below first candle
-        return second['open'] > first['open'] && second['low'] <= first['open'] || second['open'] < first['close'] && second['high'] > first['close']
+        return second['open'] > first['open'] && second['low'] <= first['open'] ||
+            second['open'] < first['close'] && second['high'] > first['close']
       end
     end
   else
