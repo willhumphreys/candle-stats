@@ -49,4 +49,30 @@ describe 'gaps that close and do not' do
     expect(@do_full_gaps_close.get_gap_count).to equal(1)
     expect(@do_full_gaps_close.gap_closed_count).to equal(1)
   end
+
+  it 'gap counter should be 1 and closed count 1 if we have a 2 point up gap and it closes and minimum gap is 1' do
+
+    # noinspection RubyStringKeysInHashInspection
+    @first_quote = {'open' => 10, 'close' => 9, 'low' => 8, 'high' => 9}
+    # noinspection RubyStringKeysInHashInspection
+    @second_quote = { 'open' => 11, 'close' => 8, 'low' => 4, 'high' => 12}
+
+    @do_full_gaps_close.process(@first_quote, @second_quote, 1)
+
+    expect(@do_full_gaps_close.get_gap_count).to equal(1)
+    expect(@do_full_gaps_close.gap_closed_count).to equal(1)
+  end
+
+  it 'gap counter should be 0 and closed count 0 if we have a  1 point up gap and minimum gap is 2' do
+    # noinspection RubyStringKeysInHashInspection
+    @first_quote = {'open' => 10, 'close' => 9, 'low' => 8, 'high' => 9}
+    # noinspection RubyStringKeysInHashInspection
+    @second_quote = { 'open' => 10, 'close' => 8, 'low' => 4, 'high' => 12}
+
+    @do_full_gaps_close.process(@first_quote, @second_quote, 2)
+
+    expect(@do_full_gaps_close.get_gap_count).to equal(0)
+    expect(@do_full_gaps_close.gap_closed_count).to equal(0)
+  end
+
 end

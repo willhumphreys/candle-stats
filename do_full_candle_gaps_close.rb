@@ -8,7 +8,7 @@ class DoFullCandleGapsClose
     @candle_count = 0
   end
 
-  def process(first, second)
+  def process(first, second, *minimum_gap )
     @candle_count += 1
 
     if @candle_operations.full_candle_gaps(first, second)
