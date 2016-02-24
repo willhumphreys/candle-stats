@@ -20,9 +20,6 @@ class CandleGapsClose
 
         if @candle_operations.gap_closes(first, second)
           @candle_gap_closed_count += 1
-          puts 'closed ' + first['tradingDay']
-        else
-          puts 'no close ' + first['tradingDay']
         end
       end
     else
