@@ -8,7 +8,7 @@ class CandleGapsClose
     @candle_count = 0
   end
 
-  def process(first, second)
+  def process(first, second, *minimum_gap_size)
     @candle_count += 1
 
     if @candle_operations.gaps(first, second)
