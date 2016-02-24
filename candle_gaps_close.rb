@@ -14,8 +14,12 @@ class CandleGapsClose
 
     if @candle_operations.gaps(first, second)
       @candle_gap_count += 1
+
       if @candle_operations.gap_closes(first, second, @minimum_gap_size)
         @candle_gap_closed_count += 1
+        puts 'closed ' + first['tradingDay']
+      else
+        puts 'no close ' + first['tradingDay']
       end
     end
   end
