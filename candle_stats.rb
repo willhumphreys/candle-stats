@@ -20,7 +20,7 @@ quotes = data_hash['results']
 @candle_gaps_close_5 = CandleGapsClose.new(0.00001)
 @days_close_same_direction = DaysCloseSameDirection.new
 
-quotes.each_cons(5) do |first, second, third, fourth, fifth|
+quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @quote_counter.process(first,second)
   @down_days.process(first, second)
   @up_days.process(first, second)
@@ -28,9 +28,7 @@ quotes.each_cons(5) do |first, second, third, fourth, fifth|
   @do_full_gaps_close.process(first, second)
   @candle_gaps_close_4.process(first, second)
   @candle_gaps_close_5.process(first, second)
-  @days_close_same_direction.process(first, second, third, fourth, fifth)
-
-
+  @days_close_same_direction.process(first, second, third, fourth, fifth, sixth)
 end
 
 @down_days.display
