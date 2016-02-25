@@ -5,6 +5,7 @@ require_relative 'up_days'
 require_relative 'nearest_take_out'
 require_relative 'do_full_candle_gaps_close'
 require_relative 'candle_gaps_close'
+require_relative 'days_close_same_direction'
 
 file = File.read('EURGBP.json')
 data_hash = JSON.parse(file)
@@ -17,8 +18,9 @@ quotes = data_hash['results']
 @do_full_gaps_close = DoFullCandleGapsClose.new
 @candle_gaps_close_4 = CandleGapsClose.new(0.0001)
 @candle_gaps_close_5 = CandleGapsClose.new(0.00001)
+@days_close_same_direction = DaysCloseSameDirection.new
 
-quotes.each_cons(2) do |first, second|
+quotes.each_cons(5) do |first, second, third, fourth, fifth|
   @quote_counter.process(first,second)
   @down_days.process(first, second)
   @up_days.process(first, second)
@@ -26,6 +28,9 @@ quotes.each_cons(2) do |first, second|
   @do_full_gaps_close.process(first, second)
   @candle_gaps_close_4.process(first, second)
   @candle_gaps_close_5.process(first, second)
+  @days_close_same_direction.process(first, second, third, fourth, fifth)
+
+
 end
 
 @down_days.display
@@ -35,3 +40,4 @@ end
 @do_full_gaps_close.display
 @candle_gaps_close_4.display
 @candle_gaps_close_5.display
+@days_close_same_direction.display
