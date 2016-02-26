@@ -68,4 +68,8 @@ class CandleOperations
     end
 
   end
+
+  def is_inside_day(first, second)
+    second['low'] > first['low'] && second['high'] < first['high']
+  end
 end

@@ -14,6 +14,10 @@ class NearestTakeOut
     @wanted_low_got_high = 0
     @wanted_high_got_low = 0
 
+    @inside_day_count = 0
+    @inside_day_low_nearer_count = 0
+    @inside_day_high_nearer_count = 0
+
   end
 
   def process(first, second)
@@ -22,7 +26,16 @@ class NearestTakeOut
     if @candle_operations.is_day_opening_in_range(first, second)
       @next_day_opens_in_range_count += 1
 
+      if @candle_operations.is_inside_day(first, second)
+        @inside_day_count += 1
+      end
+
       if @candle_operations.is_a_low_nearer(first, second)
+
+
+        if @candle_operations.is_inside_day(first, second)
+          @inside_day_low_nearer_count += 1
+        end
 
         if @candle_operations.is_a_lower_low_in(first, second)
           @take_out_low += 1
@@ -35,6 +48,10 @@ class NearestTakeOut
 
       else
         if @candle_operations.is_high_nearer(first, second)
+
+          if @candle_operations.is_inside_day(first, second)
+            @inside_day_high_nearer_count += 1
+          end
 
           if @candle_operations.is_a_higher_high_in(first, second)
             @take_out_high += 1
@@ -89,11 +106,11 @@ class NearestTakeOut
     puts "Next day opens in range: #{next_day_opens_in_range}% (#{@next_day_opens_in_range_count})"
 
     puts "Low taken out when nearest #{((@take_out_low.to_f / (@take_out_low + @no_low_take_out)) * 100).ceil }%. "\
-    "Take out count #{@take_out_low} times. Low not taken out #{@no_low_take_out} times. "\
+    "Take out count #{@take_out_low} times. Low not taken out #{@no_low_take_out} times. Inside candle #{@inside_day_low_nearer_count} "\
     "#{(@take_out_low.to_f / @no_low_take_out).round(2)}"
     puts "Wanted high go low #{((@wanted_high_got_low.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
     puts "High taken out when nearest #{((@take_out_high.to_f/ (@take_out_high + @no_high_take_out)) * 100).ceil}%. "\
-    "Take out count #{@take_out_high} times. High not taken out #{@no_high_take_out} times. "\
+    "Take out count #{@take_out_high} times. High not taken out #{@no_high_take_out} times. Inside candle #{@inside_day_high_nearer_count} "\
     "#{(@take_out_high.to_f / @no_high_take_out).round(2)}"
     puts "Wanted low got high #{((@wanted_low_got_high.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
 
