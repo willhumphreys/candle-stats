@@ -155,10 +155,10 @@ class DaysCloseSameDirection
     "6 Days down #{@day_down_count_6} #{day_percentage(@day_down_count_6, @day_not_down_count_6)}%. "
 
     puts "\n--- What are the odds on having another up day after you have already had a few ----"
-    puts "2 Days up: #{@day_up_count_2} Last Down: #{@day_up_down_2} #{day_percentage(@day_up_count_2, @day_up_down_2)}%"
-    puts "3 Days up: #{@day_up_count_3} Last Down: #{@day_up_down_3} #{day_percentage(@day_up_count_3, @day_up_down_3)}%"
-    puts "4 Days up: #{@day_up_count_4} Last Down: #{@day_up_down_4} #{day_percentage(@day_up_count_4, @day_up_down_4)}%"
-    puts "5 Days up: #{@day_up_count_5}  Last Down: #{@day_up_down_5}  #{day_percentage(@day_up_count_5, @day_up_down_5)}%"
-    puts "6 Days up: #{@day_up_count_6}  Last Down: #{@day_up_down_6}  #{day_percentage(@day_up_count_6, @day_up_down_6)}%"
+    puts "2 Days up: #{@day_up_count_2} Last Down: #{@day_up_down_2} #{day_percentage(@day_up_count_2, @day_up_down_2)}%  #{day_percentage(@day_up_down_2, @day_up_count_2)}%"
+    puts "3 Days up: #{@day_up_count_3} Last Down: #{@day_up_down_3} #{day_percentage(@day_up_count_3, @day_up_down_3)}% #{day_percentage(@day_up_down_3, @day_up_count_3)}%"
+    puts "4 Days up: #{@day_up_count_4} Last Down: #{@day_up_down_4} #{day_percentage(@day_up_count_4, @day_up_down_4)}% #{day_percentage(@day_up_down_4, @day_up_count_4)}%"
+    puts "5 Days up: #{@day_up_count_5}  Last Down: #{@day_up_down_5}  #{day_percentage(@day_up_count_5, @day_up_down_5)}% #{day_percentage(@day_up_down_5, @day_up_count_5)}%"
+    puts "6 Days up: #{@day_up_count_6}  Last Down: #{@day_up_down_6}  #{day_percentage(@day_up_count_6, @day_up_down_6)}% #{day_percentage(@day_up_down_6, @day_up_count_6)}%"
   end
 end
