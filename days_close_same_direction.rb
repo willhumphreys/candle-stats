@@ -13,8 +13,7 @@ class DaysCloseSameDirection
     @day_up_count_5 = 0
     @day_not_up_count_5 = 0
     @day_up_count_6 = 0
-    @day_not_up_count_6 = 0
-
+    @day_not_up_count_6 =
 
     @day_down_count = 0
     @day_down_count_2 = 0
@@ -27,6 +26,12 @@ class DaysCloseSameDirection
     @day_not_down_count_5 = 0
     @day_down_count_6 = 0
     @day_not_down_count_6 = 0
+
+    @day_up_down_2 = 0
+    @day_up_down_3 = 0
+    @day_up_down_4 = 0
+    @day_up_down_5 = 0
+    @day_up_down_6 = 0
   end
 
   def process(first, second, third, fourth, fifth, sixth)
@@ -45,10 +50,19 @@ class DaysCloseSameDirection
       @day_not_up_count_2 += 1
     end
 
+    if is_day_up(first) && is_day_down(second)
+      @day_up_down_2 += 1
+    end
+
+
     if is_day_up(first) && is_day_up(second) && is_day_up(third)
       @day_up_count_3 += 1
     else
       @day_not_up_count_3 += 1
+    end
+
+    if is_day_up(first) && is_day_up(second) && is_day_down(third)
+      @day_up_down_3 += 1
     end
 
     if is_day_up(first) && is_day_up(second) && is_day_up(third) && is_day_up(fourth)
@@ -57,16 +71,28 @@ class DaysCloseSameDirection
       @day_not_up_count_4 += 1
     end
 
+    if is_day_up(first) && is_day_up(second) && is_day_up(third) && is_day_down(fourth)
+      @day_up_down_4 += 1
+    end
+
     if is_day_up(first) && is_day_up(second) && is_day_up(third) && is_day_up(fourth) && is_day_up(fifth)
       @day_up_count_5 += 1
     else
       @day_not_up_count_5 += 1
     end
 
+    if is_day_up(first) && is_day_up(second) && is_day_up(third) && is_day_up(fourth) && is_day_down(fifth)
+      @day_up_down_5 += 1
+    end
+
     if is_day_up(first) && is_day_up(second) && is_day_up(third) && is_day_up(fourth) && is_day_up(fifth) && is_day_up(sixth)
       @day_up_count_6 += 1
     else
       @day_not_up_count_6 += 1
+    end
+
+    if is_day_up(first) && is_day_up(second) && is_day_up(third) && is_day_up(fourth) && is_day_up(fifth) && is_day_down(sixth)
+      @day_up_down_6 += 1
     end
 
 
@@ -127,6 +153,12 @@ class DaysCloseSameDirection
     "4 Days down #{@day_down_count_4} #{day_percentage(@day_down_count_4, @day_not_down_count_4)}%. "\
     "5 Days down #{@day_down_count_5} #{day_percentage(@day_down_count_5, @day_not_down_count_5)}%. "\
     "6 Days down #{@day_down_count_6} #{day_percentage(@day_down_count_6, @day_not_down_count_6)}%. "
-  end
 
+    puts "\n--- What are the odds on having another up day after you have already had a few ----"
+    puts "2 Days up: #{@day_up_count_2} Last Down: #{@day_up_down_2} #{day_percentage(@day_up_count_2, @day_up_down_2)}%"
+    puts "3 Days up: #{@day_up_count_3} Last Down: #{@day_up_down_3} #{day_percentage(@day_up_count_3, @day_up_down_3)}%"
+    puts "4 Days up: #{@day_up_count_4} Last Down: #{@day_up_down_4} #{day_percentage(@day_up_count_4, @day_up_down_4)}%"
+    puts "5 Days up: #{@day_up_count_5}  Last Down: #{@day_up_down_5}  #{day_percentage(@day_up_count_5, @day_up_down_5)}%"
+    puts "6 Days up: #{@day_up_count_6}  Last Down: #{@day_up_down_6}  #{day_percentage(@day_up_count_6, @day_up_down_6)}%"
+  end
 end
