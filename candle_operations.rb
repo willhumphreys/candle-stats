@@ -72,4 +72,16 @@ class CandleOperations
   def is_inside_day(first, second)
     second['low'] > first['low'] && second['high'] < first['high']
   end
+
+  def is_day_up(quote)
+    quote['close'] > quote['open']
+  end
+
+  def is_day_down(quote)
+    quote['close'] < quote['open']
+  end
+
+  def day_percentage(day_up_count, day_not_up_count)
+    ((day_up_count.to_f / (day_not_up_count + day_up_count)) * 100).round(2)
+  end
 end

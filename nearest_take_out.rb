@@ -18,10 +18,42 @@ class NearestTakeOut
     @inside_day_low_nearer_count = 0
     @inside_day_high_nearer_count = 0
 
+    @both_days_up_low_nearer_high_taken = 0
+    @both_days_up_low_nearer_low_taken = 0
+
+    @both_days_down_high_nearer_low_taken = 0
+    @both_days_down_high_nearer_high_taken = 0
+
   end
 
   def process(first, second)
 
+    #First trade closes up
+    #Second trade opens nearer the the first high.
+    #Second trade has a low that is nearer to the first high
+    if @candle_operations.is_day_up(first) && @candle_operations.is_high_nearer(first, second) && is_low_nearer_to_previous_high(first, second)
+      if @candle_operations.is_day_up(second)
+        @both_days_up_low_nearer_high_taken += 1
+      end
+
+      if @candle_operations.is_day_down(second)
+        @both_days_up_low_nearer_low_taken += 1
+      end
+    end
+
+    #First trade closes down
+    #Second trade has a low nearer to the low of the first trade.
+    #Second trade has a high that is nearer to the first low
+    if @candle_operations.is_day_down(first) && @candle_operations.is_a_low_nearer(first, second) && is_high_nearer_to_previous_low(first, second)
+
+      if @candle_operations.is_day_down(second)
+        @both_days_down_high_nearer_low_taken += 1
+      end
+
+      if @candle_operations.is_day_up(second)
+        @both_days_down_high_nearer_high_taken += 1
+      end
+    end
 
     if @candle_operations.is_day_opening_in_range(first, second)
       @next_day_opens_in_range_count += 1
@@ -100,6 +132,17 @@ class NearestTakeOut
     @no_low_take_out
   end
 
+  #Is the second low closer to the first high or the first low.
+  def is_low_nearer_to_previous_high(first, second)
+    (second['low'] - first['high']).abs < (second['low'] - first['low']).abs
+  end
+
+
+  #Is the second high closer to the first low or the first high.
+  def is_high_nearer_to_previous_low(first, second)
+    (second['high'] - first['low']).abs < (second['high'] - first['high']).abs
+  end
+
   def display(quote_counter_count)
     puts "\n-- What do we take out --"
     #Does today open inside the range of the previous day
@@ -114,6 +157,12 @@ class NearestTakeOut
     "High not taken out #{@no_high_take_out} times. Inside candle #{@inside_day_high_nearer_count} "\
     "#{(@take_out_high.to_f / @no_high_take_out).round(2)}%"
     puts "Wanted low got high #{((@wanted_low_got_high.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
+
+    puts "Both days up. High nearer. Even with low high still nearer. High taken #{@both_days_up_low_nearer_high_taken}"
+    puts "Both days up. High nearer. Even with low high nearer. Low taken. #{@both_days_up_low_nearer_low_taken}"
+
+    puts "Both days down. Low nearer. Even with high low still nearer. Low taken #{@both_days_down_high_nearer_low_taken}"
+    puts "Both days down. Low nearer. Even with high low nearer. High taken. #{@both_days_down_high_nearer_high_taken}"
 
   end
 
