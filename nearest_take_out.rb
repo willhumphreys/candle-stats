@@ -24,9 +24,19 @@ class NearestTakeOut
     @both_days_down_high_nearer_low_taken = 0
     @both_days_down_high_nearer_high_taken = 0
 
+
+    @low_nearer_take_up_high = 0
+
+    @first_day_up = 0
+
   end
 
   def process(first, second)
+
+    if @candle_operations.is_day_up(first)
+      @first_day_up += 1
+    end
+
 
     #First trade closes up
     #Second trade opens nearer the the first high.
@@ -34,6 +44,10 @@ class NearestTakeOut
     if @candle_operations.is_day_up(first) && @candle_operations.is_high_nearer(first, second) && is_low_nearer_to_previous_high(first, second)
       if @candle_operations.is_day_up(second)
         @both_days_up_low_nearer_high_taken += 1
+      end
+
+      if @candle_operations.is_a_higher_high_in(first, second) && @candle_operations.is_day_up(second)
+        @low_nearer_take_up_high += 1
       end
 
       if @candle_operations.is_day_down(second)
@@ -158,12 +172,15 @@ class NearestTakeOut
     "#{(@take_out_high.to_f / @no_high_take_out).round(2)}%"
     puts "Wanted low got high #{((@wanted_low_got_high.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
 
-    puts "Both days up. High nearer. Even with low high still nearer. High taken #{@both_days_up_low_nearer_high_taken}"
-    puts "Both days up. High nearer. Even with low high nearer. Low taken. #{@both_days_up_low_nearer_low_taken}"
+    puts "\n--- First day up. Second day opens and puts in a low that is still nearer to the previous days high. ---"
+    puts "First Day Closes up. #{@first_day_up}"
+    puts "First Day Closes up Second day up. #{@both_days_up_low_nearer_high_taken}"
+    puts "First Day Closes up. Second day takes out high #{@low_nearer_take_up_high}"
+    puts "First Day Closes up. Second day down. #{@both_days_up_low_nearer_low_taken}"
 
-    puts "Both days down. Low nearer. Even with high low still nearer. Low taken #{@both_days_down_high_nearer_low_taken}"
-    puts "Both days down. Low nearer. Even with high low nearer. High taken. #{@both_days_down_high_nearer_high_taken}"
-
+    puts "\n--- First day down. Second day opens and puts in a high that is still nearer to the previous days low. ---"
+    puts "First Day Closes down. Second day down. #{@both_days_down_high_nearer_low_taken}"
+    puts "First Day Closes. Second day up. #{@both_days_down_high_nearer_high_taken}\n\n"
   end
 
   def get_take_out_high_p
