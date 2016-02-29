@@ -28,6 +28,7 @@ class NearestTakeOut
     @low_nearer_take_up_high = 0
 
     @first_day_up = 0
+    @both_days_up = 0
 
   end
 
@@ -37,6 +38,9 @@ class NearestTakeOut
       @first_day_up += 1
     end
 
+    if @candle_operations.is_day_up(first) && @candle_operations.is_day_up(second)
+      @both_days_up += 1
+    end
 
     #First trade closes up
     #Second trade opens nearer the the first high.
@@ -174,6 +178,7 @@ class NearestTakeOut
 
     puts "\n--- First day up. Second day opens and puts in a low that is still nearer to the previous days high. ---"
     puts "First Day Closes up. #{@first_day_up}"
+    puts "Both days close up. #{@both_days_up}"
     puts "First Day Closes up Second day up. #{@both_days_up_low_nearer_high_taken}"
     puts "First Day Closes up. Second day takes out high #{@low_nearer_take_up_high}"
     puts "First Day Closes up. Second day down. #{@both_days_up_low_nearer_low_taken}"
