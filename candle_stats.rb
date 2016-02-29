@@ -7,9 +7,12 @@ require_relative 'do_full_candle_gaps_close'
 require_relative 'candle_gaps_close'
 require_relative 'days_close_same_direction'
 
-file = File.read('EURGBP.json')
-data_hash = JSON.parse(file)
-quotes = data_hash['results']
+require_relative 'bar_chart_file_repo'
+
+@bar_chart_file_repo = BarChartFileRepo.new
+
+quotes =  @bar_chart_file_repo.read_quotes
+
 
 @quote_counter = QuoteCounter.new
 @nearest_take_out = NearestTakeOut.new
