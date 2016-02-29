@@ -13,7 +13,7 @@ class CandleGapsClose
   def process(first, second)
     @candle_count += 1
 
-    if @minimum_gap_size == -1 || (first['close'] - second['open']).abs >= @minimum_gap_size
+    if @minimum_gap_size == -1 || (first.close - second.open).abs >= @minimum_gap_size
 
       if @candle_operations.gaps(first, second)
         @candle_gap_count += 1

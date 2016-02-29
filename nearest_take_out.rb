@@ -152,13 +152,13 @@ class NearestTakeOut
 
   #Is the second low closer to the first high or the first low.
   def is_low_nearer_to_previous_high(first, second)
-    (second['low'] - first['high']).abs < (second['low'] - first['low']).abs
+    (second.low - first.high).abs < (second.low - first.low).abs
   end
 
 
   #Is the second high closer to the first low or the first high.
   def is_high_nearer_to_previous_low(first, second)
-    (second['high'] - first['low']).abs < (second['high'] - first['high']).abs
+    (second.high - first.low).abs < (second.high - first.high).abs
   end
 
   def display(quote_counter_count)
