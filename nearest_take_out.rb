@@ -101,6 +101,7 @@ class NearestTakeOut
   end
 
   def display(quote_counter_count)
+    puts "\n-- What do we take out --"
     #Does today open inside the range of the previous day
     next_day_opens_in_range = (@next_day_opens_in_range_count.to_f / quote_counter_count * 100).ceil
     puts "Next day opens in range: #{next_day_opens_in_range}% (#{@next_day_opens_in_range_count})"

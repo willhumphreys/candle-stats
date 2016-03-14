@@ -31,10 +31,12 @@ quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @days_close_same_direction.process(first, second, third, fourth, fifth, sixth)
 end
 
+puts '-- Up and down days --'
 @down_days.display
 @up_days.display
 @nearest_take_out.display(@quote_counter.count)
 
+puts "\n-- Gaps --"
 @do_full_gaps_close.display
 @candle_gaps_close_4.display
 @candle_gaps_close_5.display

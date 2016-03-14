@@ -141,6 +141,7 @@ class DaysCloseSameDirection
   end
 
   def display
+    puts "\n-- Candles in a row --"
     puts "Tick count #{@tick_count} Up count #{@day_up_count} 2 Days up #{@day_up_count_2} #{day_percentage(@day_up_count_2, @day_not_up_count_2)}%. "\
     "3 Days up  #{@day_up_count_3} #{day_percentage(@day_up_count_3, @day_not_up_count_3)}%. "\
     "4 Days up #{@day_up_count_4} #{day_percentage(@day_up_count_4, @day_not_up_count_4)}%. "\
