@@ -90,4 +90,8 @@ class CandleOperations
   def candle_closes_closer_low(quote)
     (quote.close - quote.low).abs < (quote.close - quote.high).abs
   end
+
+  def candle_closes_closer_high(quote)
+    (quote.close - quote.high).abs > (quote.close - quote.low).abs
+  end
 end
