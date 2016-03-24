@@ -6,6 +6,7 @@ require_relative 'nearest_take_out'
 require_relative 'do_full_candle_gaps_close'
 require_relative 'candle_gaps_close'
 require_relative 'days_close_same_direction'
+require_relative 'take_out_wrong_end'
 
 require_relative 'bar_chart_file_repo'
 require_relative 'mt4_file_repo'
@@ -23,6 +24,7 @@ quotes = @mt4_file_repo.read_quotes
 @candle_gaps_close_4 = CandleGapsClose.new(0.0001)
 @candle_gaps_close_5 = CandleGapsClose.new(0.00001)
 @days_close_same_direction = DaysCloseSameDirection.new
+@take_out_wrong_end = TakeOutWrongEnd.new
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @quote_counter.process(first,second)
@@ -33,6 +35,8 @@ quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @candle_gaps_close_4.process(first, second)
   @candle_gaps_close_5.process(first, second)
   @days_close_same_direction.process(first, second, third, fourth, fifth, sixth)
+  @take_out_wrong_end.process(first, second, third)
+
 end
 
 puts '-- Up and down days --'
@@ -45,3 +49,4 @@ puts "\n-- Gaps --"
 @candle_gaps_close_4.display
 @candle_gaps_close_5.display
 @days_close_same_direction.display
+@take_out_wrong_end.display

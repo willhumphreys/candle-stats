@@ -86,4 +86,8 @@ class CandleOperations
   def day_percentage(day_up_count, day_not_up_count)
     ((day_up_count.to_f / (day_not_up_count + day_up_count)) * 100).round(2)
   end
+
+  def candle_closes_closer_low(quote)
+    (quote.close - quote.low).abs < (quote.close - quote.high).abs
+  end
 end
