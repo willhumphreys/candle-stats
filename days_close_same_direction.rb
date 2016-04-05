@@ -13,7 +13,7 @@ class DaysCloseSameDirection
     @day_up_count_5 = 0
     @day_not_up_count_5 = 0
     @day_up_count_6 = 0
-    @day_not_up_count_6 =
+    @day_not_up_count_6 = 0
 
     @day_down_count = 0
     @day_down_count_2 = 0
@@ -34,6 +34,18 @@ class DaysCloseSameDirection
     @day_up_down_6 = 0
   end
 
+  def is_day_up(quote)
+    quote['close'] > quote['open']
+  end
+
+  def is_day_down(quote)
+    quote['close'] < quote['open']
+  end
+
+  def day_percentage(day_up_count, day_not_up_count)
+    ((day_up_count.to_f / (day_not_up_count + day_up_count)) * 100).round(2)
+  end
+
   def process(first, second, third, fourth, fifth, sixth)
 
     @tick_count += 1
@@ -46,7 +58,7 @@ class DaysCloseSameDirection
 
     if is_day_up(first) && is_day_up(second)
       @day_up_count_2 += 1
-      else
+    else
       @day_not_up_count_2 += 1
     end
 
@@ -128,17 +140,6 @@ class DaysCloseSameDirection
 
   end
 
-  def is_day_up(quote)
-    quote['close'] > quote['open']
-  end
-
-  def is_day_down(quote)
-    quote['close'] < quote['open']
-  end
-
-  def day_percentage(day_up_count, day_not_up_count)
-    ((day_up_count.to_f / (day_not_up_count + day_up_count)) * 100).round(2)
-  end
 
   def display
     puts "\n-- Candles in a row --"
