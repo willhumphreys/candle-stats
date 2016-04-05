@@ -35,11 +35,11 @@ class DaysCloseSameDirection
   end
 
   def is_day_up(quote)
-    quote['close'] > quote['open']
+    quote.close > quote.open
   end
 
   def is_day_down(quote)
-    quote['close'] < quote['open']
+    quote.close < quote.open
   end
 
   def day_percentage(day_up_count, day_not_up_count)
