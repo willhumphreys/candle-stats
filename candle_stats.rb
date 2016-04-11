@@ -53,3 +53,4 @@ puts "\n-- Gaps --"
 @candle_gaps_close_5.display
 @days_close_same_direction.display
 @take_out_wrong_end.display
+@higher_high_higher_low.display
