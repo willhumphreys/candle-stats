@@ -7,7 +7,7 @@ require_relative 'do_full_candle_gaps_close'
 require_relative 'candle_gaps_close'
 require_relative 'days_close_same_direction'
 require_relative 'take_out_wrong_end'
-require_relative 'higher_high_higher_low'
+require_relative 'higher_high_and_lower_low'
 
 require_relative 'bar_chart_file_repo'
 require_relative 'mt4_file_repo'
@@ -26,7 +26,7 @@ quotes = @mt4_file_repo.read_quotes
 @candle_gaps_close_5 = CandleGapsClose.new(0.00001)
 @days_close_same_direction = DaysCloseSameDirection.new
 @take_out_wrong_end = TakeOutWrongEnd.new
-@higher_high_higher_low = HigherHighHigherLow.new
+@higher_high_higher_low = HigherHighAndLowerLow.new
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @quote_counter.process(first,second)

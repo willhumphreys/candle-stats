@@ -1,6 +1,6 @@
 require_relative 'candle_operations'
 
-class HigherHighHigherLow
+class HigherHighAndLowerLow
 
 
   def initialize
@@ -47,9 +47,7 @@ class HigherHighHigherLow
     else
       @not_first_second += 1
     end
-
   end
-
 
   def display
     puts "Higher high and lower low. 1-2: #{@first_second}/#{@not_first_second} "\
