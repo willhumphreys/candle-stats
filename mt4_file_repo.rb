@@ -17,7 +17,10 @@ class MT4FileRepo
 
     first_row = true
 
-    CSV.foreach('EURGBP15.csv') do |row|
+    file = 'EURJPY1440.csv'
+    puts "Reading file #{file}"
+
+    CSV.foreach(file) do |row|
 
       if first_row
         first_row = false

@@ -13,8 +13,8 @@ require_relative 'mt4_file_repo'
 
 @bar_chart_file_repo = BarChartFileRepo.new
 @mt4_file_repo = MT4FileRepo.new
-quotes =  @bar_chart_file_repo.read_quotes
-#quotes = @mt4_file_repo.read_quotes
+#quotes =  @bar_chart_file_repo.read_quotes
+quotes = @mt4_file_repo.read_quotes
 
 @quote_counter = QuoteCounter.new
 @nearest_take_out = NearestTakeOut.new

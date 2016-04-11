@@ -6,6 +6,7 @@ class NearestTakeOut
     @candle_operations = CandleOperations.new
     @next_day_opens_in_range_count = 0
 
+    @candle_count = 0
     @take_out_low = 0
     @no_low_take_out = 0
     @take_out_high = 0
@@ -33,6 +34,8 @@ class NearestTakeOut
   end
 
   def process(first, second)
+
+    @candle_count += 1
 
     if @candle_operations.is_day_up(first)
       @first_day_up += 1
@@ -63,6 +66,8 @@ class NearestTakeOut
     #Second trade has a low nearer to the low of the first trade.
     #Second trade has a high that is nearer to the first low
     if @candle_operations.is_day_down(first) && @candle_operations.is_a_low_nearer(first, second) && is_high_nearer_to_previous_low(first, second)
+
+
 
       if @candle_operations.is_day_down(second)
         @both_days_down_high_nearer_low_taken += 1
@@ -169,11 +174,14 @@ class NearestTakeOut
 
     puts "Low taken out when nearest #{get_take_out_low_p }%. Take out count #{@take_out_low} times. "\
     "Low not taken out #{@no_low_take_out} times. Inside candle #{@inside_day_low_nearer_count} "\
-    "#{(@take_out_low.to_f / @no_low_take_out).round(2)}%"
+    "#{(@take_out_low.to_f / @no_low_take_out).round(2)}% #{((@inside_day_count.to_f / @candle_count)* 100.round(2)).ceil}%"
+
     puts "Wanted high go low #{((@wanted_high_got_low.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
+
     puts "High taken out when nearest #{get_take_out_high_p}%. Take out count #{@take_out_high} times. "\
     "High not taken out #{@no_high_take_out} times. Inside candle #{@inside_day_high_nearer_count} "\
     "#{(@take_out_high.to_f / @no_high_take_out).round(2)}%"
+
     puts "Wanted low got high #{((@wanted_low_got_high.to_f / (@take_out_low + @take_out_high)) * 100).ceil}%"
 
     puts "\n--- First day up. Second day opens and puts in a low that is still nearer to the previous days high. ---"
