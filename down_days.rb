@@ -5,6 +5,7 @@ class DownDays
     @candle_operations = CandleOperations.new
     @first_tick_count = 0
     @both_ticks_count = 0
+    @lower_low_in = 0
   end
 
   def process(first, second)
@@ -12,6 +13,9 @@ class DownDays
       @first_tick_count +=1
       if @candle_operations.is_a_down_day(second)
         @both_ticks_count +=1
+      end
+      if @candle_operations.is_a_lower_low_in(first, second)
+        @lower_low_in += 1
       end
     end
   end
@@ -26,10 +30,13 @@ class DownDays
 
   def display
     #If today is down day what are the odds the next day is a down day?
-    puts "If today is down what are the odds tomorrow is down to: #{get_sequential_percentage}%"
+    puts "If today is down what are the odds tomorrow is down to: "\
+    "#{get_sequential_percentage(@both_ticks_count, @first_tick_count)}%"
+    puts "If today is negative what are the odds the next candle takes out the low: "\
+    "#{get_sequential_percentage(@lower_low_in, @first_tick_count)}%"
   end
 
-  def get_sequential_percentage
-    (@both_ticks_count.to_f / @first_tick_count * 100).ceil
+  def get_sequential_percentage(both_ticks_count, first_tick_count)
+    (both_ticks_count.to_f / first_tick_count * 100).ceil
   end
 end

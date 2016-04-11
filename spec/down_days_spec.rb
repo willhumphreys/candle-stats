@@ -20,7 +20,7 @@ describe 'My behaviour' do
     expect(@down_days.get_both_ticks_count).to equal(1)
     expect(@down_days.get_first_tick_count).to equal(1)
 
-    expect(@down_days.get_sequential_percentage).to equal(100)
+    expect(@down_days.get_sequential_percentage(@both_ticks_count, @first_tick_count)).to equal(100)
 
   end
 
@@ -36,6 +36,6 @@ describe 'My behaviour' do
     expect(@down_days.get_both_ticks_count).to equal(0)
     expect(@down_days.get_first_tick_count).to equal(1)
 
-    expect(@down_days.get_sequential_percentage).to equal(0)
+    expect(@down_days.get_sequential_percentage(@both_ticks_count, @first_tick_count)).to equal(0)
   end
 end
