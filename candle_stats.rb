@@ -59,6 +59,7 @@ puts "\n-- Gaps --"
 @candle_gaps_close_5.display
 @days_close_same_direction.display
 @take_out_wrong_end.display
+puts "\n-- Highers and Lowers"
 @higher_high_lower_low.display
 @higher_high_higher_low.display
 @lower_high_lower_low.display
