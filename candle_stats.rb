@@ -10,6 +10,7 @@ require_relative 'take_out_wrong_end'
 require_relative 'higher_high_and_lower_low'
 require_relative 'higher_high_and_higher_low'
 require_relative 'lower_high_and_lower_low'
+require_relative 'inside_day_and_inside_day'
 
 require_relative 'bar_chart_file_repo'
 require_relative 'mt4_file_repo'
@@ -31,6 +32,7 @@ quotes = @mt4_file_repo.read_quotes
 @higher_high_lower_low = HigherHighAndLowerLow.new
 @higher_high_higher_low = HigherHighAndHigherLow.new
 @lower_high_lower_low = LowerHighAndLowerLow.new
+@inside_day_and_inside_day = InsideDayAndInsideDay.new
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @quote_counter.process(first,second)
@@ -45,6 +47,8 @@ quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @higher_high_lower_low.process(first, second, third, fourth, fifth, sixth)
   @higher_high_higher_low.process(first, second, third, fourth, fifth, sixth)
   @lower_high_lower_low.process(first, second, third, fourth, fifth, sixth)
+  @inside_day_and_inside_day.process(first, second, third, fourth, fifth, sixth)
+
 
 end
 
@@ -63,3 +67,4 @@ puts "\n-- Highers and Lowers"
 @higher_high_lower_low.display
 @higher_high_higher_low.display
 @lower_high_lower_low.display
+@inside_day_and_inside_day.display
