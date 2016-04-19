@@ -50,7 +50,7 @@ class HigherHighAndLowerLow
   end
 
   def display
-    puts "Higher high and higher low. 1-2: #{calculate_percentage(@first_second, @not_first_second)} "\
+    puts "Higher high and lower low. 1-2: #{calculate_percentage(@first_second, @not_first_second)} "\
     "2-3: #{calculate_percentage(@second_third, @not_second_third)}  3-4: #{calculate_percentage(@third_fourth, @not_third_fourth)} "\
     "4-5: #{calculate_percentage(@fourth_fifth, @not_fourth_fifth)} 5-6: #{calculate_percentage(@fifth_sixth, @not_fifth_sixth)}"
   end

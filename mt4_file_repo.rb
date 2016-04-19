@@ -17,8 +17,8 @@ class MT4FileRepo
 
     first_row = true
 
-    #file = 'data/EURJPY1440.csv'
-    file = 'data/USDCAD1440.csv'
+    file = 'data/EURJPY1440.csv'
+    #file = 'data/USDCAD1440.csv'
     puts "Reading file #{file}"
 
     CSV.foreach(file) do |row|
