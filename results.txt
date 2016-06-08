@@ -1,0 +1,10 @@
+If today is negative what are the odds the next candle takes out the low: 71%  65% 69%
+If today is positive what are the odds the next candle takes out its high 66%  62% 65%
+
+So if a candle closes positive there are 2 to 1 odds that its high will be taken out the next day.
+If a candle closes negative there are 2 to 1 odds its low will be taken out the next day.
+
+The odds that the next day closes positive or negative are 50% but the take out is 2 to 1.
+
+If the low is nearest when a candle opens it is taken out 72% 66% 70% or the time.
+If the high is nearest when a candle opens it is taken out 67% 64% 71% of the time.

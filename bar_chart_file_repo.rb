@@ -7,7 +7,7 @@ class BarChartFileRepo
   end
 
   def read_quotes
-    file_string = 'EURGBP.json'
+    file_string = 'data/EURGBP.json'
     puts "Reading file #{file_string}"
     file = File.read(file_string)
     data_hash = JSON.parse(file)
