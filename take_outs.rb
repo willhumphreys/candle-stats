@@ -1,4 +1,5 @@
 require_relative 'candle_operations'
+require 'fileutils'
 
 class TakeOuts
 
@@ -20,6 +21,17 @@ class TakeOuts
     @lower_low_closes_in_range = 0
     @lower_low_closes_above_range = 0
     @lower_low_closes_below_range = 0
+
+
+    FileUtils.rm_rf('out')
+
+    FileUtils.mkdir_p 'out'
+
+    @higher_high_close_in_range_filename = 'out/higher_high_close_in_range.csv'
+
+    open(@higher_high_close_in_range_filename, 'a') do |f|
+      f.puts 'higher_high_close_in_range'
+    end
 
   end
 
@@ -46,7 +58,11 @@ class TakeOuts
 
       if @candle_ops.closes_inside_range(first, second)
 
-        @distance_above_high_count += ((second.high - first.high) * 10000).round(0)
+        distance_above_high = ((second.high - first.high) * 10000).round(0)
+        open(@higher_high_close_in_range_filename, 'a') do |f|
+          f.puts distance_above_high
+        end
+        @distance_above_high_count += distance_above_high
         #puts @distance_above_high_count
         @higher_high_closes_in_range += 1
       end
@@ -88,7 +104,7 @@ class TakeOuts
     puts '----- If we take out the high'
     @candle_ops.percent_message(@higher_high_closes_in_range, @higher_high_count,
                                 'We close back in the range')
-    puts "On average we go #{@distance_above_high_count / @higher_high_closes_in_range} pips above the range before reversing and closing back inside the range"
+    puts "On average we go #{av_distance_above_range} pips above the range before reversing and closing back inside the range"
     @candle_ops.percent_message(@higher_high_closes_above_range, @higher_high_count,
                                 'We close above the previous range')
     @candle_ops.percent_message(@higher_high_closes_below_range, @higher_high_count,
@@ -101,5 +117,9 @@ class TakeOuts
     @candle_ops.percent_message(@lower_low_closes_above_range, @lower_low_count,
                                 'We close above the previous range')
 
+  end
+
+  def av_distance_above_range
+    @distance_above_high_count / @higher_high_closes_in_range
   end
 end
