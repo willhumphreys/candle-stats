@@ -27,10 +27,15 @@ class TakeOuts
 
     FileUtils.mkdir_p 'out'
 
-    @higher_high_close_in_range_filename = 'out/higher_high_close_in_range.csv'
+    @higher_high_close_in_range_f = 'out/higher_high_close_in_range.csv'
+    @higher_high_close_above_f = 'out/higher_high_close_above.csv'
 
-    open(@higher_high_close_in_range_filename, 'a') do |f|
+    open(@higher_high_close_in_range_f, 'a') do |f|
       f.puts 'higher_high_close_in_range'
+    end
+
+    open(@higher_high_close_above_f, 'a') do |f|
+      f.puts 'higher_high_close_above'
     end
 
   end
@@ -57,17 +62,20 @@ class TakeOuts
     if @candle_ops.is_a_higher_high_in(first, second)
 
       if @candle_ops.closes_inside_range(first, second)
-
-        distance_above_high = ((second.high - first.high) * 10000).round(0)
-        open(@higher_high_close_in_range_filename, 'a') do |f|
-          f.puts distance_above_high
+        distance_above_high_close_inside = ((second.high - first.high) * 10000).round(0)
+        open(@higher_high_close_in_range_f, 'a') do |f|
+          f.puts distance_above_high_close_inside
         end
-        @distance_above_high_count += distance_above_high
-        #puts @distance_above_high_count
+        @distance_above_high_count += distance_above_high_close_inside
         @higher_high_closes_in_range += 1
       end
 
       if @candle_ops.closes_above_range(first, second)
+        distance_above_high_close_above = ((second.high - first.high) * 10000).round(0)
+        open(@higher_high_close_above_f, 'a') do |f|
+          f.puts distance_above_high_close_above
+        end
+        @distance_above_high_count += distance_above_high_close_above
         @higher_high_closes_above_range += 1
       end
 
