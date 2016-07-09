@@ -2,7 +2,7 @@ require_relative 'candle_operations'
 
 class DownDays
   def initialize
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
     @first_tick_count = 0
     @both_ticks_count = 0
     @lower_low_in = 0
@@ -10,15 +10,15 @@ class DownDays
   end
 
   def process(first, second)
-    if @candle_operations.is_a_down_day(first)
+    if @candle_ops.is_a_down_day(first)
       @first_tick_count +=1
-      if @candle_operations.is_a_down_day(second)
+      if @candle_ops.is_a_down_day(second)
         @both_ticks_count +=1
       end
-      if @candle_operations.is_a_up_day(second)
+      if @candle_ops.is_a_up_day(second)
         @second_up_count +=1
       end
-      if @candle_operations.is_a_lower_low_in(first, second)
+      if @candle_ops.is_a_lower_low_in(first, second)
         @lower_low_in += 1
       end
     end

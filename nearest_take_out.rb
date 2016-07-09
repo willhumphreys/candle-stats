@@ -3,7 +3,7 @@ require_relative 'candle_operations'
 class NearestTakeOut
 
   def initialize
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
     @next_day_opens_in_range_count = 0
 
     @candle_count = 0
@@ -37,27 +37,27 @@ class NearestTakeOut
 
     @candle_count += 1
 
-    if @candle_operations.is_day_up(first)
+    if @candle_ops.is_day_up(first)
       @first_day_up += 1
     end
 
-    if @candle_operations.is_day_up(first) && @candle_operations.is_day_up(second)
+    if @candle_ops.is_day_up(first) && @candle_ops.is_day_up(second)
       @both_days_up += 1
     end
 
     #First trade closes up
     #Second trade opens nearer the the first high.
     #Second trade has a low that is nearer to the first high
-    if @candle_operations.is_day_up(first) && @candle_operations.is_high_nearer(first, second) && is_low_nearer_to_previous_high(first, second)
-      if @candle_operations.is_day_up(second)
+    if @candle_ops.is_day_up(first) && @candle_ops.is_high_nearer(first, second) && is_low_nearer_to_previous_high(first, second)
+      if @candle_ops.is_day_up(second)
         @both_days_up_low_nearer_high_taken += 1
       end
 
-      if @candle_operations.is_a_higher_high_in(first, second) && @candle_operations.is_day_up(second)
+      if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.is_day_up(second)
         @low_nearer_take_up_high += 1
       end
 
-      if @candle_operations.is_day_down(second)
+      if @candle_ops.is_day_down(second)
         @both_days_up_low_nearer_low_taken += 1
       end
     end
@@ -65,54 +65,54 @@ class NearestTakeOut
     #First trade closes down
     #Second trade has a low nearer to the low of the first trade.
     #Second trade has a high that is nearer to the first low
-    if @candle_operations.is_day_down(first) && @candle_operations.is_a_low_nearer(first, second) && is_high_nearer_to_previous_low(first, second)
+    if @candle_ops.is_day_down(first) && @candle_ops.is_a_low_nearer(first, second) && is_high_nearer_to_previous_low(first, second)
 
 
 
-      if @candle_operations.is_day_down(second)
+      if @candle_ops.is_day_down(second)
         @both_days_down_high_nearer_low_taken += 1
       end
 
-      if @candle_operations.is_day_up(second)
+      if @candle_ops.is_day_up(second)
         @both_days_down_high_nearer_high_taken += 1
       end
     end
 
-    if @candle_operations.is_day_opening_in_range(first, second)
+    if @candle_ops.is_day_opening_in_range(first, second)
       @next_day_opens_in_range_count += 1
 
-      if @candle_operations.is_inside_day(first, second)
+      if @candle_ops.is_inside_day(first, second)
         @inside_day_count += 1
       end
 
-      if @candle_operations.is_a_low_nearer(first, second)
+      if @candle_ops.is_a_low_nearer(first, second)
 
 
-        if @candle_operations.is_inside_day(first, second)
+        if @candle_ops.is_inside_day(first, second)
           @inside_day_low_nearer_count += 1
         end
 
-        if @candle_operations.is_a_lower_low_in(first, second)
+        if @candle_ops.is_a_lower_low_in(first, second)
           @take_out_low += 1
         else
           @no_low_take_out +=1
-          if @candle_operations.is_a_higher_high_in(first, second)
+          if @candle_ops.is_a_higher_high_in(first, second)
             @wanted_low_got_high += 1
           end
         end
 
       else
-        if @candle_operations.is_high_nearer(first, second)
+        if @candle_ops.is_high_nearer(first, second)
 
-          if @candle_operations.is_inside_day(first, second)
+          if @candle_ops.is_inside_day(first, second)
             @inside_day_high_nearer_count += 1
           end
 
-          if @candle_operations.is_a_higher_high_in(first, second)
+          if @candle_ops.is_a_higher_high_in(first, second)
             @take_out_high += 1
           else
             @no_high_take_out += 1
-            if @candle_operations.is_a_lower_low_in(first, second)
+            if @candle_ops.is_a_lower_low_in(first, second)
               @wanted_high_got_low += 1
             end
           end

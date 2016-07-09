@@ -17,7 +17,7 @@ class MT4FileRepo
 
     first_row = true
 
-    file = 'data/AUDUSD1440.csv'
+    file = 'data/AUDUSD10080.csv'
     #file = 'data/USDCAD1440.csv'
     puts "Reading file #{file}"
 

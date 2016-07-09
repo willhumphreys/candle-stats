@@ -2,7 +2,7 @@ require_relative 'candle_operations'
 
 class DoFullCandleGapsClose
   def initialize
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
     @candle_gap_count = 0
     @candle_gap_closed_count = 0
     @candle_count = 0
@@ -11,9 +11,9 @@ class DoFullCandleGapsClose
   def process(first, second)
     @candle_count += 1
 
-    if @candle_operations.full_candle_gaps(first, second)
+    if @candle_ops.full_candle_gaps(first, second)
       @candle_gap_count += 1
-      if @candle_operations.full_candle_gap_closes(first, second)
+      if @candle_ops.full_candle_gap_closes(first, second)
         @candle_gap_closed_count += 1
       end
     end

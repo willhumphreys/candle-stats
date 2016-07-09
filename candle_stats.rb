@@ -15,6 +15,8 @@ require_relative 'inside_day_and_inside_day'
 require_relative 'bar_chart_file_repo'
 require_relative 'mt4_file_repo'
 
+require_relative 'take_outs'
+
 @bar_chart_file_repo = BarChartFileRepo.new
 @mt4_file_repo = MT4FileRepo.new
 #quotes =  @bar_chart_file_repo.read_quotes
@@ -34,37 +36,44 @@ quotes = @mt4_file_repo.read_quotes
 @lower_high_lower_low = LowerHighAndLowerLow.new
 @inside_day_and_inside_day = InsideDayAndInsideDay.new
 
+@take_outs = TakeOuts.new
+
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
-  @quote_counter.process(first,second)
-  @down_days.process(first, second)
-  @up_days.process(first, second)
-  @nearest_take_out.process(first, second)
-  @do_full_gaps_close.process(first, second)
-  @candle_gaps_close_4.process(first, second)
-  @candle_gaps_close_5.process(first, second)
-  @days_close_same_direction.process(first, second, third, fourth, fifth, sixth)
-  @take_out_wrong_end.process(first, second, third)
-  @higher_high_lower_low.process(first, second, third, fourth, fifth, sixth)
-  @higher_high_higher_low.process(first, second, third, fourth, fifth, sixth)
-  @lower_high_lower_low.process(first, second, third, fourth, fifth, sixth)
-  @inside_day_and_inside_day.process(first, second, third, fourth, fifth, sixth)
+  # @quote_counter.process(first,second)
+  # @down_days.process(first, second)
+  # @up_days.process(first, second)
+  # @nearest_take_out.process(first, second)
+  # @do_full_gaps_close.process(first, second)
+  # @candle_gaps_close_4.process(first, second)
+  # @candle_gaps_close_5.process(first, second)
+  # @days_close_same_direction.process(first, second, third, fourth, fifth, sixth)
+  # @take_out_wrong_end.process(first, second, third)
+  # @higher_high_lower_low.process(first, second, third, fourth, fifth, sixth)
+  # @higher_high_higher_low.process(first, second, third, fourth, fifth, sixth)
+  # @lower_high_lower_low.process(first, second, third, fourth, fifth, sixth)
+  # @inside_day_and_inside_day.process(first, second, third, fourth, fifth, sixth)
+
+  @take_outs.process(first, second)
+
 
 
 end
 
-puts '-- Up and down days --'
-@down_days.display
-@up_days.display
-@nearest_take_out.display(@quote_counter.count)
+# puts '-- Up and down days --'
+# @down_days.display
+# @up_days.display
+# @nearest_take_out.display(@quote_counter.count)
+#
+# puts "\n-- Gaps --"
+# @do_full_gaps_close.display
+# @candle_gaps_close_4.display
+# @candle_gaps_close_5.display
+# @days_close_same_direction.display
+# @take_out_wrong_end.display
+# puts "\n-- Highers and Lowers"
+# @higher_high_lower_low.display
+# @higher_high_higher_low.display
+# @lower_high_lower_low.display
+# @inside_day_and_inside_day.display
 
-puts "\n-- Gaps --"
-@do_full_gaps_close.display
-@candle_gaps_close_4.display
-@candle_gaps_close_5.display
-@days_close_same_direction.display
-@take_out_wrong_end.display
-puts "\n-- Highers and Lowers"
-@higher_high_lower_low.display
-@higher_high_higher_low.display
-@lower_high_lower_low.display
-@inside_day_and_inside_day.display
+@take_outs.display

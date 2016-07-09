@@ -5,7 +5,7 @@ require 'rspec'
 describe 'candle entire overlap' do
 
   before do
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
   end
 
 #   before do
@@ -75,14 +75,14 @@ describe 'candle entire overlap' do
     quote = Quote.new('EURUSD', 234, 234, 10, 11,
               5, 6, 50, 25)
 
-    expect(@candle_operations.candle_closes_closer_low(quote)).to equal(true)
+    expect(@candle_ops.candle_closes_closer_low(quote)).to equal(true)
   end
 
   it 'should return false if the candle closes closer to its high' do
     quote = Quote.new('EURUSD', 234, 234, 10, 11,
                       5, 9, 50, 25)
 
-    expect(@candle_operations.candle_closes_closer_low(quote)).to equal(false)
+    expect(@candle_ops.candle_closes_closer_low(quote)).to equal(false)
   end
 
 end

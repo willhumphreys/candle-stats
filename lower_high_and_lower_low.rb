@@ -4,7 +4,7 @@ class LowerHighAndLowerLow
 
 
   def initialize
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
     @first_second = 0
     @second_third = 0
     @third_fourth = 0
@@ -21,16 +21,16 @@ class LowerHighAndLowerLow
   #Candles go earliest first.
   def process(first, second, third, fourth, fifth, sixth)
 
-    if @candle_operations.is_a_higher_high_in(first, second) && @candle_operations.is_a_lower_low_in(first, second)
+    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.is_a_lower_low_in(first, second)
       @first_second += 1
 
-      if !@candle_operations.is_a_higher_high_in(second, third) && @candle_operations.is_a_lower_low_in(second, third)
+      if !@candle_ops.is_a_higher_high_in(second, third) && @candle_ops.is_a_lower_low_in(second, third)
         @second_third += 1
-        if !@candle_operations.is_a_higher_high_in(third, fourth) && @candle_operations.is_a_lower_low_in(third, fourth)
+        if !@candle_ops.is_a_higher_high_in(third, fourth) && @candle_ops.is_a_lower_low_in(third, fourth)
           @third_fourth += 1
-          if !@candle_operations.is_a_higher_high_in(fourth, fifth) && @candle_operations.is_a_lower_low_in(fourth, fifth)
+          if !@candle_ops.is_a_higher_high_in(fourth, fifth) && @candle_ops.is_a_lower_low_in(fourth, fifth)
             @fourth_fifth += 1
-            if !@candle_operations.is_a_higher_high_in(fifth, sixth) && @candle_operations.is_a_lower_low_in(fifth, sixth)
+            if !@candle_ops.is_a_higher_high_in(fifth, sixth) && @candle_ops.is_a_lower_low_in(fifth, sixth)
               @fifth_sixth +=1
             else
               @not_fifth_sixth += 1

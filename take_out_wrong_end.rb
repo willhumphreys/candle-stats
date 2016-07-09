@@ -3,7 +3,7 @@ require_relative 'candle_operations'
 class TakeOutWrongEnd
 
   def initialize
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
 
     @close_up = 0
     @close_down = 0
@@ -21,8 +21,8 @@ class TakeOutWrongEnd
     # What does the third candle do?
 
     #Doesn't take out the low of the first candle.....
-    if @candle_operations.candle_closes_closer_low(first)
-      if second.close > first.high && @candle_operations.is_a_up_day(second) && second.low > first.low
+    if @candle_ops.candle_closes_closer_low(first)
+      if second.close > first.high && @candle_ops.is_a_up_day(second) && second.low > first.low
         if third.close > third.open
           @close_up += 1
 
@@ -36,9 +36,9 @@ class TakeOutWrongEnd
 
 
     #Close near the high
-    if @candle_operations.candle_closes_closer_high(first)
+    if @candle_ops.candle_closes_closer_high(first)
       #Next close is below the low of the first candle.
-      if second.close < first.low && @candle_operations.is_a_down_day(second) && second.high < first.high
+      if second.close < first.low && @candle_ops.is_a_down_day(second) && second.high < first.high
 
         #Third candle is down.
         if third.close < third.open

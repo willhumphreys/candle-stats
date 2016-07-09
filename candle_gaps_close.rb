@@ -2,7 +2,7 @@ require_relative 'candle_operations'
 
 class CandleGapsClose
   def initialize(minimum_gap_size)
-    @candle_operations = CandleOperations.new
+    @candle_ops = CandleOperations.new
     @candle_gap_count = 0
     @candle_gap_closed_count = 0
     @candle_count = 0
@@ -15,10 +15,10 @@ class CandleGapsClose
 
     if @minimum_gap_size == -1 || (first.close - second.open).abs >= @minimum_gap_size
 
-      if @candle_operations.gaps(first, second)
+      if @candle_ops.gaps(first, second)
         @candle_gap_count += 1
 
-        if @candle_operations.gap_closes(first, second)
+        if @candle_ops.gap_closes(first, second)
           @candle_gap_closed_count += 1
         end
       end

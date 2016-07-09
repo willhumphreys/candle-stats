@@ -83,6 +83,14 @@ class CandleOperations
     quote.close < quote.open
   end
 
+  def percentage(day_up_count, total_count)
+    ((day_up_count.to_f / (total_count)) * 100).round(2)
+  end
+
+  def percent_message(fraction, total, message)
+    puts "#{message} #{percentage(fraction, total)}% #{fraction}/#{total}"
+  end
+
   def day_percentage(day_up_count, day_not_up_count)
     ((day_up_count.to_f / (day_not_up_count + day_up_count)) * 100).round(2)
   end
@@ -93,5 +101,17 @@ class CandleOperations
 
   def candle_closes_closer_high(quote)
     (quote.close - quote.high).abs > (quote.close - quote.low).abs
+  end
+
+  def closes_inside_range(first, second)
+    second.close >= first.low && second.close <= first.high
+  end
+
+  def closes_above_range(first, second)
+    second.close > first.high
+  end
+
+  def closes_below_range(first, second)
+    second.close < first.low
   end
 end
