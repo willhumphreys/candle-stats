@@ -13,11 +13,11 @@ class TakeOuts
     @inside_range_count = 0
 
     @high_close_in_range_count = 0
-    @higher_high_closes_above_range = 0
+    @high_closes_above_range = 0
     @higher_high_closes_below_range = 0
 
     @high_total_close_inside = 0
-    @total_close_above = 0
+    @high_total_close_above = 0
 
     @lower_low_closes_in_range = 0
     @lower_low_closes_above_range = 0
@@ -72,10 +72,10 @@ class TakeOuts
       if @candle_ops.closes_above_range(first, second)
         high_diff = ((second.high - first.high) * 10000).round(0)
         open(@higher_high_close_above_f, 'a') do |f|
-          f.puts high_diff
+          f.puts "#{second.timestamp}, #{high_diff}"
         end
-        @total_close_above += high_diff
-        @higher_high_closes_above_range += 1
+        @high_total_close_above += high_diff
+        @high_closes_above_range += 1
       end
 
       if @candle_ops.closes_below_range(first, second)
@@ -111,8 +111,9 @@ class TakeOuts
     puts '----- If we take out the high'
     @candle_ops.percent_message(@high_close_in_range_count, @higher_high_count,
                                 'We close back in the range')
-    puts "On average we go #{av_distance_above_range} pips above the range before reversing and closing back inside the range"
-    @candle_ops.percent_message(@higher_high_closes_above_range, @higher_high_count,
+    puts "High taken out. Still want to close in range. Average pips #{@high_total_close_inside / @high_close_in_range_count}"
+    puts "High taken out. What to close above. Average pips #{@high_total_close_above  / @high_closes_above_range}"
+    @candle_ops.percent_message(@high_closes_above_range, @higher_high_count,
                                 'We close above the previous range')
     @candle_ops.percent_message(@higher_high_closes_below_range, @higher_high_count,
                                 'We close below the previous range')
@@ -126,7 +127,4 @@ class TakeOuts
 
   end
 
-  def av_distance_above_range
-    @high_total_close_inside / @high_close_in_range_count
-  end
 end

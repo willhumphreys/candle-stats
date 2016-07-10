@@ -4,7 +4,7 @@ library(quantreg)
 library(plyr)
 library(ggthemes)
 
-generate.plot <- function(file.in, file.out, plot.title) {
+generate.plot <- function(file.in, file.out, plot.title, plot.high) {
     data <- read.table(file.in, header=T,sep=",")
     data$fixed.date.time=as.POSIXct(data$date.time, tz = "UTC")
     data$date.time <- data$fixed.date.time
@@ -30,7 +30,7 @@ generate.plot <- function(file.in, file.out, plot.title) {
     geom_hline(aes(yintercept = q50, colour = 'Median')) +
     geom_hline(aes(yintercept = q80, colour = '80th percentile')) +
 
-    scale_y_continuous(breaks=seq(0, 250, 10))  +
+    scale_y_continuous(breaks=seq(0, plot.high, 10))  +
     guides(fill=guide_legend(title=NULL)) +
     labs(x="Date",y="Pips") +
     theme_solarized() +
@@ -42,5 +42,12 @@ generate.plot <- function(file.in, file.out, plot.title) {
 
 generate.plot("out/higher_high_close_in_range.csv",
     "plots/higher_high_close_in_range.png",
-    "Break outside and close back inside AUDUSD Weekly"
+    "Break outside and close back inside AUDUSD Weekly",
+    250
+    )
+
+generate.plot("out/higher_high_close_above.csv",
+    "plots/higher_high_close_above.png",
+    "Break above and hold AUDUSD Weekly",
+    500
     )
