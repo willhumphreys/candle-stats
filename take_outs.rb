@@ -3,7 +3,7 @@ require 'fileutils'
 
 class TakeOuts
 
-  def initialize
+  def initialize(contract)
     @candle_ops = CandleOperations.new
 
     @higher_high_count = 0
@@ -30,10 +30,10 @@ class TakeOuts
     FileUtils.rm_rf('out')
     FileUtils.mkdir_p 'out'
 
-    @higher_high_close_in_range_f = 'out/higher_high_close_in_range.csv'
-    @higher_high_close_above_f = 'out/higher_high_close_above.csv'
-    @lower_low_close_in_range_f = 'out/lower_low_close_in_range.csv'
-    @lower_low_close_below_f = 'out/lower_low_close_below.csv'
+    @higher_high_close_in_range_f = "out/#{contract}_higher_high_close_in_range.csv"
+    @higher_high_close_above_f = "out/#{contract}_higher_high_close_above.csv"
+    @lower_low_close_in_range_f = "out/#{contract}_lower_low_close_in_range.csv"
+    @lower_low_close_below_f = "out/#{contract}_lower_low_close_below.csv"
 
     open(@higher_high_close_in_range_f, 'a') do |f|
       f.puts 'date.time, pips'

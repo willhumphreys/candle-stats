@@ -36,7 +36,7 @@ quotes = @mt4_file_repo.read_quotes
 @lower_high_lower_low = LowerHighAndLowerLow.new
 @inside_day_and_inside_day = InsideDayAndInsideDay.new
 
-@take_outs = TakeOuts.new
+@take_outs = TakeOuts.new('AUDUSDWeekly')
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   # @quote_counter.process(first,second)
