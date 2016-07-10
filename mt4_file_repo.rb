@@ -26,6 +26,7 @@ class MT4FileRepo
       if first_row
         first_row = false
       else
+
         mapped_quotes.push(@mt4_quote_mapper.map(row))
       end
 

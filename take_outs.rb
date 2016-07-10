@@ -24,18 +24,17 @@ class TakeOuts
 
 
     FileUtils.rm_rf('out')
-
     FileUtils.mkdir_p 'out'
 
     @higher_high_close_in_range_f = 'out/higher_high_close_in_range.csv'
     @higher_high_close_above_f = 'out/higher_high_close_above.csv'
 
     open(@higher_high_close_in_range_f, 'a') do |f|
-      f.puts 'higher_high_close_in_range'
+      f.puts 'date.time, pips'
     end
 
     open(@higher_high_close_above_f, 'a') do |f|
-      f.puts 'higher_high_close_above'
+      f.puts 'date.time, pips'
     end
 
   end
@@ -64,7 +63,7 @@ class TakeOuts
       if @candle_ops.closes_inside_range(first, second)
         distance_above_high_close_inside = ((second.high - first.high) * 10000).round(0)
         open(@higher_high_close_in_range_f, 'a') do |f|
-          f.puts distance_above_high_close_inside
+          f.puts "#{second.timestamp}, #{distance_above_high_close_inside}"
         end
         @distance_above_high_count += distance_above_high_close_inside
         @higher_high_closes_in_range += 1
