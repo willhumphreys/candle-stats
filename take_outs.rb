@@ -27,7 +27,7 @@ class TakeOuts
     @low_total_close_inside = 0
     @low_total_close_below = 0
 
-    FileUtils.rm_rf('out')
+    #FileUtils.rm_rf('out')
     FileUtils.mkdir_p 'out'
 
     @higher_high_close_in_range_f = "out/#{contract}_higher_high_close_in_range.csv"

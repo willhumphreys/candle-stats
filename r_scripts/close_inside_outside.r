@@ -63,3 +63,27 @@ generate.plot("out/AUDUSDWeekly_lower_low_close_below.csv",
     "Break below and hold AUDUSD Weekly",
     40, 1500
     )
+
+generate.plot("out/AUDUSDDaily_higher_high_close_in_range.csv",
+    "plots/AUDUSDDaily_higher_high_close_in_range.png",
+    "Break outside and close back inside AUDUSD Daily",
+    10, 250
+    )
+
+generate.plot("out/AUDUSDDaily_higher_high_close_above.csv",
+    "plots/AUDUSDDaily_higher_high_close_above.png",
+    "Break above and hold AUDUSD Daily",
+    20, 500
+    )
+
+generate.plot("out/AUDUSDDaily_lower_low_close_in_range.csv",
+    "plots/AUDUSDDaily_lower_low_close_in_range.png",
+    "Break below and close back inside AUDUSD Daily",
+    10, 300
+    )
+
+generate.plot("out/AUDUSDDaily_lower_low_close_below.csv",
+    "plots/AUDUSDDaily_lower_low_close_below.png",
+    "Break below and hold AUDUSD Daily",
+    10, 1500
+    )
