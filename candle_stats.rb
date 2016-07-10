@@ -20,7 +20,7 @@ require_relative 'take_outs'
 @bar_chart_file_repo = BarChartFileRepo.new
 @mt4_file_repo = MT4FileRepo.new
 #quotes =  @bar_chart_file_repo.read_quotes
-quotes = @mt4_file_repo.read_quotes
+quotes = @mt4_file_repo.read_quotes('data/AUDUSD10080.csv')
 
 @quote_counter = QuoteCounter.new
 @nearest_take_out = NearestTakeOut.new

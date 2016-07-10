@@ -6,18 +6,17 @@ class MT4FileRepo
   @mt4_quote_mapper
 
   def initialize
-
     @mt4_quote_mapper = Mt4QuoteMapper.new
 
   end
 
-  def read_quotes
+  def read_quotes(file)
 
     mapped_quotes = Array.new
 
     first_row = true
 
-    file = 'data/AUDUSD10080.csv'
+    #file = 'data/AUDUSD10080.csv'
     #file = 'data/USDCAD1440.csv'
     puts "Reading file #{file}"
 
