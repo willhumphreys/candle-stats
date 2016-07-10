@@ -16,24 +16,38 @@ class TakeOuts
     @high_closes_above_range = 0
     @higher_high_closes_below_range = 0
 
+    @low_close_in_range_count = 0
+    @low_closes_below_range = 0
+    @lower_low_closes_above_range = 0
+
+
     @high_total_close_inside = 0
     @high_total_close_above = 0
 
-    @lower_low_closes_in_range = 0
-    @lower_low_closes_above_range = 0
-    @lower_low_closes_below_range = 0
+    @low_total_close_inside = 0
+    @low_total_close_below = 0
 
     FileUtils.rm_rf('out')
     FileUtils.mkdir_p 'out'
 
     @higher_high_close_in_range_f = 'out/higher_high_close_in_range.csv'
     @higher_high_close_above_f = 'out/higher_high_close_above.csv'
+    @lower_low_close_in_range_f = 'out/lower_low_close_in_range.csv'
+    @lower_low_close_below_f = 'out/lower_low_close_below.csv'
 
     open(@higher_high_close_in_range_f, 'a') do |f|
       f.puts 'date.time, pips'
     end
 
     open(@higher_high_close_above_f, 'a') do |f|
+      f.puts 'date.time, pips'
+    end
+
+    open(@lower_low_close_in_range_f, 'a') do |f|
+      f.puts 'date.time, pips'
+    end
+
+    open(@lower_low_close_below_f, 'a') do |f|
       f.puts 'date.time, pips'
     end
 
@@ -85,13 +99,22 @@ class TakeOuts
     end
 
     if @candle_ops.is_a_lower_low_in(first, second)
+      low_diff = ((first.low - second.low) * 10000).round(0)
 
       if @candle_ops.closes_inside_range(first, second)
-        @lower_low_closes_in_range += 1
+        open(@lower_low_close_in_range_f, 'a') do |f|
+          f.puts "#{second.timestamp}, #{low_diff}"
+        end
+        @low_total_close_inside += low_diff
+        @low_close_in_range_count += 1
       end
 
       if @candle_ops.closes_below_range(first, second)
-        @lower_low_closes_below_range += 1
+        open(@lower_low_close_below_f, 'a') do |f|
+          f.puts "#{second.timestamp}, #{low_diff}"
+        end
+        @low_total_close_below += low_diff
+        @low_closes_below_range += 1
       end
 
       if @candle_ops.closes_above_range(first, second)
@@ -118,12 +141,14 @@ class TakeOuts
     @candle_ops.percent_message(@higher_high_closes_below_range, @higher_high_count,
                                 'We close below the previous range')
     puts '---- If we take out the low'
-    @candle_ops.percent_message(@lower_low_closes_in_range, @lower_low_count,
+    @candle_ops.percent_message(@lower_low_closes_inside, @lower_low_count,
                                 'We close back in the range')
     @candle_ops.percent_message(@lower_low_closes_below_range, @lower_low_count,
                                 'We close below the previous range')
     @candle_ops.percent_message(@lower_low_closes_above_range, @lower_low_count,
                                 'We close above the previous range')
+    puts "Low taken out. Still want to close in range. Average pips #{@low_total_close_inside / @low_close_in_range_count}"
+    puts "Low taken out. What to close below. Average pips #{@low_total_close_below  / @low_closes_below_range}"
 
   end
 
