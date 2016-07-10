@@ -12,16 +12,16 @@ class TakeOuts
     @high_and_low_taken_out = 0
     @inside_range_count = 0
 
-    @higher_high_closes_in_range = 0
+    @high_close_in_range_count = 0
     @higher_high_closes_above_range = 0
     @higher_high_closes_below_range = 0
 
-    @distance_above_high_count = 0
+    @high_total_close_inside = 0
+    @total_close_above = 0
 
     @lower_low_closes_in_range = 0
     @lower_low_closes_above_range = 0
     @lower_low_closes_below_range = 0
-
 
     FileUtils.rm_rf('out')
     FileUtils.mkdir_p 'out'
@@ -61,20 +61,20 @@ class TakeOuts
     if @candle_ops.is_a_higher_high_in(first, second)
 
       if @candle_ops.closes_inside_range(first, second)
-        distance_above_high_close_inside = ((second.high - first.high) * 10000).round(0)
+        high_diff = ((second.high - first.high) * 10000).round(0)
         open(@higher_high_close_in_range_f, 'a') do |f|
-          f.puts "#{second.timestamp}, #{distance_above_high_close_inside}"
+          f.puts "#{second.timestamp}, #{high_diff}"
         end
-        @distance_above_high_count += distance_above_high_close_inside
-        @higher_high_closes_in_range += 1
+        @high_total_close_inside += high_diff
+        @high_close_in_range_count += 1
       end
 
       if @candle_ops.closes_above_range(first, second)
-        distance_above_high_close_above = ((second.high - first.high) * 10000).round(0)
+        high_diff = ((second.high - first.high) * 10000).round(0)
         open(@higher_high_close_above_f, 'a') do |f|
-          f.puts distance_above_high_close_above
+          f.puts high_diff
         end
-        @distance_above_high_count += distance_above_high_close_above
+        @total_close_above += high_diff
         @higher_high_closes_above_range += 1
       end
 
@@ -109,7 +109,7 @@ class TakeOuts
     @candle_ops.percent_message(@high_and_low_taken_out, @candle_count, 'Take out high and low')
     @candle_ops.percent_message(@inside_range_count, @candle_count, 'Stay inside range')
     puts '----- If we take out the high'
-    @candle_ops.percent_message(@higher_high_closes_in_range, @higher_high_count,
+    @candle_ops.percent_message(@high_close_in_range_count, @higher_high_count,
                                 'We close back in the range')
     puts "On average we go #{av_distance_above_range} pips above the range before reversing and closing back inside the range"
     @candle_ops.percent_message(@higher_high_closes_above_range, @higher_high_count,
@@ -127,6 +127,6 @@ class TakeOuts
   end
 
   def av_distance_above_range
-    @distance_above_high_count / @higher_high_closes_in_range
+    @high_total_close_inside / @high_close_in_range_count
   end
 end
