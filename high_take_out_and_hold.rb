@@ -6,7 +6,6 @@ class HighTakeOutAndHold
   def initialize(contract)
     @candle_ops = CandleOperations.new
 
-    @candle_count = 0
     @high_closes_above_range = 0
     @high_total_close_above = 0
     @higher_high_count = 0
@@ -22,7 +21,6 @@ class HighTakeOutAndHold
   end
 
   def process(first, second)
-    @candle_count += 1
 
     if @candle_ops.is_a_higher_high_in(first, second)
       @higher_high_count += 1
