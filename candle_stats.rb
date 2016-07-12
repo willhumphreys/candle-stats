@@ -8,7 +8,7 @@ require_relative 'candle_operations'
 @mt4_file_repo = MT4FileRepo.new
 @candle_ops = CandleOperations.new
 
-quotes = @mt4_file_repo.read_quotes('data/AUDUSD10080.csv')
+
 
 higher_high_close_above_l = lambda do |first, second|
   if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_above_range(first, second)
@@ -37,6 +37,9 @@ lower_low_close_inside_l = lambda do |first, second|
   end
   nil
 end
+
+
+quotes = @mt4_file_repo.read_quotes('data/AUDUSD10080.csv')
 
 @higher_high_close_above = Stat_Executor.new('AUDUSDWeekly', higher_high_close_above_l, 'higher_high_close_above')
 @higher_high_close_inside = Stat_Executor.new('AUDUSDWeekly', higher_high_close_inside_l, 'higher_high_close_inside')
