@@ -16,13 +16,13 @@ require_relative 'bar_chart_file_repo'
 require_relative 'mt4_file_repo'
 
 require_relative 'take_outs'
-require_relative 'high_take_out_and_hold'
+require_relative 'higher_high_close_above'
 
 @bar_chart_file_repo = BarChartFileRepo.new
 @mt4_file_repo = MT4FileRepo.new
 quotes = @mt4_file_repo.read_quotes('data/AUDUSD10080.csv')
 
-@high_take_out_hold = HighTakeOutAndHold.new('AUDUSDWeekly')
+@high_take_out_hold = HigherHighCloseAbove.new('AUDUSDWeekly')
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
   @high_take_out_hold.process_and_write(first, second)

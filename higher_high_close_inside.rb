@@ -1,14 +1,14 @@
 require_relative 'candle_operations'
 require 'fileutils'
 
-class HighTakeOutAndHold
+class HigherHighCloseInside
 
   def initialize(contract)
     @candle_ops = CandleOperations.new
 
     FileUtils.mkdir_p 'out'
 
-    @higher_high_close_above_f = "out/#{contract}_higher_high_close_above.csv"
+    @higher_high_close_above_f = "out/#{contract}_higher_high_close_inside.csv"
     write_file_header
   end
 
@@ -19,7 +19,7 @@ class HighTakeOutAndHold
   end
 
   def process(first, second)
-    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_above_range(first, second)
+    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_inside_range(first, second)
       return ((second.high - first.high) * 10000).round(0)
     end
     nil

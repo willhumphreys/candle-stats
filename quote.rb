@@ -10,7 +10,7 @@ class Quote
   #     "volume": 277112,
   #     "openInterest": null
 
-  def initialize(symbol, timestamp, trading_day, open, high, low, close, volume, open_interest)
+  def initialize(symbol: , timestamp: , trading_day: , open: , high: , low: , close: , volume: , open_interest: )
 
     @symbol = symbol
     @timestamp = timestamp
