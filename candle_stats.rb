@@ -1,8 +1,6 @@
 require 'json'
 require_relative 'bar_chart_file_repo'
 require_relative 'mt4_file_repo'
-
-
 require_relative 'higher_high_close_above'
 require_relative 'higher_high_close_inside'
 
