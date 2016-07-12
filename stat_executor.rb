@@ -1,14 +1,15 @@
 require_relative 'candle_operations'
 require 'fileutils'
 
-class HigherHighCloseInside
+class Stat_Executor
 
-  def initialize(contract)
+  def initialize(contract, l, stat_name)
     @candle_ops = CandleOperations.new
+    @lambda = l
 
     FileUtils.mkdir_p 'out'
 
-    @higher_high_close_above_f = "out/#{contract}_higher_high_close_inside.csv"
+    @higher_high_close_above_f = "out/#{contract}_#{stat_name}.csv"
     write_file_header
   end
 
@@ -19,14 +20,14 @@ class HigherHighCloseInside
   end
 
   def process(first, second)
-    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_inside_range(first, second)
+    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_above_range(first, second)
       return ((second.high - first.high) * 10000).round(0)
     end
     nil
   end
 
   def process_and_write(first, second)
-    result = process(first, second)
+    result = @lambda.call(first, second)
     if result != nil
       write(result, second.timestamp)
     end

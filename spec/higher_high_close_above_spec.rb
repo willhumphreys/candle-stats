@@ -1,11 +1,11 @@
-require_relative '../higher_high_close_above'
+require_relative '../stat_executor'
 require_relative '../quote.rb'
 require 'rspec'
 
 describe 'Higher high and close above tests' do
 
   before do
-    @high_take_out_and_hold = HigherHighCloseAbove.new('AUDUSDWeekly')
+    @high_take_out_and_hold = Stat_Executor.new('AUDUSDWeekly')
 
     @first_quote = Quote.new(
         symbol: 'AUDUSD',
