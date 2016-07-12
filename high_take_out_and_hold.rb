@@ -6,39 +6,35 @@ class HighTakeOutAndHold
   def initialize(contract)
     @candle_ops = CandleOperations.new
 
-    @high_closes_above_range = 0
-    @high_total_close_above = 0
-    @higher_high_count = 0
-
     FileUtils.mkdir_p 'out'
 
     @higher_high_close_above_f = "out/#{contract}_higher_high_close_above.csv"
+    write_file_header
+  end
 
+  def write_file_header
     open(@higher_high_close_above_f, 'a') do |f|
       f.puts 'date.time, pips'
     end
-
   end
 
   def process(first, second)
+    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_above_range(first, second)
+      return ((second.high - first.high) * 10000).round(0)
+    end
+    nil
+  end
 
-    if @candle_ops.is_a_higher_high_in(first, second)
-      @higher_high_count += 1
-      if @candle_ops.closes_above_range(first, second)
-        high_diff = ((second.high - first.high) * 10000).round(0)
-        open(@higher_high_close_above_f, 'a') do |f|
-          f.puts "#{second.timestamp}, #{high_diff}"
-        end
-        @high_total_close_above += high_diff
-        @high_closes_above_range += 1
-      end
+  def process_and_write(first, second)
+    result = process(first, second)
+    if result != nil
+      write(result, second.timestamp)
     end
   end
 
-  def display
-    puts '----- If we take out the high'
-    puts "High taken out. What to close above. Average pips #{@high_total_close_above  / @high_closes_above_range}"
-    @candle_ops.percent_message(@high_closes_above_range, @higher_high_count, 'We close above the previous range')
+  def write(high_diff, timestamp)
+    open(@higher_high_close_above_f, 'a') do |f|
+      f.puts "#{timestamp}, #{high_diff}"
+    end
   end
-
 end

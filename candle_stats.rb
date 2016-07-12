@@ -25,9 +25,7 @@ quotes = @mt4_file_repo.read_quotes('data/AUDUSD10080.csv')
 @high_take_out_hold = HighTakeOutAndHold.new('AUDUSDWeekly')
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
-
-  @high_take_out_hold.process(first, second)
-
+  @high_take_out_hold.process_and_write(first, second)
 end
 
-@high_take_out_hold.display
+puts 'done'
