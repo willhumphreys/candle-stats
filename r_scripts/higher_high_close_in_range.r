@@ -1,5 +1,0 @@
-data <- read.table("out/higher_high_close_in_range.csv", header=T,sep=",")
-attach(data)
-plot(higher.high.close.in.range)
-abline(h=c(quantile(data$higher_high_close_in_range, 0.5)))
-abline(h=c(quantile(data$higher_high_close_in_range, 0.8)))
