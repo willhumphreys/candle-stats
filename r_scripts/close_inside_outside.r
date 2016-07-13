@@ -40,50 +40,13 @@ generate.plot <- function(file.in, file.out, plot.title, plot.step, plot.high) {
     ggsave(file=file.out)
 }
 
-generate.plot("out/AUDUSDWeekly_higher_high_close_in_range.csv",
-    "plots/AUDUSDWeekly_higher_high_close_in_range.png",
-    "Break outside and close back inside AUDUSD Weekly",
-    10, 250
-    )
 
-generate.plot("out/AUDUSDWeekly_higher_high_close_above.csv",
-    "plots/AUDUSDWeekly_higher_high_close_above.png",
-    "Break above and hold AUDUSD Weekly",
-    20, 500
-    )
+in_files <- list.files('out')
 
-generate.plot("out/AUDUSDWeekly_lower_low_close_in_range.csv",
-    "plots/AUDUSDWeekly_lower_low_close_in_range.png",
-    "Break below and close back inside AUDUSD Weekly",
-    10, 300
-    )
+file_names <- sapply(strsplit(in_files, split='.', fixed=TRUE), function(x) (x[1]))
 
-generate.plot("out/AUDUSDWeekly_lower_low_close_below.csv",
-    "plots/AUDUSDWeekly_lower_low_close_below.png",
-    "Break below and hold AUDUSD Weekly",
-    40, 1500
-    )
-
-generate.plot("out/AUDUSDDaily_higher_high_close_in_range.csv",
-    "plots/AUDUSDDaily_higher_high_close_in_range.png",
-    "Break outside and close back inside AUDUSD Daily",
-    10, 250
-    )
-
-generate.plot("out/AUDUSDDaily_higher_high_close_above.csv",
-    "plots/AUDUSDDaily_higher_high_close_above.png",
-    "Break above and hold AUDUSD Daily",
-    20, 500
-    )
-
-generate.plot("out/AUDUSDDaily_lower_low_close_in_range.csv",
-    "plots/AUDUSDDaily_lower_low_close_in_range.png",
-    "Break below and close back inside AUDUSD Daily",
-    10, 300
-    )
-
-generate.plot("out/AUDUSDDaily_lower_low_close_below.csv",
-    "plots/AUDUSDDaily_lower_low_close_below.png",
-    "Break below and hold AUDUSD Daily",
-    10, 1500
-    )
+sapply(file_names, function(x) generate.plot(paste("out/", x, ".csv", sep = ""),
+                                 paste("plots/", x, ".png", sep = ""),
+                                 x,
+                                 10, 250
+                                 ))
