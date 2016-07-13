@@ -1,15 +1,16 @@
 require_relative 'candle_operations'
+require_relative 'processor'
 require 'fileutils'
 
 class Stat_Executor
 
-  def initialize(contract, l, stat_name)
+  def initialize(contract, processor)
     @candle_ops = CandleOperations.new
-    @lambda = l
+    @processor = processor
 
     FileUtils.mkdir_p 'out'
 
-    @out_csv_file = "out/#{contract}_#{stat_name}.csv"
+    @out_csv_file = "out/#{contract}_#{@processor.name}.csv"
 
     if File.exist?(@out_csv_file)
       File.truncate(@out_csv_file, 0)
@@ -32,7 +33,7 @@ class Stat_Executor
   end
 
   def process_and_write(first, second)
-    result = @lambda.call(first, second)
+    result = @processor.processor_function.call(first, second)
     if result != nil
       write(result, second.timestamp)
     end
