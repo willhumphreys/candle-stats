@@ -44,10 +44,10 @@ data_sets = symbols.product(time_periods).collect { | time_period, symbol| time_
 data_sets.each {|data_set |
 quotes = @mt4_file_repo.read_quotes("data/#{data_set}.csv")
 
-@higher_high_close_above = Stat_Executor.new('AUDUSDWeekly', higher_high_close_above_l, 'higher_high_close_above')
-@higher_high_close_inside = Stat_Executor.new('AUDUSDWeekly', higher_high_close_inside_l, 'higher_high_close_inside')
-@lower_low_close_above = Stat_Executor.new('AUDUSDWeekly', lower_low_close_below_l, 'lower_low_close_above')
-@lower_low_close_inside = Stat_Executor.new('AUDUSDWeekly', lower_low_close_inside_l, 'lower_low_close_inside')
+@higher_high_close_above = Stat_Executor.new(data_set, higher_high_close_above_l, 'higher_high_close_above')
+@higher_high_close_inside = Stat_Executor.new(data_set, higher_high_close_inside_l, 'higher_high_close_inside')
+@lower_low_close_above = Stat_Executor.new(data_set, lower_low_close_below_l, 'lower_low_close_above')
+@lower_low_close_inside = Stat_Executor.new(data_set, lower_low_close_inside_l, 'lower_low_close_inside')
 
 
 quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|

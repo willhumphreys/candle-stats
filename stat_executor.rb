@@ -9,15 +9,17 @@ class Stat_Executor
 
     FileUtils.mkdir_p 'out'
 
-    @higher_high_close_above_f = "out/#{contract}_#{stat_name}.csv"
+    @out_csv_file = "out/#{contract}_#{stat_name}.csv"
 
-    File.truncate(@higher_high_close_above_f, 0)
+    if File.exist?(@out_csv_file)
+      File.truncate(@out_csv_file, 0)
+    end
 
     write_file_header
   end
 
   def write_file_header
-    open(@higher_high_close_above_f, 'a') do |f|
+    open(@out_csv_file, 'a') do |f|
       f.puts 'date.time, pips'
     end
   end
@@ -37,7 +39,7 @@ class Stat_Executor
   end
 
   def write(high_diff, timestamp)
-    open(@higher_high_close_above_f, 'a') do |f|
+    open(@out_csv_file, 'a') do |f|
       f.puts "#{timestamp}, #{high_diff}"
     end
   end
