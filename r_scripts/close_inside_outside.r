@@ -4,7 +4,7 @@ library(quantreg)
 library(plyr)
 library(ggthemes)
 
-generate.plot <- function(file.in, file.out, plot.title, plot.step, plot.high) {
+generate.plot <- function(file.in, file.out, plot.title) {
     data <- read.table(file.in, header=T,sep=",")
     data$fixed.date.time=as.POSIXct(data$date.time, tz = "UTC")
     data$date.time <- data$fixed.date.time
@@ -29,8 +29,6 @@ generate.plot <- function(file.in, file.out, plot.title, plot.step, plot.high) {
     geom_hline(aes(yintercept = q20, colour = '20th percentile')) +
     geom_hline(aes(yintercept = q50, colour = 'Median')) +
     geom_hline(aes(yintercept = q80, colour = '80th percentile')) +
-
-    scale_y_continuous(breaks=seq(0, plot.high, plot.step))  +
     guides(fill=guide_legend(title=NULL)) +
     labs(x="Date",y="Pips") +
     theme_solarized() +
@@ -47,6 +45,4 @@ file_names <- sapply(strsplit(in_files, split='.', fixed=TRUE), function(x) (x[1
 
 sapply(file_names, function(x) generate.plot(paste("out/", x, ".csv", sep = ""),
                                  paste("plots/", x, ".png", sep = ""),
-                                 x,
-                                 10, 250
-                                 ))
+                                 x ))
