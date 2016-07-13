@@ -10,6 +10,9 @@ class Stat_Executor
     FileUtils.mkdir_p 'out'
 
     @higher_high_close_above_f = "out/#{contract}_#{stat_name}.csv"
+
+    File.truncate(@higher_high_close_above_f, 0)
+
     write_file_header
   end
 
