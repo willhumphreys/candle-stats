@@ -3,7 +3,7 @@ require_relative '../processor'
 require_relative '../quote.rb'
 require 'rspec'
 
-describe 'Test the logic of the higher high close inside' do
+describe 'Test the logic of the lower low close inside' do
 
   before do
     @processor_map = Processors.new.processors
@@ -34,8 +34,8 @@ describe 'Test the logic of the higher high close inside' do
 
   end
 
-  it 'should return nil if we do not put in a higher high' do
-    processor = @processor_map[:higher_high_close_inside]
+  it 'should return nil if we do not put in a lower low' do
+    processor = @processor_map[:lower_low_close_inside]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
@@ -51,26 +51,26 @@ describe 'Test the logic of the higher high close inside' do
     expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
   end
 
-  it 'should return nil if we put in a higher high but still close outside.' do
-    processor = @processor_map[:higher_high_close_inside]
+  it 'should return nil if we put in a lower low but still close outside.' do
+    processor = @processor_map[:lower_low_close_inside]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
         trading_day: '1',
         open: 7,
         high: 15,
-        low: 3,
-        close: 13,
+        low: 2,
+        close: 2,
         volume: 10,
         open_interest: 1
     )
 
-    # 15 > 12
+    # 2 < 4
     expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
   end
 
-  it 'should return the difference between highs if we put in a higher high and close inside the range.' do
-    processor = @processor_map[:higher_high_close_inside]
+  it 'should return the difference between lows if we put in a lower low and close inside the range.' do
+    processor = @processor_map[:lower_low_close_inside]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
@@ -83,7 +83,7 @@ describe 'Test the logic of the higher high close inside' do
         open_interest: 1
     )
 
-    #16 - 12
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(40000)
+    #4 - 3
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(-10000)
   end
 end
