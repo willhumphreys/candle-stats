@@ -19,7 +19,7 @@ data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_p
 data_sets.each { |data_set|
   quotes = @mt4_file_repo.read_quotes("data/#{data_set}.csv")
 
-  executors = @processors.processors.collect { |processor| Stat_Executor.new(data_set, processor) }
+  executors = @processors.processors.values.collect { |processor| Stat_Executor.new(data_set, processor) }
 
   quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
 

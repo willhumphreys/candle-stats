@@ -33,11 +33,11 @@ class Processors
       nil
     end
 
-    @processors = [
-        Processor.new('higher_high_close_above', higher_high_close_above_l),
-        Processor.new('higher_high_close_inside', higher_high_close_inside_l),
-        Processor.new('lower_low_close_above', lower_low_close_below_l),
-        Processor.new('lower_low_close_inside', lower_low_close_inside_l)
-    ]
+    @processors = {
+        :higher_high_close_above => Processor.new('higher_high_close_above', higher_high_close_above_l),
+        :higher_high_close_inside => Processor.new('higher_high_close_inside', higher_high_close_inside_l),
+        :lower_low_close_above => Processor.new('lower_low_close_above', lower_low_close_below_l),
+        :lower_low_close_inside => Processor.new('lower_low_close_inside', lower_low_close_inside_l)
+    }
   end
 end

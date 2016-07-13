@@ -1,11 +1,13 @@
-require_relative '../stat_executor'
+require_relative '../processors'
+require_relative '../processor'
 require_relative '../quote.rb'
 require 'rspec'
 
-describe 'Higher high and close above tests' do
+describe 'Test the logic of the processors' do
 
   before do
-    @high_take_out_and_hold = Stat_Executor.new('AUDUSDWeekly')
+    @processor_map = Processors.new.processors
+
 
     @first_quote = Quote.new(
         symbol: 'AUDUSD',
@@ -34,11 +36,12 @@ describe 'Higher high and close above tests' do
   end
 
   it 'should return the difference in pips if we put in a higher high and close above the previous high' do
-    expect(@high_take_out_and_hold.process(@first_quote, @second_quote)).to equal(30000)
+    processor = @processor_map[:higher_high_close_above]
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(30000)
   end
 
   it 'should return nil if we do not put in a higher high' do
-
+    processor = @processor_map[:higher_high_close_above]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
@@ -51,11 +54,11 @@ describe 'Higher high and close above tests' do
         open_interest: 1
     )
 
-    expect(@high_take_out_and_hold.process(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
   end
 
   it 'should return nil if we put in a higher high but do not close above it' do
-
+    processor = @processor_map[:higher_high_close_above]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
@@ -68,7 +71,7 @@ describe 'Higher high and close above tests' do
         open_interest: 1
     )
 
-    expect(@high_take_out_and_hold.process(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
   end
 
-  end
+end

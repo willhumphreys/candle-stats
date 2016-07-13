@@ -1,11 +1,13 @@
-require_relative '../higher_high_close_inside'
+require_relative '../processors'
+require_relative '../processor'
 require_relative '../quote.rb'
 require 'rspec'
 
-describe 'Higher high and close inside tests' do
+describe 'Test the logic of the higher high close inside' do
 
   before do
-    @high_take_out_and_hold = HigherHighCloseInside.new('AUDUSDWeekly')
+    @processor_map = Processors.new.processors
+
 
     @first_quote = Quote.new(
         symbol: 'AUDUSD',
@@ -30,9 +32,11 @@ describe 'Higher high and close inside tests' do
         volume: 10,
         open_interest: 1
     )
+
   end
 
   it 'should return nil if we do not put in a higher high' do
+    processor = @processor_map[:higher_high_close_inside]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
@@ -45,16 +49,29 @@ describe 'Higher high and close inside tests' do
         open_interest: 1
     )
 
-    expect(@high_take_out_and_hold.process(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
   end
 
   it 'should return nil if we put in a higher high but still close outside.' do
+    processor = @processor_map[:higher_high_close_inside]
+    @second_quote = Quote.new(
+        symbol: 'AUDUSD',
+        timestamp: '1234',
+        trading_day: '1',
+        open: 7,
+        high: 15,
+        low: 3,
+        close: 13,
+        volume: 10,
+        open_interest: 1
+    )
+
     # 15 > 12
-    expect(@high_take_out_and_hold.process(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
   end
 
   it 'should return the difference between highs if we put in a higher high and close inside the range.' do
-
+    processor = @processor_map[:higher_high_close_inside]
     @second_quote = Quote.new(
         symbol: 'AUDUSD',
         timestamp: '1234',
@@ -68,7 +85,6 @@ describe 'Higher high and close inside tests' do
     )
 
     #16 - 12
-    expect(@high_take_out_and_hold.process(@first_quote, @second_quote)).to equal(40000)
+    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(40000)
   end
-
-  end
+end
