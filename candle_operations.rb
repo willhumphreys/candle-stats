@@ -30,7 +30,7 @@ class CandleOperations
   end
 
   def full_candle_gaps(first, second)
-    is_long_gap =  second.open < first.low
+    is_long_gap = second.open < first.low
     is_short_gap = second.open > first.high
 
     is_long_gap || is_short_gap
@@ -115,7 +115,7 @@ class CandleOperations
     second.close < first.low
   end
 
-  def get_pip_difference(first, second)
+  def get_pip_difference(first, second, contract)
     ((second - first) * 10000).round(0)
   end
 

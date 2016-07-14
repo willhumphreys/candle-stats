@@ -7,6 +7,7 @@ class Stat_Executor
   def initialize(contract, processor)
     @candle_ops = CandleOperations.new
     @processor = processor
+    @contract = contract
 
     FileUtils.mkdir_p 'out'
 
@@ -26,7 +27,7 @@ class Stat_Executor
   end
 
   def process_and_write(first, second)
-    result = @processor.processor_function.call(first, second)
+    result = @processor.processor_function.call(first, second, @contract)
     if result != nil
       write(result, second.timestamp)
     end
