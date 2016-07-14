@@ -21,14 +21,14 @@ class Processors
 
     lower_low_close_below_l = lambda do |first, second|
       if @candle_ops.is_a_lower_low_in(first, second) && @candle_ops.closes_below_range(first, second)
-        return @candle_ops.get_pip_difference(first.high, second.high)
+        return @candle_ops.get_pip_difference(first.low, second.low)
       end
       return nil
     end
 
     lower_low_close_inside_l = lambda do |first, second|
       if @candle_ops.is_a_lower_low_in(first, second) && @candle_ops.closes_inside_range(first, second)
-        return @candle_ops.get_pip_difference(first.high, second.high)
+        return @candle_ops.get_pip_difference(first.low, second.low)
       end
       nil
     end
