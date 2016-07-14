@@ -114,4 +114,9 @@ class CandleOperations
   def closes_below_range(first, second)
     second.close < first.low
   end
+
+  def get_pip_difference(first, second)
+    ((second - first) * 10000).round(0)
+  end
+
 end

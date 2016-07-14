@@ -7,28 +7,28 @@ class Processors
 
     higher_high_close_above_l = lambda do |first, second|
       if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_above_range(first, second)
-        return get_pip_difference(first.high, second.high)
+        return @candle_ops.get_pip_difference(first.high, second.high)
       end
       return nil
     end
 
     higher_high_close_inside_l = lambda do |first, second|
       if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_inside_range(first, second)
-        return get_pip_difference(first.high, second.high)
+        return @candle_ops.get_pip_difference(first.high, second.high)
       end
       nil
     end
 
     lower_low_close_below_l = lambda do |first, second|
       if @candle_ops.is_a_lower_low_in(first, second) && @candle_ops.closes_below_range(first, second)
-        return get_pip_difference(first.high, second.high)
+        return @candle_ops.get_pip_difference(first.high, second.high)
       end
       return nil
     end
 
     lower_low_close_inside_l = lambda do |first, second|
       if @candle_ops.is_a_lower_low_in(first, second) && @candle_ops.closes_inside_range(first, second)
-        return get_pip_difference(first.high, second.high)
+        return @candle_ops.get_pip_difference(first.high, second.high)
       end
       nil
     end
@@ -41,7 +41,4 @@ class Processors
     }
   end
 
-  def get_pip_difference(first, second)
-    ((second - first) * 10000).round(0)
-  end
 end
