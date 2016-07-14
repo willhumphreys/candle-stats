@@ -4,7 +4,7 @@ library(quantreg)
 library(plyr)
 library(ggthemes)
 
-generate.plot <- function(file.in, file.out, plot.title) {
+generate.plot <- function(file.in, file.out, plot.title, quantile_file) {
     data <- read.table(file.in, header=T,sep=",")
     data$fixed.date.time=as.POSIXct(data$date.time, tz = "UTC")
     data$date.time <- data$fixed.date.time
@@ -27,7 +27,7 @@ generate.plot <- function(file.in, file.out, plot.title) {
     q50 <- quantile(data_cleaned$pips, .50)
     q80 <- quantile(data_cleaned$pips, .80)
 
-    fileConn<-file("out/quantiles.csv")
+    fileConn<-file(quantile_file)
 
     write(paste(symbol_name, toString(20), toString(q50), toString(80), sep=","), file="r_out/quantiles.csv", append=TRUE)
     close(fileConn)
@@ -63,5 +63,6 @@ generate.image.out <- function(x) {
     return(paste("plots/", x, ".png", sep = ""))
 }
 
+quantile_file <- "out/quantiles.csv"
 
-sapply(file_names, function(x) generate.plot(generate.file.in(x), generate.image.out(x), x ))
+sapply(file_names, function(x) generate.plot(generate.file.in(x), generate.image.out(x), x , quantile_file))
