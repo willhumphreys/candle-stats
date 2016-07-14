@@ -9,18 +9,26 @@ generate.plot <- function(file.in, file.out, plot.title) {
     data$fixed.date.time=as.POSIXct(data$date.time, tz = "UTC")
     data$date.time <- data$fixed.date.time
     data$fixed.date.time <- NULL
-    fit.50 <- quantreg::rq(pips ~ splines::bs(date.time, df=15), tau=0.50, data=data)
-    fit.80 <- quantreg::rq(pips ~ splines::bs(date.time, df=15), tau=0.80, data=data)
-    fit.20 <- quantreg::rq(pips ~ splines::bs(date.time, df=15), tau=0.20, data=data)
-    data$pc.50 = predict(fit.50)
-    data$pc.20 = predict(fit.20)
-    data$pc.80 = predict(fit.80)
 
-    q20 <- quantile(data$pips, .20)
-    q50 <- quantile(data$pips, .50)
-    q80 <- quantile(data$pips, .80)
+    sd3 <- sd(data$pips) * 3
+    data_cleaned <- (data[ which(abs(data$pips) < sd3),])
 
-    plot <- ggplot(data, aes(x = date.time)) +
+    fit.50 <- quantreg::rq(pips ~ splines::bs(date.time, df=15), tau=0.50, data=data_cleaned)
+    fit.80 <- quantreg::rq(pips ~ splines::bs(date.time, df=15), tau=0.80, data=data_cleaned)
+    fit.20 <- quantreg::rq(pips ~ splines::bs(date.time, df=15), tau=0.20, data=data_cleaned)
+    data_cleaned$pc.50 = predict(fit.50)
+    data_cleaned$pc.20 = predict(fit.20)
+    data_cleaned$pc.80 = predict(fit.80)
+
+    q20 <- quantile(data_cleaned$pips, .20)
+    q50 <- quantile(data_cleaned$pips, .50)
+    q80 <- quantile(data_cleaned$pips, .80)
+
+    #fileConn<-file("out/quantiles.csv")
+    #write(toString(q50), file="fileConn", append=TRUE)
+    #close(fileConn)
+
+    plot <- ggplot(data_cleaned, aes(x = date.time)) +
     geom_point(aes(y = pips)) +
 
     geom_line(aes(y = pc.80, colour = '80th percentile')) +
