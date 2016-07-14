@@ -116,7 +116,11 @@ class CandleOperations
   end
 
   def get_pip_difference(first, second, contract)
-    ((second - first) * 10000).round(0)
+    multiplier = 10000
+    if contract.include? 'JPY'
+      multiplier = 100
+    end
+    ((second - first) * multiplier).round(0)
   end
 
 end
