@@ -55,6 +55,13 @@ in_files <- list.files('out')
 
 file_names <- sapply(strsplit(in_files, split='.', fixed=TRUE), function(x) (x[1]))
 
-sapply(file_names, function(x) generate.plot(paste("out/", x, ".csv", sep = ""),
-                                 paste("plots/", x, ".png", sep = ""),
-                                 x ))
+generate.file.in <- function(x) {
+    return(paste("out/", x, ".csv", sep = ""))
+}
+
+generate.image.out <- function(x) {
+    return(paste("plots/", x, ".png", sep = ""))
+}
+
+
+sapply(file_names, function(x) generate.plot(generate.file.in(x), generate.image.out(x), x ))
