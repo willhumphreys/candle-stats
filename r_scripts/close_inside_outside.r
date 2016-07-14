@@ -6,6 +6,7 @@ library(ggthemes)
 
 generate.plot <- function(file.in, file.out, plot.title, quantile_file) {
     data <- read.table(file.in, header=T,sep=",")
+    #sink(NULL)
     data$fixed.date.time=as.POSIXct(data$date.time, tz = "UTC")
     data$date.time <- data$fixed.date.time
     data$fixed.date.time <- NULL
@@ -64,5 +65,7 @@ generate.image.out <- function(x) {
 }
 
 quantile_file <- "out/quantiles.csv"
+
+write('symbol,20,50,80', file="r_out/quantiles.csv", append=TRUE)
 
 sapply(file_names, function(x) generate.plot(generate.file.in(x), generate.image.out(x), x , quantile_file))
