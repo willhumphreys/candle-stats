@@ -64,8 +64,11 @@ generate.image.out <- function(x) {
     return(paste("plots/", x, ".png", sep = ""))
 }
 
-quantile_file <- "out/quantiles.csv"
 
-write('symbol,20,50,80', file="r_out/quantiles.csv", append=TRUE)
+quantile_file <- "r_out/quantiles.csv"
+
+if (file.exists(quantile_file)) file.remove(quantile_file)
+
+write('symbol,20,50,80', file=quantile_file, append=TRUE)
 
 sapply(file_names, function(x) generate.plot(generate.file.in(x), generate.image.out(x), x , quantile_file))
