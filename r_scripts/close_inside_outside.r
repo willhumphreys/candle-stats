@@ -10,6 +10,10 @@ generate.plot <- function(file.in, file.out, plot.title) {
     data$date.time <- data$fixed.date.time
     data$fixed.date.time <- NULL
 
+    symbol_name_with_path <- (strsplit(file.in, "_", fixed=TRUE)[[1]])[1]
+
+    symbol_name <- (strsplit(symbol_name_with_path, "/", fixed=TRUE)[[1]])[2]
+
     sd3 <- sd(data$pips) * 3
     data_cleaned <- (data[ which(abs(data$pips) < sd3),])
 
@@ -24,9 +28,10 @@ generate.plot <- function(file.in, file.out, plot.title) {
     q50 <- quantile(data_cleaned$pips, .50)
     q80 <- quantile(data_cleaned$pips, .80)
 
-    #fileConn<-file("out/quantiles.csv")
-    #write(toString(q50), file="fileConn", append=TRUE)
-    #close(fileConn)
+    fileConn<-file("out/quantiles.csv")
+
+    write(paste(symbol_name, toString(q50), sep=","), file="r_out/quantiles.csv", append=TRUE)
+    close(fileConn)
 
     plot <- ggplot(data_cleaned, aes(x = date.time)) +
     geom_point(aes(y = pips)) +
