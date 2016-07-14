@@ -25,13 +25,6 @@ class Stat_Executor
     end
   end
 
-  def process(first, second)
-    if @candle_ops.is_a_higher_high_in(first, second) && @candle_ops.closes_above_range(first, second)
-      return ((second.high - first.high) * 10000).round(0)
-    end
-    nil
-  end
-
   def process_and_write(first, second)
     result = @processor.processor_function.call(first, second)
     if result != nil
