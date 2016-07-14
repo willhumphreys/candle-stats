@@ -10,4 +10,5 @@ ggplot(data, aes(x = symbol, y = X20))
 
 higher_high_close_inside <- data[grep("higher_high_close_inside", data$symbol), ]
 
-ggplot(higher_high_close_inside, aes(x = symbol, y = X20))
+ggplot(data=higher_high_close_inside, aes(x=symbol, y=P20)) +
+    geom_bar(stat="identity")

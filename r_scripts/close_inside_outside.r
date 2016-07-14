@@ -68,6 +68,6 @@ quantile_file <- "r_out/quantiles.csv"
 
 if (file.exists(quantile_file)) file.remove(quantile_file)
 
-write('symbol,20,50,80', file=quantile_file, append=TRUE)
+write('symbol,P20,P50,P80', file=quantile_file, append=TRUE)
 
 sapply(file_names, function(x) generate.plot(generate.file.in(x), generate.image.out(x), x , quantile_file))

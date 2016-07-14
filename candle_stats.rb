@@ -11,8 +11,8 @@ require_relative 'processors'
 @candle_ops = CandleOperations.new
 @processors = Processors.new
 
-time_periods = ['10080', '1440']
-symbols = ['AUDUSD', 'EURCHF', 'EURGBP', 'EURJPY', 'EURUSD', 'GBPUSD', 'USDCAD', 'USDCHF', 'USDJPY']
+time_periods = %w(10080 1440)
+symbols = %w(AUDUSD EURCHF EURGBP EURJPY EURUSD GBPUSD USDCAD USDCHF USDJPY)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
