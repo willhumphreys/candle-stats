@@ -21,7 +21,6 @@ generate.quantile.plot <- function(name, data) {
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
     ggsave(file=paste("plots/", name, ".png", sep = ""))
-
 }
 
 data <- read.table('r_out/quantiles.csv', header=T,sep=",")
