@@ -48,6 +48,7 @@ generate.plot <- function(file.in, file.out, plot.title, quantile_file) {
     ggtitle(plot.title) +
     theme(legend.title=element_blank())
 
+    cat(file.out)
     ggsave(file=file.out)
 }
 

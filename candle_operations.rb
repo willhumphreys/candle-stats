@@ -120,7 +120,7 @@ class CandleOperations
     if contract.include? 'JPY'
       multiplier = 100
     end
-    ((second - first) * multiplier).round(0)
+    ((second - first) * multiplier).round(0).abs
   end
 
 end

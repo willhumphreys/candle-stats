@@ -48,7 +48,7 @@ describe 'Test the logic of the higher high close inside' do
         open_interest: 1
     )
 
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote, 'AUDUSD')).to equal(nil)
   end
 
   it 'should return nil if we put in a higher high but still close outside.' do
@@ -66,7 +66,7 @@ describe 'Test the logic of the higher high close inside' do
     )
 
     # 15 > 12
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote, 'AUDUSD')).to equal(nil)
   end
 
   it 'should return the difference between highs if we put in a higher high and close inside the range.' do
@@ -84,6 +84,6 @@ describe 'Test the logic of the higher high close inside' do
     )
 
     #16 - 12
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(40000)
+    expect(processor.processor_function.call(@first_quote, @second_quote, 'AUDUSD')).to equal(40000)
   end
 end

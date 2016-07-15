@@ -37,7 +37,7 @@ describe 'Test the logic of the processors' do
 
   it 'should return the difference in pips if we put in a higher high and close above the previous high' do
     processor = @processor_map[:higher_high_close_above]
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(30000)
+    expect(processor.processor_function.call(@first_quote, @second_quote, 'AUDUSD')).to equal(30000)
   end
 
   it 'should return nil if we do not put in a higher high' do
@@ -54,7 +54,7 @@ describe 'Test the logic of the processors' do
         open_interest: 1
     )
 
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote, 'AUDUSD')).to equal(nil)
   end
 
   it 'should return nil if we put in a higher high but do not close above it' do
@@ -71,7 +71,7 @@ describe 'Test the logic of the processors' do
         open_interest: 1
     )
 
-    expect(processor.processor_function.call(@first_quote, @second_quote)).to equal(nil)
+    expect(processor.processor_function.call(@first_quote, @second_quote, 'AUDUSD')).to equal(nil)
   end
 
 end
