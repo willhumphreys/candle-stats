@@ -26,8 +26,8 @@ class Stat_Executor
     end
   end
 
-  def process_and_write(first, second)
-    result = @processor.processor_function.call(first, second)
+  def process_and_write(first, second, third)
+    result = @processor.processor_function.call(first, second, third)
     if result != nil
       write((result * 100).round(2), second.date)
     end
