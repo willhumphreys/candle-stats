@@ -26,7 +26,7 @@ data_sets.each { |data_set|
   quotes.each_cons(6) do |first, second, third, fourth, fifth, sixth|
 
     executors.each { |executor|
-      executor.process_and_write(first, second, third)
+      executor.process_and_write(first, second, third, fourth)
     }
   end
 
