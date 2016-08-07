@@ -1,12 +1,12 @@
 require 'csv'
-require_relative 'mt4_quote_mapper'
+
 
 class MT4FileRepo
 
   @mt4_quote_mapper
 
-  def initialize
-    @mt4_quote_mapper = Mt4QuoteMapper.new
+  def initialize(mapper)
+    @mt4_quote_mapper = mapper
 
   end
 

@@ -38,5 +38,5 @@ build/
 .rvmrc
 
 .swp
-
 out/*
+minute_data
