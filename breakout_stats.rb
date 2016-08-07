@@ -28,12 +28,9 @@ data_sets.each { |data_set|
     executors.each { |executor|
       executor.process_and_write(first, second)
     }
-
   end
 
   @processors.reset
-
-
 }
 
 puts 'done'
