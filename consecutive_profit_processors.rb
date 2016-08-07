@@ -15,7 +15,12 @@ class Consecutive_Profit_Processors
         end
       end
       @two_consecutive_wins_count.to_f / @first_tick_wins
+    end
 
+
+    def reset
+      @two_consecutive_wins_count = 0
+      @first_tick_wins = 0
     end
 
     # higher_high_close_inside_l = lambda do |first, second, contract|

@@ -30,6 +30,10 @@ data_sets.each { |data_set|
     }
 
   end
+
+  @processors.reset
+
+
 }
 
 puts 'done'
