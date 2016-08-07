@@ -11,7 +11,7 @@ class Stat_Executor
 
     FileUtils.mkdir_p 'out'
 
-    @out_csv_file = "out/#{contract}_#{@processor.name}.csv"
+    @out_csv_file = "consecutive_out/#{contract}_#{@processor.name}.csv"
 
     if File.exist?(@out_csv_file)
       File.truncate(@out_csv_file, 0)
