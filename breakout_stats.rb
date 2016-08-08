@@ -13,13 +13,13 @@ require_relative 'back_test_mapper'
 @candle_ops = CandleOperations.new
 @processors = Consecutive_Profit_Processors.new
 
-time_periods = %w(10y)
+time_periods = %w(1y)
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd nzdusd usdcad usdchf)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + '_breakout_' +symbol }
 
 data_sets.each { |data_set|
-  quotes = @mt4_file_repo.read_quotes("breakout_results/#{data_set}.csv")
+  quotes = @mt4_file_repo.read_quotes("breakout_results_1year/#{data_set}.csv")
 
   executors = @processors.processors.values.collect { |processor| Stat_Executor.new(data_set, processor) }
 
