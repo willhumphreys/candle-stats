@@ -130,7 +130,7 @@ data_sets.each { |data_set|
     start_date = DateTime.now - 12.months - (12 * count).months
     end_date = DateTime.now - (12 * count).months
 
-    file_out = "out-#{start_date}-#{end_date}.csv}"
+    file_out = "fade_ruby_out/#{data_set}-#{start_date}-#{end_date}.csv"
     File.delete(file_out) if File.exist?(file_out)
     open(file_out, 'a') { |f|
       f << "scenario, data_set, consecutive, fails_or_wins, result\n"
