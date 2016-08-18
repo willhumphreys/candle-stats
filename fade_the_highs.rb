@@ -51,15 +51,15 @@ open('out.csv', 'a') { |f|
 
 def log_csv(data_set, title)
   open('out.csv', 'a') { |f|
-    f << "#{title}, #{data_set},profit 1 (#{@profit_1}) - odds 2 profit (#{@profit_1_2}), wins,#{((@profit_1_2 / @profit_1) * 100).round(2)}\n"
-    f << "#{title}, #{data_set},profit 1-2 (#{@profit_1_2}) - odds 3 profit (#{@profit_1_2_3}), wins,#{((@profit_1_2_3 / @profit_1_2) * 100).round(2)}\n"
-    f << "#{title}, #{data_set},profit 1-2-3 (#{@profit_1_2_3}) - odds 4 profit (#{@profit_1_2_3_4}), wins,#{((@profit_1_2_3_4 / @profit_1_2_3) * 100).round(2)}\n"
-    f << "#{title}, #{data_set},profit 1-2-3-4 (#{@profit_1_2_3_4}) - odds 5 profit (#{@profit_1_2_3_4_5}), wins,#{((@profit_1_2_3_4_5 / @profit_1_2_3_4) * 100).round(2)}\n"
+    f << "#{title},#{data_set},profit 1 (#{@profit_1}) - odds 2 profit (#{@profit_1_2}), wins,#{((@profit_1_2 / @profit_1) * 100).round(2)}\n"
+    f << "#{title},#{data_set},profit 1-2 (#{@profit_1_2}) - odds 3 profit (#{@profit_1_2_3}), wins,#{((@profit_1_2_3 / @profit_1_2) * 100).round(2)}\n"
+    f << "#{title},#{data_set},profit 1-2-3 (#{@profit_1_2_3}) - odds 4 profit (#{@profit_1_2_3_4}), wins,#{((@profit_1_2_3_4 / @profit_1_2_3) * 100).round(2)}\n"
+    f << "#{title},#{data_set},profit 1-2-3-4 (#{@profit_1_2_3_4}) - odds 5 profit (#{@profit_1_2_3_4_5}), wins,#{((@profit_1_2_3_4_5 / @profit_1_2_3_4) * 100).round(2)}\n"
 
-    f << "#{title}, #{data_set},loss 1 (#{@loss_1}) - odds 2 loss (#{@loss_1_2}), losses,#{((@loss_1_2 / @loss_1) * 100).round(2)}\n"
-    f << "#{title}, #{data_set},loss 1-2 (#{@loss_1_2}) - odds 3 loss (#{@loss_1_2_3}), losses,#{((@loss_1_2_3 / @loss_1_2) * 100).round(2)}\n"
-    f << "#{title}, #{data_set},loss 1-2-3 (#{@loss_1_2_3}) - odds 4 loss (#{@loss_1_2_3_4}), losses,#{((@loss_1_2_3_4 / @loss_1_2_3) * 100).round(2)}\n"
-    f << "#{title}, #{data_set},loss 1-2-3-4 (#{@loss_1_2_3_4}) - odds 5 loss (#{@loss_1_2_3_4_5}), losses,#{((@loss_1_2_3_4_5 / @loss_1_2_3_4) * 100).round(2)}\n"
+    f << "#{title},#{data_set},loss 1 (#{@loss_1}) - odds 2 loss (#{@loss_1_2}), losses,#{((@loss_1_2 / @loss_1) * 100).round(2)}\n"
+    f << "#{title},#{data_set},loss 1-2 (#{@loss_1_2}) - odds 3 loss (#{@loss_1_2_3}), losses,#{((@loss_1_2_3 / @loss_1_2) * 100).round(2)}\n"
+    f << "#{title},#{data_set},loss 1-2-3 (#{@loss_1_2_3}) - odds 4 loss (#{@loss_1_2_3_4}), losses,#{((@loss_1_2_3_4 / @loss_1_2_3) * 100).round(2)}\n"
+    f << "#{title},#{data_set},loss 1-2-3-4 (#{@loss_1_2_3_4}) - odds 5 loss (#{@loss_1_2_3_4_5}), losses,#{((@loss_1_2_3_4_5 / @loss_1_2_3_4) * 100).round(2)}\n"
   }
 
 end
