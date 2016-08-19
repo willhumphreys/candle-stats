@@ -14,10 +14,14 @@ require 'active_support/all'
 @candle_ops = CandleOperations.new
 @processors = Processors.new
 
+FileUtils.rm_rf Dir.glob('fade_ruby_out/*')
+
+@running_moving_average = 10
 
 def reset_fields
 
-  @running100_profit_1_2 = []
+
+  @running_profit_1_2 = []
   @running365_profit_1_2 = []
 
   @second_profit = 0.0
@@ -81,7 +85,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     if first.profit > 0
       @profit_1 += 1
       if second.profit > 0
-        @running100_profit_1_2.push(1)
+        @running_profit_1_2.push(1)
         @profit_1_2 += 1
         if third.profit > 0
           @profit_1_2_3 += 1
@@ -93,7 +97,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
           end
         end
       else
-        @running100_profit_1_2.push(0)
+        @running_profit_1_2.push(0)
       end
     end
 
@@ -114,11 +118,11 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     end
 
 
-    if @running100_profit_1_2.size > 100
-      @running100_profit_1_2 = @running100_profit_1_2.drop(1)
+    if @running_profit_1_2.size > @running_moving_average
+      @running_profit_1_2 = @running_profit_1_2.drop(1)
 
-      open("#{directory_out}/r100_#{file_out}", 'a') { |f|
-        f << "#{first.timestamp.utc},#{title},#{@running100_profit_1_2.inject(0, :+)}\n"
+      open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
+        f << "#{first.timestamp.strftime('%Y/%m/%d')},#{title},#{@running_profit_1_2.inject(0, :+)}\n"
       }
 
     end
@@ -139,11 +143,19 @@ def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
   }
 
   # process(data_set, profits, 'both')
+
+  open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
+    f << "date,direction,moving_average\n"
+  }
+
   process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out)
   process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out)
 end
 
 data_sets.each { |data_set|
+
+
+
   profits = @mt4_file_repo.read_quotes("fade_the_breakout_normal_results/#{data_set}.csv")
 
   fail_at_highs = profits.select do |profit|
