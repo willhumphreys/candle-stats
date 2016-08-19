@@ -103,8 +103,6 @@ def process(data_set, profits, title, start_date, end_date, file_out)
       end
     end
   end
-  #end
-
 
   log_csv(data_set, title, file_out)
 
