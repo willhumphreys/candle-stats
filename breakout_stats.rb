@@ -16,10 +16,10 @@ require_relative 'back_test_mapper'
 time_periods = %w(10y)
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd nzdusd usdcad usdchf)
 
-data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + '_breakout_' +symbol }
+data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + '_FadeTheBreakoutNormal_' +symbol }
 
 data_sets.each { |data_set|
-  quotes = @mt4_file_repo.read_quotes("breakout_results/#{data_set}.csv")
+  quotes = @mt4_file_repo.read_quotes("fade_the_breakout_normal_results/#{data_set}.csv")
 
   executors = @processors.processors.values.collect { |processor| Stat_Executor.new(data_set, processor) }
 

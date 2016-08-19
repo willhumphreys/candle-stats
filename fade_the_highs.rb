@@ -17,6 +17,9 @@ require 'active_support/all'
 
 def reset_fields
 
+  @running100_profit_1_2 = []
+  @running365_profit_1_2 = []
+
   @second_profit = 0.0
   @second_loss = 0.0
 
@@ -40,9 +43,9 @@ end
 
 reset_fields
 
-time_periods = %w(_FadeTheBreakoutNormal)
+time_periods = %w(_FadeTheBreakoutNormal_10y)
 
-symbols = %w(AUDUSD EURCHF EURGBP EURUSD GBPUSD USDCAD USDCHF NZDUSD)
+symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
@@ -59,11 +62,15 @@ def log_csv(data_set, title, file_out)
     f << "#{title},#{data_set},loss 1-2-3,losses,#{((@loss_1_2_3 / @loss_1_2) * 100).round(2)}\n"
     f << "#{title},#{data_set},loss 1-2-3-4,losses,#{((@loss_1_2_3_4 / @loss_1_2_3) * 100).round(2)}\n"
     f << "#{title},#{data_set},loss 1-2-3-4-5,losses,#{((@loss_1_2_3_4_5 / @loss_1_2_3_4) * 100).round(2)}\n"
+
+    #f << "#{title},#{data_set},profit 100 day,#{@running100_profit_1_2.inject(0, :+)}\n"
+
+
   }
 
 end
 
-def process(data_set, profits, title, start_date, end_date, file_out)
+def process(data_set, profits, title, start_date, end_date, directory_out, file_out)
   profits.each_cons(6) do |first, second, third, fourth, fifth, sixth|
 
     if first.timestamp.utc < start_date || first.timestamp.utc > end_date
@@ -74,6 +81,7 @@ def process(data_set, profits, title, start_date, end_date, file_out)
     if first.profit > 0
       @profit_1 += 1
       if second.profit > 0
+        @running100_profit_1_2.push(1)
         @profit_1_2 += 1
         if third.profit > 0
           @profit_1_2_3 += 1
@@ -84,6 +92,8 @@ def process(data_set, profits, title, start_date, end_date, file_out)
             end
           end
         end
+      else
+        @running100_profit_1_2.push(0)
       end
     end
 
@@ -102,16 +112,39 @@ def process(data_set, profits, title, start_date, end_date, file_out)
         end
       end
     end
+
+
+    if @running100_profit_1_2.size > 100
+      @running100_profit_1_2 = @running100_profit_1_2.drop(1)
+
+      open("#{directory_out}/r100_#{file_out}", 'a') { |f|
+        f << "#{first.timestamp.utc},#{title},#{@running100_profit_1_2.inject(0, :+)}\n"
+      }
+
+    end
   end
 
-  log_csv(data_set, title, file_out)
+  log_csv(data_set, title, "#{directory_out}/#{file_out}")
 
   reset_fields
 
 end
 
+def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
+  file_out = "#{data_set}-#{start_date}-#{end_date}.csv"
+  directory_out = 'fade_ruby_out'
+  File.delete(file_out) if File.exist?(file_out)
+  open(file_out, 'a') { |f|
+    f << "scenario, data_set, consecutive, fails_or_wins, result\n"
+  }
+
+  # process(data_set, profits, 'both')
+  process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out)
+  process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out)
+end
+
 data_sets.each { |data_set|
-  profits = @mt4_file_repo.read_quotes("data/#{data_set}.csv")
+  profits = @mt4_file_repo.read_quotes("fade_the_breakout_normal_results/#{data_set}.csv")
 
   fail_at_highs = profits.select do |profit|
     profit.direction == 'short'
@@ -121,22 +154,19 @@ data_sets.each { |data_set|
     profit.direction == 'long'
   end
 
+  # 8.times do |count|
+  #   start_date = DateTime.now - 12.months - (12 * count).months
+  #   end_date = DateTime.now - (12 * count).months
+  #
+  #   generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
+  #
+  # end
 
+  1.times do |count|
+    start_date = DateTime.new(2016,8,2) - (12 * 15).months
+    end_date = DateTime.new(2016,8,2)
 
-
-  8.times do |count|
-    start_date = DateTime.now - 12.months - (12 * count).months
-    end_date = DateTime.now - (12 * count).months
-
-    file_out = "fade_ruby_out/#{data_set}-#{start_date}-#{end_date}.csv"
-    File.delete(file_out) if File.exist?(file_out)
-    open(file_out, 'a') { |f|
-      f << "scenario, data_set, consecutive, fails_or_wins, result\n"
-    }
-
-    # process(data_set, profits, 'both')
-    process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, file_out)
-    process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, file_out)
+    generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
 
   end
 
