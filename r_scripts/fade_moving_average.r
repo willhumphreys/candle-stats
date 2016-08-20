@@ -2,7 +2,7 @@ library(ggplot2)
 
 generate.plot <- function(file.in) {
 
-  data <- read.table(paste('fade_ruby_out/',file.in, sep = ""), header=T,sep=",")
+  data <- read.table(paste('results/',file.in, sep = ""), header=T,sep=",")
 
   data$date=as.Date(as.POSIXct(data$date, tz = "UTC", format="%Y/%m/%d"))
 
@@ -23,7 +23,7 @@ generate.plot <- function(file.in) {
   generate.plot(data.lows, 'lows')
 }
 
-in_files <- list.files('fade_ruby_out')
+in_files <- list.files('results')
 
 filtered_in_files <-in_files[grepl("^r.*", in_files)]
 
