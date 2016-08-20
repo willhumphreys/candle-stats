@@ -182,7 +182,7 @@ data_sets.each { |data_set|
   # end
 
   1.times do |count|
-    start_date = DateTime.new(2016,8,2) - (12 * 15).months
+    start_date = DateTime.new(2016,8,2) - (12 * 12).months
     end_date = DateTime.new(2016,8,2)
 
     generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
