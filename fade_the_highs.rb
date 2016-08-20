@@ -47,13 +47,12 @@ end
 
 reset_fields
 
-time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
+#time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
+time_periods = %w(_FadeTheBreakoutNormal_10y)
 
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
-
-
 
 def log_csv(data_set, title, file_out)
   open(file_out, 'a') { |f|
@@ -142,14 +141,12 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
 end
 
 def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
+  directory_out = 'results'
   file_out = "#{data_set}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}.csv"
-  directory_out = 'fade_ruby_out'
-  File.delete(file_out) if File.exist?(file_out)
-  open(file_out, 'a') { |f|
+  File.delete("#{directory_out}/#{file_out}") if File.exist?(file_out)
+  open("#{directory_out}/#{file_out}", 'a') { |f|
     f << "scenario, data_set, consecutive, fails_or_wins, result\n"
   }
-
-  # process(data_set, profits, 'both')
 
   open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
     f << "date,direction,moving_average,last,array\n"
@@ -161,9 +158,7 @@ end
 
 data_sets.each { |data_set|
 
-
-
-  profits = @mt4_file_repo.read_quotes("fade_the_breakout_normal_daily_results/#{data_set}.csv")
+  profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
 
   fail_at_highs = profits.select do |profit|
     profit.direction == 'short'
