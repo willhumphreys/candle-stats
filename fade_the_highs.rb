@@ -48,7 +48,8 @@ end
 reset_fields
 
 #time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
-time_periods = %w(_FadeTheBreakoutNormal_10y)
+time_periods = %w(_NormalDaily10y)
+#time_periods = %w(_FadeTheBreakoutNormal_10y)
 
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd)
 
