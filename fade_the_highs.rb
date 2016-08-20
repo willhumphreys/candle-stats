@@ -142,7 +142,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
 end
 
 def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
-  file_out = "#{data_set}-#{start_date}-#{end_date}.csv"
+  file_out = "#{data_set}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}.csv"
   directory_out = 'fade_ruby_out'
   File.delete(file_out) if File.exist?(file_out)
   open(file_out, 'a') { |f|
