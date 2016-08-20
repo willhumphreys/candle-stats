@@ -47,7 +47,7 @@ end
 
 reset_fields
 
-time_periods = %w(_FadeTheBreakoutNormal_10y)
+time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
 
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd)
 
@@ -82,12 +82,15 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     end
 
 
+
     if first.profit > 0
       @profit_1 += 1
+      @running_profit_1_2.push(1)
       if second.profit > 0
-        @running_profit_1_2.push(1)
+      #  @running_profit_1_2.push(1)
         @profit_1_2 += 1
         if third.profit > 0
+          #@running_profit_1_2.push(1)
           @profit_1_2_3 += 1
           if fourth.profit > 0
             @profit_1_2_3_4 += 1
@@ -95,10 +98,14 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
               @profit_1_2_3_4_5 += 1
             end
           end
+        else
+          @running_profit_1_2.push(-1)
         end
       else
-        @running_profit_1_2.push(0)
+      #  @running_profit_1_2.push(-1)
       end
+    else
+      #@running_profit_1_2.push(-1)
     end
 
     if first.profit < 0
@@ -122,7 +129,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       @running_profit_1_2 = @running_profit_1_2.drop(1)
 
       open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
-        f << "#{first.timestamp.strftime('%Y/%m/%d')},#{title},#{@running_profit_1_2.inject(0, :+)}\n"
+        f << "#{first.timestamp.strftime('%Y/%m/%d')},#{title},#{@running_profit_1_2.inject(0, :+)},#{@running_profit_1_2.last},#{@running_profit_1_2.join('')}\n"
       }
 
     end
@@ -145,7 +152,7 @@ def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
   # process(data_set, profits, 'both')
 
   open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
-    f << "date,direction,moving_average\n"
+    f << "date,direction,moving_average,last,array\n"
   }
 
   process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out)
@@ -156,7 +163,7 @@ data_sets.each { |data_set|
 
 
 
-  profits = @mt4_file_repo.read_quotes("fade_the_breakout_normal_results/#{data_set}.csv")
+  profits = @mt4_file_repo.read_quotes("fade_the_breakout_normal_daily_results/#{data_set}.csv")
 
   fail_at_highs = profits.select do |profit|
     profit.direction == 'short'

@@ -6,15 +6,21 @@ generate.plot <- function(file.in) {
 
   data$date=as.Date(as.POSIXct(data$date, tz = "UTC", format="%Y/%m/%d"))
 
-  generate.plot <- function(data) {
+  data.highs <- data[ which(data$direction=='fail at highs'),]
+  data.lows <- data[ which(data$direction=='fail at lows'),]
 
-    ggplot(data=data, aes(x=date, y=moving_average, group=direction)) +
-    geom_line(aes(color=direction)) +
+  generate.plot <- function(data, high_or_low) {
+
+    ggplot(data=data, aes(x=date, y=moving_average)) +
+    geom_line() +
+    geom_point() +
+    scale_y_continuous(breaks=seq(-10,10,1)) +
     ggtitle(file.in)
-    ggsave(file=paste('moving_average_fade_plots/',file.in, ".png", sep = ""))
+    ggsave(file=paste('moving_average_fade_plots/',file.in, high_or_low,".png", sep = ""))
   }
 
-  generate.plot(data)
+  generate.plot(data.highs, 'highs')
+  generate.plot(data.lows, 'lows')
 }
 
 in_files <- list.files('fade_ruby_out')
