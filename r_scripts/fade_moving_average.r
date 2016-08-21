@@ -14,8 +14,8 @@ generate.plot <- function(file.in) {
     ggplot(data=data, aes(x=date, y=moving_average)) +
     geom_line() +
     geom_point() +
-    scale_y_continuous(breaks=seq(-10,10,1)) +
-    ggtitle(file.in)
+    scale_y_continuous(breaks=seq(-14,14,1)) +
+    ggtitle(paste(file.in, '-', high_or_low, sep = ""))
     ggsave(file=paste('moving_average_fade_plots/',file.in, high_or_low,".png", sep = ""))
   }
 

@@ -16,10 +16,22 @@ require 'active_support/all'
 
 FileUtils.rm_rf Dir.glob('fade_ruby_out/*')
 
+@buy_minimum = -4
+
 @running_moving_average = 10
+
+@total_trade_profit = 0
+@total_trade_loss = 0
+
+@winning_symbols = []
+@losing_symbols = []
 
 def reset_fields
 
+
+
+  @trade_profit = []
+  @trade_loss = []
 
   @running_profit_1_2 = []
   @running365_profit_1_2 = []
@@ -47,8 +59,8 @@ end
 
 reset_fields
 
-#time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
-time_periods = %w(_NormalDaily10y)
+time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
+#time_periods = %w(_NormalDaily10y)
 #time_periods = %w(_FadeTheBreakoutNormal_10y)
 
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd)
@@ -81,9 +93,18 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       next
     end
 
+    trade_on = false
 
+    if @running_profit_1_2.inject(0, :+) == @buy_minimum && @running_profit_1_2.first == 1
+      trade_on = true
+    end
 
     if first.profit > 0
+      if trade_on
+        @trade_profit.push(1)
+       # puts 'win'
+      end
+
       @profit_1 += 1
       @running_profit_1_2.push(1)
       if second.profit > 0
@@ -99,13 +120,18 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
             end
           end
         else
-          @running_profit_1_2.push(-1)
+          #@running_profit_1_2.push(-1)
         end
       else
-      #  @running_profit_1_2.push(-1)
+       # @running_profit_1_2.push(-1)
       end
     else
-      #@running_profit_1_2.push(-1)
+      if trade_on
+       # puts 'loss'
+        @trade_loss.push(1)
+      end
+
+      @running_profit_1_2.push(-1)
     end
 
     if first.profit < 0
@@ -125,6 +151,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     end
 
 
+
     if @running_profit_1_2.size > @running_moving_average
       @running_profit_1_2 = @running_profit_1_2.drop(1)
 
@@ -133,6 +160,19 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       }
 
     end
+  end
+
+  puts title
+  puts "win  #{@trade_profit.join('')}"
+  puts "lose #{@trade_loss.join('')}"
+
+  @total_trade_profit += @trade_profit.size
+  @total_trade_loss += @trade_loss.size
+
+  if @trade_profit.size > @trade_loss.size
+    @winning_symbols.push("#{file_out.split('_').first}:#{title.split(' ').last}")
+  elsif @trade_profit.size < @trade_loss.size
+    @losing_symbols.push("#{file_out.split('_').first}:#{title.split(' ').last}")
   end
 
   log_csv(data_set, title, "#{directory_out}/#{file_out}")
@@ -178,8 +218,8 @@ data_sets.each { |data_set|
   # end
 
   1.times do |count|
-    start_date = DateTime.new(2016,8,2) - (12 * 12).months
-    end_date = DateTime.new(2016,8,2)
+    start_date = DateTime.new(2016,8,5) - (12 * 12).months
+    end_date = DateTime.new(2016,8,5)
 
     generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
 
@@ -188,4 +228,8 @@ data_sets.each { |data_set|
 
 }
 
+percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
+puts "Buy minimum: #{@buy_minimum}"
+puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
+puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
 puts 'done'
