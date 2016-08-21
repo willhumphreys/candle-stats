@@ -16,7 +16,7 @@ require 'active_support/all'
 
 FileUtils.rm_rf Dir.glob('results/*')
 
-@buy_minimum = 4
+@buy_minimum = 6
 
 @running_moving_average = 10
 
@@ -25,6 +25,9 @@ FileUtils.rm_rf Dir.glob('results/*')
 
 @winning_symbols = []
 @losing_symbols = []
+
+@global_win_count = 0
+@global_lose_count = 0
 
 def reset_fields
 
@@ -99,8 +102,10 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     end
 
     if first.profit > 0
+      @global_win_count += 1
       if trade_on
         @trade_profit.push(1)
+
        # puts 'win'
       end
 
@@ -125,9 +130,12 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
        # @running_profit_1_2.push(-1)
       end
     else
+      @global_lose_count += 1
       if trade_on
+
        # puts 'loss'
         @trade_loss.push(1)
+
       end
 
       @running_profit_1_2.push(-1)
@@ -161,7 +169,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     end
   end
 
-  puts title
+  puts "#{title} #{start_date.strftime('%Y/%m/%d')} #{end_date.strftime('%Y/%m/%d')}"
   puts "win  #{@trade_profit.join('')}"
   puts "lose #{@trade_loss.join('')}"
 
@@ -217,8 +225,11 @@ data_sets.each { |data_set|
   # end
 
   1.times do |count|
-    start_date = DateTime.new(2016,8,5) - (12 * 12).months
-    end_date = DateTime.new(2016,8,5)
+    # start_date = DateTime.new(2016,8,5) - (12 * 12).months
+    # end_date = DateTime.new(2016,8,5)
+
+    start_date = DateTime.new(2016,8,5) - (12 * 8).months
+    end_date = DateTime.new(2016,8,5) - (12 * 6).months
 
     generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
 
@@ -232,3 +243,6 @@ puts "Buy minimum: #{@buy_minimum}"
 puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
 puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
 puts 'done'
+
+global_percentage_win_lose = ((@global_win_count.to_f / (@global_lose_count + @global_win_count)) * 100).round(2)
+puts "Global win count: #{@global_win_count} Global lose count: #{@global_lose_count} winning percentage #{global_percentage_win_lose}"
