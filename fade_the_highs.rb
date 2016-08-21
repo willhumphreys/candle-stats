@@ -14,9 +14,9 @@ require 'active_support/all'
 @candle_ops = CandleOperations.new
 @processors = Processors.new
 
-FileUtils.rm_rf Dir.glob('fade_ruby_out/*')
+FileUtils.rm_rf Dir.glob('results/*')
 
-@buy_minimum = -4
+@buy_minimum = 4
 
 @running_moving_average = 10
 
@@ -27,8 +27,6 @@ FileUtils.rm_rf Dir.glob('fade_ruby_out/*')
 @losing_symbols = []
 
 def reset_fields
-
-
 
   @trade_profit = []
   @trade_loss = []
@@ -95,7 +93,8 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
 
     trade_on = false
 
-    if @running_profit_1_2.inject(0, :+) == @buy_minimum && @running_profit_1_2.first == 1
+    #if @running_profit_1_2.inject(0, :+) == @buy_minimum && @running_profit_1_2.first == 1
+    if @running_profit_1_2.inject(0, :+) == @buy_minimum
       trade_on = true
     end
 
