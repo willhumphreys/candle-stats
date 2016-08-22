@@ -16,7 +16,7 @@ require 'active_support/all'
 
 FileUtils.rm_rf Dir.glob('results/*')
 
-@buy_minimum = 6
+#@buy_minimum = 6
 
 @running_moving_average = 10
 
@@ -87,7 +87,7 @@ def log_csv(data_set, title, file_out)
 
 end
 
-def process(data_set, profits, title, start_date, end_date, directory_out, file_out)
+def process(data_set, profits, title, start_date, end_date, directory_out, file_out, buy_minimum)
   profits.each_cons(6) do |first, second, third, fourth, fifth, sixth|
 
     if first.timestamp.utc < start_date || first.timestamp.utc > end_date
@@ -97,7 +97,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
     trade_on = false
 
     #if @running_profit_1_2.inject(0, :+) == @buy_minimum && @running_profit_1_2.first == 1
-    if @running_profit_1_2.inject(0, :+) == @buy_minimum
+    if @running_profit_1_2.inject(0, :+) == buy_minimum
       trade_on = true
     end
 
@@ -187,7 +187,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
 
 end
 
-def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
+def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date, buy_minimum)
   directory_out = 'results'
   file_out = "#{data_set}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}.csv"
   File.delete("#{directory_out}/#{file_out}") if File.exist?(file_out)
@@ -199,66 +199,75 @@ def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
     f << "date,direction,moving_average,last,array\n"
   }
 
-  process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out)
-  process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out)
+  process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out, buy_minimum)
+  process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out, buy_minimum)
 end
 
 
 open('results/summary.csv', 'a') { |f|
-  f << "date_period,start_date,end_date,winners,losers,win_lose_percentage,winning_symbols_count,losing_symbols_count,winning_symbols,losing_symbols\n"
+  f << "buy_minimum,date_period,start_date,end_date,winners,losers,win_lose_percentage,winning_symbols_count,losing_symbols_count,winning_symbols,losing_symbols\n"
 }
 
-date_periods = [1, 2, 3]
+date_periods = [2, 3, 9]
 
 data_start_date = DateTime.new(2007, 12, 5)
 data_end_date = DateTime.new(2016, 8, 2)
 
+buy_minimums = [-8, -6, -4, -2, 0, 2, 4, 6, 8, 10]
+
+buy_minimums.each { |buy_minimum|
+
+  date_periods.each { |date_period|
 
 
-date_periods.each { |date_period|
+    @total_trade_profit = 0
+    @total_trade_loss = 0
+    @winning_symbols = []
+    @losing_symbols = []
 
+    run_end_date = data_end_date
+    while run_end_date > data_start_date do
 
-  @total_trade_profit = 0
-  @total_trade_loss = 0
-  @winning_symbols = []
-  @losing_symbols = []
+      run_start_date = run_end_date - (date_period * 12).months
 
+      puts "start_date #{run_start_date} end date #{run_end_date} date_period #{date_period}"
 
-  current_date = data_end_date
-  while current_date > data_start_date do
+      data_sets.each { |data_set|
 
-    end_date = current_date
-    puts "start_date #{current_date} end date #{end_date} date_period #{date_period}"
-    current_date = current_date - (date_period * 12).months
+        profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
 
-    data_sets.each { |data_set|
+        fail_at_highs = profits.select do |profit|
+          profit.direction == 'short'
+        end
 
-      profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+        fail_at_lows = profits.select do |profit|
+          profit.direction == 'long'
+        end
 
-      fail_at_highs = profits.select do |profit|
-        profit.direction == 'short'
-      end
+        generate_stats(data_set, run_end_date, fail_at_highs, fail_at_lows, run_start_date, buy_minimum)
+      }
 
-      fail_at_lows = profits.select do |profit|
-        profit.direction == 'long'
-      end
+      percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
+      puts "Buy minimum: #{@buy_minimum}"
+      puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
+      puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
+      puts 'done'
 
-      generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, current_date)
-    }
+      open('results/summary.csv', 'a') { |f|
+        f << "#{buy_minimum},#{date_period},#{run_start_date},#{run_end_date},#{@total_trade_profit},#{@total_trade_loss},#{percentage_win_lose},#{@winning_symbols.size},#{@losing_symbols.size},#{@winning_symbols.join(' ')},#{@losing_symbols.join(' ')} \n"
+      }
 
-    percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
-    puts "Buy minimum: #{@buy_minimum}"
-    puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
-    puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
-    puts 'done'
+      run_end_date -= (date_period * 12).months
 
-    open('results/summary.csv', 'a') { |f|
-      f << "#{date_period},#{current_date},#{current_date - (date_period * 12).months},#{@total_trade_profit},#{@total_trade_loss},#{percentage_win_lose},#{@winning_symbols.size},#{@losing_symbols.size},#{@winning_symbols.join(' ')},#{@losing_symbols.join(' ')} \n"
-    }
-  end
+      @total_trade_profit = 0
+      @total_trade_loss = 0
+      @winning_symbols = []
+      @losing_symbols = []
+
+    end
+
+  }
 
 }
-
-
 global_percentage_win_lose = ((@global_win_count.to_f / (@global_lose_count + @global_win_count)) * 100).round(2)
 puts "Global win count: #{@global_win_count} Global lose count: #{@global_lose_count} winning percentage #{global_percentage_win_lose}"
