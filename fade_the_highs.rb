@@ -187,9 +187,9 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
 
 end
 
-def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date, buy_minimum)
+def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date, buy_minimum, date_period)
   directory_out = 'results'
-  file_out = "#{data_set}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}.csv"
+  file_out = "#{data_set}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}-#{date_period}-#{buy_minimum}.csv"
   File.delete("#{directory_out}/#{file_out}") if File.exist?(file_out)
   open("#{directory_out}/#{file_out}", 'a') { |f|
     f << "scenario, data_set, consecutive, fails_or_wins, result\n"
@@ -208,12 +208,12 @@ open('results/summary.csv', 'a') { |f|
   f << "buy_minimum,date_period,start_date,end_date,winners,losers,win_lose_percentage,winning_symbols_count,losing_symbols_count,winning_symbols,losing_symbols\n"
 }
 
-date_periods = [2, 3, 9]
+date_periods = [9]
 
 data_start_date = DateTime.new(2007, 12, 5)
 data_end_date = DateTime.new(2016, 8, 2)
 
-buy_minimums = [-8, -6, -4, -2, 0, 2, 4, 6, 8, 10]
+buy_minimums = [-6, -4, -2, 0, 2, 4, 6]
 
 buy_minimums.each { |buy_minimum|
 
@@ -244,7 +244,7 @@ buy_minimums.each { |buy_minimum|
           profit.direction == 'long'
         end
 
-        generate_stats(data_set, run_end_date, fail_at_highs, fail_at_lows, run_start_date, buy_minimum)
+        generate_stats(data_set, run_end_date, fail_at_highs, fail_at_lows, run_start_date, buy_minimum, date_period)
       }
 
       percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
