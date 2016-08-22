@@ -106,13 +106,13 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       if trade_on
         @trade_profit.push(1)
 
-       # puts 'win'
+        # puts 'win'
       end
 
       @profit_1 += 1
       @running_profit_1_2.push(1)
       if second.profit > 0
-      #  @running_profit_1_2.push(1)
+        #  @running_profit_1_2.push(1)
         @profit_1_2 += 1
         if third.profit > 0
           #@running_profit_1_2.push(1)
@@ -127,13 +127,13 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
           #@running_profit_1_2.push(-1)
         end
       else
-       # @running_profit_1_2.push(-1)
+        # @running_profit_1_2.push(-1)
       end
     else
       @global_lose_count += 1
       if trade_on
 
-       # puts 'loss'
+        # puts 'loss'
         @trade_loss.push(1)
 
       end
@@ -156,7 +156,6 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
         end
       end
     end
-
 
 
     if @running_profit_1_2.size > @running_moving_average
@@ -224,25 +223,56 @@ data_sets.each { |data_set|
   #
   # end
 
-  1.times do |count|
-    # start_date = DateTime.new(2016,8,5) - (12 * 12).months
-    # end_date = DateTime.new(2016,8,5)
+  data_start_date = DateTime.new(2007,12,5)
+  data_end_date = DateTime.new(2016,8,2)
 
-    start_date = DateTime.new(2016,8,5) - (12 * 8).months
-    end_date = DateTime.new(2016,8,5) - (12 * 6).months
+  date_periods = [2]
 
-    generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
 
-  end
+
+  date_periods.each { |date_period|
+
+    @total_trade_profit = 0
+    @total_trade_loss = 0
+    @winning_symbols = []
+    @losing_symbols = []
+
+    current_date = data_end_date
+    while current_date > data_start_date do
+
+
+      end_date = current_date
+      current_date = current_date - (date_period * 12).months
+
+      puts "start_date #{current_date} end date #{end_date} date_period #{date_period}"
+
+      generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, current_date)
+
+    end
+
+    percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
+    puts "Buy minimum: #{@buy_minimum}"
+    puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
+    puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
+    puts 'done'
+
+  }
+
+  # 1.times do |count|
+  #   # start_date = DateTime.new(2016,8,5) - (12 * 12).months
+  #   # end_date = DateTime.new(2016,8,5)
+  #
+  #   start_date = DateTime.new(2016, 8, 5) - (12 * 8).months
+  #   end_date = DateTime.new(2016, 8, 5) - (12 * 6).months
+  #
+  #   generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
+  #
+  # end
 
 
 }
 
-percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
-puts "Buy minimum: #{@buy_minimum}"
-puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
-puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
-puts 'done'
+
 
 global_percentage_win_lose = ((@global_win_count.to_f / (@global_lose_count + @global_win_count)) * 100).round(2)
 puts "Global win count: #{@global_win_count} Global lose count: #{@global_lose_count} winning percentage #{global_percentage_win_lose}"
