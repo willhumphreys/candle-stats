@@ -203,52 +203,48 @@ def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
   process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out)
 end
 
-data_sets.each { |data_set|
 
-  profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+open('results/summary.csv', 'a') { |f|
+  f << "date_period,start_date,end_date,winners,losers,win_lose_percentage,winning_symbols_count,losing_symbols_count,winning_symbols,losing_symbols\n"
+}
 
-  fail_at_highs = profits.select do |profit|
-    profit.direction == 'short'
-  end
+date_periods = [2, 3]
 
-  fail_at_lows = profits.select do |profit|
-    profit.direction == 'long'
-  end
-
-  # 8.times do |count|
-  #   start_date = DateTime.now - 12.months - (12 * count).months
-  #   end_date = DateTime.now - (12 * count).months
-  #
-  #   generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
-  #
-  # end
-
-  data_start_date = DateTime.new(2007,12,5)
-  data_end_date = DateTime.new(2016,8,2)
-
-  date_periods = [2]
+data_start_date = DateTime.new(2007, 12, 5)
+data_end_date = DateTime.new(2016, 8, 2)
 
 
 
-  date_periods.each { |date_period|
-
-    @total_trade_profit = 0
-    @total_trade_loss = 0
-    @winning_symbols = []
-    @losing_symbols = []
-
-    current_date = data_end_date
-    while current_date > data_start_date do
+date_periods.each { |date_period|
 
 
-      end_date = current_date
-      current_date = current_date - (date_period * 12).months
+  @total_trade_profit = 0
+  @total_trade_loss = 0
+  @winning_symbols = []
+  @losing_symbols = []
 
-      puts "start_date #{current_date} end date #{end_date} date_period #{date_period}"
+
+  current_date = data_end_date
+  while current_date > data_start_date do
+
+    end_date = current_date
+    puts "start_date #{current_date} end date #{end_date} date_period #{date_period}"
+    current_date = current_date - (date_period * 12).months
+
+    data_sets.each { |data_set|
+
+      profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+
+      fail_at_highs = profits.select do |profit|
+        profit.direction == 'short'
+      end
+
+      fail_at_lows = profits.select do |profit|
+        profit.direction == 'long'
+      end
 
       generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, current_date)
-
-    end
+    }
 
     percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
     puts "Buy minimum: #{@buy_minimum}"
@@ -256,7 +252,11 @@ data_sets.each { |data_set|
     puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
     puts 'done'
 
-  }
+    open('results/summary.csv', 'a') { |f|
+      f << "#{date_period},#{current_date},#{current_date - (date_period * 12).months},#{@total_trade_profit},#{@total_trade_loss},#{percentage_win_lose},#{@winning_symbols.size},#{@losing_symbols.size},#{@winning_symbols.join(' ')},#{@losing_symbols.join(' ')} \n"
+    }
+  end
+
 
   # 1.times do |count|
   #   # start_date = DateTime.new(2016,8,5) - (12 * 12).months
@@ -271,7 +271,6 @@ data_sets.each { |data_set|
 
 
 }
-
 
 
 global_percentage_win_lose = ((@global_win_count.to_f / (@global_lose_count + @global_win_count)) * 100).round(2)
