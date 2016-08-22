@@ -87,7 +87,7 @@ def log_csv(data_set, title, file_out)
 
 end
 
-def process(data_set, profits, title, start_date, end_date, directory_out, file_out, buy_minimum)
+def process(data_set, profits, title, start_date, end_date, directory_out, file_out, buy_minimum, file_out_win_lose)
   profits.each_cons(6) do |first, second, third, fourth, fifth, sixth|
 
     if first.timestamp.utc < start_date || first.timestamp.utc > end_date
@@ -105,6 +105,11 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       @global_win_count += 1
       if trade_on
         @trade_profit.push(1)
+
+        open("results/#{file_out_win_lose}", 'a') { |f|
+          f << "#{first.timestamp},#{data_set.split('_').first},1\n"
+        }
+
 
         # puts 'win'
       end
@@ -136,6 +141,9 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
         # puts 'loss'
         @trade_loss.push(1)
 
+        open("results/#{file_out_win_lose}", 'a') { |f|
+          f << "#{first.timestamp},#{data_set.split('_').first},-1\n"
+        }
       end
 
       @running_profit_1_2.push(-1)
@@ -162,7 +170,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       @running_profit_1_2 = @running_profit_1_2.drop(1)
 
       open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
-        f << "#{first.timestamp.strftime('%Y/%m/%d')},#{title},#{@running_profit_1_2.inject(0, :+)},#{@running_profit_1_2.last},#{@running_profit_1_2.join('')}\n"
+        f << "#{first.timestamp.strftime('%Y/%m/%d')},#{data_set.split('_').first},#{title},#{@running_profit_1_2.inject(0, :+)},#{@running_profit_1_2.last},#{@running_profit_1_2.join('')}\n"
       }
 
     end
@@ -187,20 +195,31 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
 
 end
 
-def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date, buy_minimum, date_period)
+def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date, buy_minimum, date_period, is_first)
   directory_out = 'results'
-  file_out = "#{data_set}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}-#{date_period}-#{buy_minimum}.csv"
+  file_out_base = "#{data_set.split('_').second}-#{start_date.strftime('%Y-%m-%d')}-#{end_date.strftime('%Y-%m-%d')}-#{date_period}-#{buy_minimum}"
+  file_out = "#{file_out_base}.csv"
+  file_out_win_lose = "#{file_out_base}_win_lose.csv"
   File.delete("#{directory_out}/#{file_out}") if File.exist?(file_out)
-  open("#{directory_out}/#{file_out}", 'a') { |f|
-    f << "scenario, data_set, consecutive, fails_or_wins, result\n"
-  }
 
-  open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
-    f << "date,direction,moving_average,last,array\n"
-  }
+  if is_first
+    open("#{directory_out}/#{file_out}", 'a') { |f|
+      f << "scenario,data_set,consecutive,fails_or_wins,result\n"
+    }
 
-  process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out, buy_minimum)
-  process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out, buy_minimum)
+    open("#{directory_out}/r#{@running_moving_average}_#{file_out}", 'a') { |f|
+      f << "date,symbol,direction,moving_average,last,array\n"
+    }
+
+    open("#{directory_out}/#{file_out_win_lose}", 'a') { |f|
+      f << "date,symbol,profit_lose\n"
+    }
+  end
+
+
+
+  process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out, buy_minimum, file_out_win_lose)
+  process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out, buy_minimum, file_out_win_lose)
 end
 
 
@@ -232,6 +251,7 @@ buy_minimums.each { |buy_minimum|
 
       puts "start_date #{run_start_date} end date #{run_end_date} date_period #{date_period}"
 
+      is_first = true
       data_sets.each { |data_set|
 
         profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
@@ -244,7 +264,8 @@ buy_minimums.each { |buy_minimum|
           profit.direction == 'long'
         end
 
-        generate_stats(data_set, run_end_date, fail_at_highs, fail_at_lows, run_start_date, buy_minimum, date_period)
+        generate_stats(data_set, run_end_date, fail_at_highs, fail_at_lows, run_start_date, buy_minimum, date_period, is_first)
+        is_first = false
       }
 
       percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
