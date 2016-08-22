@@ -208,7 +208,7 @@ open('results/summary.csv', 'a') { |f|
   f << "date_period,start_date,end_date,winners,losers,win_lose_percentage,winning_symbols_count,losing_symbols_count,winning_symbols,losing_symbols\n"
 }
 
-date_periods = [2, 3]
+date_periods = [1, 2, 3]
 
 data_start_date = DateTime.new(2007, 12, 5)
 data_end_date = DateTime.new(2016, 8, 2)
@@ -256,19 +256,6 @@ date_periods.each { |date_period|
       f << "#{date_period},#{current_date},#{current_date - (date_period * 12).months},#{@total_trade_profit},#{@total_trade_loss},#{percentage_win_lose},#{@winning_symbols.size},#{@losing_symbols.size},#{@winning_symbols.join(' ')},#{@losing_symbols.join(' ')} \n"
     }
   end
-
-
-  # 1.times do |count|
-  #   # start_date = DateTime.new(2016,8,5) - (12 * 12).months
-  #   # end_date = DateTime.new(2016,8,5)
-  #
-  #   start_date = DateTime.new(2016, 8, 5) - (12 * 8).months
-  #   end_date = DateTime.new(2016, 8, 5) - (12 * 6).months
-  #
-  #   generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date)
-  #
-  # end
-
 
 }
 
