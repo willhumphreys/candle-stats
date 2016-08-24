@@ -1,7 +1,7 @@
 library(data.table)
 library(ggplot2)
 dir.in <- 'results/'
-file.in <- 'FadeTheBreakoutNormalDaily-2007-08-02-2016-08-02-9-4_win_lose.csv'
+file.in <- 'FadeTheBreakoutNormalDaily-2007-08-02-2016-08-02-9-2_win_lose.csv'
 data <- read.table(paste(dir.in,file.in, sep=''), header=T,sep=",", row.names=NULL)
 
 

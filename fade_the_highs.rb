@@ -64,7 +64,7 @@ time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
 #time_periods = %w(_NormalDaily10y)
 #time_periods = %w(_FadeTheBreakoutNormal_10y)
 
-symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
+symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd gbpchf gbpaud)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
