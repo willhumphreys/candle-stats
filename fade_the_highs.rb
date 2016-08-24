@@ -25,6 +25,7 @@ FileUtils.rm_rf Dir.glob('results/*')
 
 @winning_symbols = []
 @losing_symbols = []
+@flat_symbols =[]
 
 @global_win_count = 0
 @global_lose_count = 0
@@ -64,7 +65,7 @@ time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
 #time_periods = %w(_NormalDaily10y)
 #time_periods = %w(_FadeTheBreakoutNormal_10y)
 
-symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd gbpchf gbpaud)
+symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd gbpchf gbpaud usdjpy eurjpy)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
@@ -184,9 +185,11 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
   @total_trade_loss += @trade_loss.size
 
   if @trade_profit.size > @trade_loss.size
-    @winning_symbols.push("#{file_out.split('_').first}:#{title.split(' ').last}")
+    @winning_symbols.push("#{data_set.split('_').first}:#{title.split(' ').last}")
   elsif @trade_profit.size < @trade_loss.size
-    @losing_symbols.push("#{file_out.split('_').first}:#{title.split(' ').last}")
+    @losing_symbols.push("#{data_set.split('_').first}:#{title.split(' ').last}")
+  elsif @trade_profit.size == @trade_loss.size
+    @flat_symbols.push("#{data_set.split('_').first}:#{title.split(' ').last}")
   end
 
   log_csv(data_set, title, "#{directory_out}/#{file_out}")
@@ -217,7 +220,6 @@ def generate_stats(data_set, end_date, fail_at_highs, fail_at_lows, start_date, 
   end
 
 
-
   process(data_set, fail_at_highs, 'fail at highs', start_date, end_date, directory_out, file_out, buy_minimum, file_out_win_lose)
   process(data_set, fail_at_lows, 'fail at lows', start_date, end_date, directory_out, file_out, buy_minimum, file_out_win_lose)
 end
@@ -243,13 +245,14 @@ buy_minimums.each { |buy_minimum|
     @total_trade_loss = 0
     @winning_symbols = []
     @losing_symbols = []
+    @flat_symbols = []
 
     run_end_date = data_end_date
     while run_end_date > data_start_date do
 
       run_start_date = run_end_date - (date_period * 12).months
 
-      puts "start_date #{run_start_date} end date #{run_end_date} date_period #{date_period}"
+      puts "start_date #{run_start_date} end date #{run_end_date} date_period #{date_period} buy_minimum #{buy_minimum}"
 
       is_first = true
       data_sets.each { |data_set|
@@ -271,7 +274,7 @@ buy_minimums.each { |buy_minimum|
       percentage_win_lose = ((@total_trade_profit.to_f / (@total_trade_loss + @total_trade_profit.to_f)) * 100).round(2)
       puts "Buy minimum: #{@buy_minimum}"
       puts "Total profit: #{@total_trade_profit} Total loss: #{@total_trade_loss} Percentage: #{percentage_win_lose}%"
-      puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')}"
+      puts "Winning Symbols:#{@winning_symbols.size} #{@winning_symbols.join(' ')} \nLosing Symbols:#{@losing_symbols.size} #{@losing_symbols.join(' ')} \nFlat Symbols:#{@flat_symbols.size} #{@flat_symbols.join(' ')}"
       puts 'done'
 
       open('results/summary.csv', 'a') { |f|
