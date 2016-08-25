@@ -15,7 +15,6 @@ data <- within(data, {
   cumsum_profit_loss <- ave(profit_lose, symbol, FUN = cumsum)
 })
 
-
 colourCount = 10
 getPalette = colorRampPalette(brewer.pal(9, "Set1"))
 
@@ -23,6 +22,6 @@ ggplot(data=data, aes(x=date, y=cumsum_profit_loss, group = symbol, colour=symbo
     geom_line() +
     geom_point() +
     scale_y_continuous(breaks=seq(-30,30,1)) +
-    scale_colour_brewer(palette = getPalette(colourCount)) +
+
     ggtitle(file.in)
     ggsave(file=paste('cumsum_profits/', file.in,'.png', sep=''))

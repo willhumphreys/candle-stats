@@ -1,10 +1,10 @@
+library(ggthemes)
+library(ggplot)
+
 data <- read.table('results/summary.csv', header=T,sep=",")
 
 data$start_date.time=as.Date(as.POSIXct(data$start_date, tz = "UTC", format="%Y-%m-%dT%H:%M:%S"))
 
-data<-subset(data, date_period==2)
-data<-subset(data, buy_minimum < 8)
-data<-subset(data, buy_minimum > -8)
 
 data <- data[complete.cases(data), ]
 
