@@ -64,7 +64,7 @@ time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
 #time_periods = %w(_NormalDaily10y)
 #time_periods = %w(_FadeTheBreakoutNormal_10y)
 
-symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd gbpchf gbpaud usdjpy eurjpy)
+symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
@@ -233,10 +233,10 @@ date_periods = [9]
 data_start_date = DateTime.new(2007, 12, 5)
 data_end_date = DateTime.new(2016, 8, 2)
 
-#buy_minimums = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34]
-buy_minimums = [-4, -6, -8, -10, -12, -14, -16, -18, -20, -22, -24, -26, -28, -30, -32, -34]
+buy_minimums = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34]
+#buy_minimums = [0, -2, -4, -6, -8, -10, -12, -14, -16, -18, -20, -22, -24, -26, -28, -30, -32, -34]
 
-running_moving_averages = [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36]
+running_moving_averages = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36]
 
 running_moving_averages.each { |running_moving_average|
 
