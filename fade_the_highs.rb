@@ -60,7 +60,7 @@ end
 
 reset_fields
 
-time_periods = %w(_FadeTheBreakoutNormalDaily_10y)
+time_periods = %w(_FadeTheBreakoutNormalDaily)
 #time_periods = %w(_NormalDaily10y)
 #time_periods = %w(_FadeTheBreakoutNormal_10y)
 

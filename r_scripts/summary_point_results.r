@@ -16,10 +16,10 @@ data$moving_average_buy_minimum <- paste(data$running_moving_average, data$buy_m
 data <- data[ which(
     data$winners > 10
     & data$losers > 10
-    & data$running_moving_average >= 22
-    & data$running_moving_average <= 28
-    & data$buy_minimum > 5
-    & data$buy_minimum < 14
+    # & data$running_moving_average >= 20
+    # & data$running_moving_average <= 36
+    # & data$buy_minimum > 5
+    # & data$buy_minimum < 14
     )
     ,]
 
@@ -28,5 +28,5 @@ ggplot(data=data, aes(x=buy_minimum, y=win_lose_percentage, group=1)) +
     geom_point(aes(colour = factor(data$winners.above.50))) +
     facet_grid(. ~ running_moving_average) +
 
-    ggtitle('summaryPositive.png')
-    ggsave(file='cumsum_profits/summary.png')
+    ggtitle('summaryNegative.png')
+    ggsave(file='cumsum_profits/summaryNegative.png')
