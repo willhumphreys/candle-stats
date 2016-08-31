@@ -228,7 +228,7 @@ open('results/summary.csv', 'a') { |f|
   f << "running_moving_average,buy_minimum,date_period,start_date,end_date,winners,losers,win_lose_percentage,winning_symbols_count,losing_symbols_count,winning_symbols,losing_symbols\n"
 }
 
-date_periods = [9]
+date_periods = [2]
 
 data_start_date = DateTime.new(2007, 12, 5)
 data_end_date = DateTime.new(2016, 8, 2)

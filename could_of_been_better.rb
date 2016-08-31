@@ -15,24 +15,91 @@ require 'active_support/all'
 @processors = Processors.new
 
 FileUtils.rm_rf Dir.glob('results_could_of_been_better/*')
+summary_file = 'could_of_been_better_results/summary.csv'
+File.delete(summary_file) if File.exist?(summary_file)
 
+
+moving_average_counts = [10, 20, 30, 40, 50]
 
 time_periods = %w(_FadeTheBreakoutNormalDaily)
-#time_periods = %w(_NormalDaily10y)
-#time_periods = %w(_FadeTheBreakoutNormal_10y)
 
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
-data_sets.each { |data_set|
-  profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+cut_offs = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40]
+
+open(summary_file, 'a') { |f|
+  f << "data_set,better_level,cut_off,moving_average_count,winners.size,losers.size,winning_percentage,cut_off_percentage\n"
+}
+
+better_levels =*(1..20)
+
+better_levels.each { |better_level|
+
+  cut_offs.each { |cut_off|
+
+    moving_average_counts.each { |moving_average_count|
+
+      if cut_off >= moving_average_count
+        next
+      end
+
+      data_sets.each { |data_set|
+
+        puts data_set
+
+        profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+
+        results = []
+
+        trade_on = false
+
+        winners = []
+        losers = []
+
+        profits.each_cons(6) do |first, second, third, fourth, fifth, sixth|
+
+          # if first.profit < 0
+          #   next
+          # end
+
+          if trade_on
+            if first.could_of_been_better >= better_level
+              winners.push(first.could_of_been_better)
+            else
+              losers.push(first.could_of_been_better)
+            end
+            trade_on = false
+          end
 
 
+          if first.could_of_been_better > better_level
+            results.push(1)
+          else
+            results.push(-1)
+          end
 
-  profits.each_cons(6) do |first, second, third, fourth, fifth, sixth|
+          if results.size > moving_average_count
+            results = results.drop(1)
+          end
 
-    puts first
+          if results.inject(0, :+) > cut_off
+            trade_on = true
+          end
 
-  end
+        end
+
+        winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
+        cut_off_percentage_of_moving_average = ((cut_off.to_f / (cut_off + moving_average_count.size)) * 100).round(2)
+        puts "#{data_set } better_level: #{better_level} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage_of_moving_average}"
+        puts results.join('')
+
+        open(summary_file, 'a') { |f|
+          f << "#{data_set},#{better_level},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage_of_moving_average}\n"
+        }
+
+      }
+    }
+  }
 }
