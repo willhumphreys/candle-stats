@@ -14,10 +14,12 @@ require 'active_support/all'
 @candle_ops = CandleOperations.new
 @processors = Processors.new
 
-FileUtils.rm_rf Dir.glob('results_could_of_been_better/*')
-summary_file = 'could_of_been_better_results/summary.csv'
-File.delete(summary_file) if File.exist?(summary_file)
+output_directory = 'could_of_been_better_results'
+Dir.mkdir(output_directory) unless File.exists?(output_directory)
 
+FileUtils.rm_rf Dir.glob("#{output_directory}/*")
+summary_file = "#{output_directory}/summary.csv"
+File.delete(summary_file) if File.exist?(summary_file)
 
 moving_average_counts = [10, 20, 30, 40, 50]
 
