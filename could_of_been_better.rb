@@ -21,6 +21,7 @@ FileUtils.rm_rf Dir.glob("#{output_directory}/*")
 summary_file = "#{output_directory}/summary.csv"
 File.delete(summary_file) if File.exist?(summary_file)
 
+#Size of the running range we are interested in.
 moving_average_counts = [10, 20, 30, 40, 50]
 
 time_periods = %w(_FadeTheBreakoutNormalDaily)
@@ -29,12 +30,14 @@ symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurj
 
 data_sets = symbols.product(time_periods).collect { |time_period, symbol| time_period + symbol }
 
+#What score do we need to return a take next trade setup.
 cut_offs = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40]
 
 open(summary_file, 'a') { |f|
   f << "data_set,better_level,cut_off,moving_average_count,winners.size,losers.size,winning_percentage,cut_off_percentage\n"
 }
 
+#How much better do we want our position to be.
 better_levels =*(1..20)
 
 better_levels.each { |better_level|
