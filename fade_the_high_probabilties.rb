@@ -70,7 +70,6 @@ minimum_profits.each { |minimum_profit|
             trade_on = false
           end
 
-
           if first.profit > minimum_profit
             results.push(1)
           else
@@ -84,7 +83,6 @@ minimum_profits.each { |minimum_profit|
           if results.inject(0, :+) > cut_off
             trade_on = true
           end
-
         }
 
         winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
@@ -95,9 +93,7 @@ minimum_profits.each { |minimum_profit|
         open(summary_file, 'a') { |f|
           f << "#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
         }
-
       }
     }
-
   }
 }
