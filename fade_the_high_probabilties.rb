@@ -62,15 +62,17 @@ minimum_profits.each { |minimum_profit|
           # end
 
           if trade_on
-            if first.profit >= minimum_profit
-              winners.push(first.could_of_been_better)
-            else
-              losers.push(first.could_of_been_better)
+            if first.profit.abs >= minimum_profit
+              if first.profit >= 0
+                winners.push(first.could_of_been_better)
+              else
+                losers.push(first.could_of_been_better)
+              end
+              trade_on = false
             end
-            trade_on = false
           end
 
-          if first.profit > minimum_profit
+          if first.profit.abs > minimum_profit
             results.push(1)
           else
             results.push(-1)
