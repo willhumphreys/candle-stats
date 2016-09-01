@@ -14,10 +14,10 @@ require 'active_support/all'
 @candle_ops = CandleOperations.new
 @processors = Processors.new
 
-FileUtils.rm_rf Dir.glob('results_could_of_been_better/*')
-summary_file = 'could_of_been_better_results/summary_high_scores.csv'
+output_directory = 'could_of_been_better_results'
+FileUtils.rm_rf Dir.glob("#{output_directory}/*")
+summary_file = "#{output_directory}/summary_high_scores.csv"
 File.delete(summary_file) if File.exist?(summary_file)
-
 
 moving_average_counts = 2.step(36, 2).to_a
 
@@ -33,7 +33,7 @@ open(summary_file, 'a') { |f|
   f << "data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,winning_percentage,cut_off_percentage\n"
 }
 
-minimum_profits = 2.step(36, 1).to_a
+minimum_profits = 2.step(36, 2).to_a
 
 minimum_profits.each { |minimum_profit|
 

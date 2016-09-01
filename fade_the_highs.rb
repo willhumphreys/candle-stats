@@ -101,7 +101,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       trade_on = true
     end
 
-    if first.profit > 0
+    if first.profit > 50
       @global_win_count += 1
       if trade_on
         @trade_profit.push(1)
@@ -135,7 +135,9 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
         # @running_profit_1_2.push(-1)
       end
     else
-      @global_lose_count += 1
+      if first.profit > 50
+        @global_lose_count += 1
+      end
       if trade_on
 
         # puts 'loss'
@@ -149,7 +151,7 @@ def process(data_set, profits, title, start_date, end_date, directory_out, file_
       @running_profit_1_2.push(-1)
     end
 
-    if first.profit < 0
+    if first.profit < 50
       @loss_1 += 1
       if second.profit < 0
         @loss_1_2 += 1
