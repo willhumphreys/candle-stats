@@ -91,12 +91,12 @@ minimum_profits.each { |minimum_profit|
         }
 
         winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
-        cut_off_percentage_of_moving_average = ((cut_off.to_f / moving_average_count) * 100).round(2)
-        puts "#{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage_of_moving_average}"
+        cut_off_percentage = ((cut_off.to_f / moving_average_count) * 100).round(2)
+        puts "#{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage}"
         puts results.join('')
 
         open(summary_file, 'a') { |f|
-          f << "#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage_of_moving_average}\n"
+          f << "#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
         }
 
       }
