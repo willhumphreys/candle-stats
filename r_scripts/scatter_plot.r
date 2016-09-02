@@ -9,7 +9,7 @@ generate.average.line.plot <- function(dat, out.file) {
 
   ggplot(data=dat, aes(x=Group.1, y=x, group=1)) +
     geom_line() +
-    scale_y_continuous(breaks=seq(50,55,0.1))
+    scale_y_continuous(breaks=seq(50,80,0.1))
   ggsave(file=out.file)
 
 }
@@ -34,3 +34,16 @@ average_per_cut_off_no_japan <- aggregate(no_japan[, 7], list(no_japan$cut_off_p
 generate.scatter.plot(no_japan, "could_of_been_better_results/scatter.png")
 generate.average.line.plot(average_per_cut_off_no_japan, "could_of_been_better_results/profit_by_cutoff.png")
 
+
+generate.minimum.plots <- function(minimum_value, data) {
+    filtered.data <- data[ which(data$minimum_profit==minimum_value ),]
+
+    average_per_cut_off <- aggregate(filtered.data[, 7], list(filtered.data$cut_off_percentage), mean)
+
+    generate.average.line.plot(average_per_cut_off, paste("could_of_been_better_results/profit_by_cutoff_", minimum_value, ".png", sep=""))
+    generate.scatter.plot(filtered.data, paste("could_of_been_better_results/scatter_", minimum_value, ".png", sep=""))
+
+}
+
+
+sapply(seq(2, 36, by=2), function(x) generate.minimum.plots(x, data))
