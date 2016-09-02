@@ -8,12 +8,14 @@ average_per_cut_off_minimum <- aggregate(data[, 7, 2], list(data$cut_off_percent
 
 
 ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
-geom_bar(stat="identity", colour="#FF9999")
+geom_bar(stat="identity", colour="#FF9999") +
+theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ggsave(file="could_of_been_better_results/average_cut_off_minimum.png")
 
 ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
 geom_bar(stat="identity", colour="#FF9999") +
-scale_y_continuous(breaks=seq(0,60,3)) +
+scale_y_continuous(breaks=seq(0,80,3)) +
+theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
 facet_grid(. ~ Group.2)
 ggsave(file="could_of_been_better_results/average_cut_off_minimum_facet.png")
 
