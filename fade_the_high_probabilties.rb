@@ -7,12 +7,14 @@ require_relative 'processor'
 require_relative 'processors'
 require_relative 'news_reader'
 require_relative 'fade_mapper'
+require_relative 'date_range_generator'
 require 'active_support/all'
 
 @bar_chart_file_repo = BarChartFileRepo.new
 @mt4_file_repo = MT4FileRepo.new(FadeMapper.new)
 @candle_ops = CandleOperations.new
 @processors = Processors.new
+@date_range_generator = DateRangeGenerator.new(DateTime.new(2007, 12, 5), DateTime.new(2016, 8, 2))
 
 output_directory = 'could_of_been_better_results'
 FileUtils.rm_rf Dir.glob("#{output_directory}/*")
@@ -28,7 +30,7 @@ symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurj
 data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol| time_period + symbol }
 
 open(summary_file, 'a') { |f|
-  f << "data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,winning_percentage,cut_off_percentage\n"
+  f << "start_date,end_date,data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,winning_percentage,cut_off_percentage\n"
 }
 
 
@@ -38,11 +40,10 @@ minimum_profits.each { |minimum_profit|
 
     moving_average_counts.each { |moving_average_count|
 
-      date_periods.each { |date_period|
+      @date_range_generator.get_ranges.each { |date_range|
 
-        if first.timestamp.utc < start_date || first.timestamp.utc > end_date
-          next
-        end
+        start_date = date_range.start_date
+        end_date = date_range.end_date
 
         if cut_off.abs >= moving_average_count
           next
@@ -61,24 +62,28 @@ minimum_profits.each { |minimum_profit|
           winners = []
           losers = []
 
-          profits.each { |first|
+          profits.each { |trade_result|
 
-            # if first.profit < 0
+            if trade_result.timestamp.utc < start_date || trade_result.timestamp.utc > end_date
+              next
+            end
+
+            # if trade_result.profit < 0
             #   next
             # end
 
             if trade_on
-              if first.profit.abs >= minimum_profit
-                if first.profit >= 0
-                  winners.push(first.could_of_been_better)
+              if trade_result.profit.abs >= minimum_profit
+                if trade_result.profit >= 0
+                  winners.push(trade_result.could_of_been_better)
                 else
-                  losers.push(first.could_of_been_better)
+                  losers.push(trade_result.could_of_been_better)
                 end
                 trade_on = false
               end
             end
 
-            if first.profit.abs > minimum_profit
+            if trade_result.profit.abs > minimum_profit
               results.push(1)
             else
               results.push(-1)
@@ -95,11 +100,11 @@ minimum_profits.each { |minimum_profit|
 
           winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
           cut_off_percentage = ((cut_off.to_f / moving_average_count) * 100).round(2)
-          puts "#{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage}"
+          puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage}"
           puts results.join('')
 
           open(summary_file, 'a') { |f|
-            f << "#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
+            f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
           }
         }
       }
