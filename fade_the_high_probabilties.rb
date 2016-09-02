@@ -21,7 +21,7 @@ FileUtils.rm_rf Dir.glob("#{output_directory}/*")
 summary_file = "#{output_directory}/summary_high_scores.csv"
 File.delete(summary_file) if File.exist?(summary_file)
 
-moving_average_counts = 2.step(36, 2).to_a #How big is the moving average window.
+moving_average_counts = 2.step(36, 2).to_a # How big is the moving average window.
 cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
 minimum_profits = 2.step(36, 2).to_a # What is the minimum profit our new trade needs to be traded.
 
