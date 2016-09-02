@@ -4,12 +4,25 @@ library('ggplot2')
 data <- read.table('could_of_been_better_results/summary_high_scores.csv', header=T,sep=",")
 
 average_per_cut_off <- aggregate(data[, 7], list(data$cut_off_percentage), mean)
+average_per_cut_off_minimum <- aggregate(data[, 7, 2], list(data$cut_off_percentage, data$minimum_profit), mean)
+
+
+ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
+geom_bar(stat="identity", colour="#FF9999")
+ggsave(file="could_of_been_better_results/average_cut_off_minimum.png")
+
+ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
+geom_bar(stat="identity", colour="#FF9999") +
+scale_y_continuous(breaks=seq(0,60,3)) +
+facet_grid(. ~ Group.2)
+ggsave(file="could_of_been_better_results/average_cut_off_minimum_facet.png")
 
 generate.average.line.plot <- function(dat, out.file) {
 
   ggplot(data=dat, aes(x=Group.1, y=x, group=1)) +
     geom_line() +
-    scale_y_continuous(breaks=seq(50,80,0.1))
+    scale_y_continuous(breaks=seq(50,80,0.3)) +
+    scale_x_continuous(breaks=seq(-100,100,5))
   ggsave(file=out.file)
 
 }
