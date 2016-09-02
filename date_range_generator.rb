@@ -1,0 +1,32 @@
+require 'active_support/all'
+
+class DateRangeGenerator
+
+  def initialize(data_start_date, data_end_date)
+    @data_start_date = data_start_date
+    @data_end_date = data_end_date
+  end
+
+  def get_ranges
+    date_periods = [2, 3, 9]
+
+    date_periods.each { |date_period|
+
+      run_end_date = @data_end_date
+
+      while run_end_date > @data_start_date do
+
+        run_start_date = run_end_date - (date_period * 12).months
+
+        puts "start_date #{run_start_date} end date #{run_end_date} date_period #{date_period}"
+
+        run_end_date = run_end_date - (date_period * 12).months
+      end
+    }
+  end
+
+
+end
+
+date_range_generator = DateRangeGenerator.new(DateTime.new(2007, 12, 5), DateTime.new(2016, 8, 2)).get_ranges
+

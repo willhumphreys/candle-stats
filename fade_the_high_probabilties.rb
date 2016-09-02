@@ -38,62 +38,69 @@ minimum_profits.each { |minimum_profit|
 
     moving_average_counts.each { |moving_average_count|
 
-      if cut_off.abs >= moving_average_count
-        next
-      end
+      date_periods.each { |date_period|
 
-      data_sets.each { |data_set|
+        if first.timestamp.utc < start_date || first.timestamp.utc > end_date
+          next
+        end
 
-        puts data_set
+        if cut_off.abs >= moving_average_count
+          next
+        end
 
-        profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+        data_sets.each { |data_set|
 
-        results = []
+          puts data_set
 
-        trade_on = false
+          profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
 
-        winners = []
-        losers = []
+          results = []
 
-        profits.each { |first|
+          trade_on = false
 
-          # if first.profit < 0
-          #   next
-          # end
+          winners = []
+          losers = []
 
-          if trade_on
-            if first.profit.abs >= minimum_profit
-              if first.profit >= 0
-                winners.push(first.could_of_been_better)
-              else
-                losers.push(first.could_of_been_better)
+          profits.each { |first|
+
+            # if first.profit < 0
+            #   next
+            # end
+
+            if trade_on
+              if first.profit.abs >= minimum_profit
+                if first.profit >= 0
+                  winners.push(first.could_of_been_better)
+                else
+                  losers.push(first.could_of_been_better)
+                end
+                trade_on = false
               end
-              trade_on = false
             end
-          end
 
-          if first.profit.abs > minimum_profit
-            results.push(1)
-          else
-            results.push(-1)
-          end
+            if first.profit.abs > minimum_profit
+              results.push(1)
+            else
+              results.push(-1)
+            end
 
-          if results.size > moving_average_count
-            results = results.drop(1)
-          end
+            if results.size > moving_average_count
+              results = results.drop(1)
+            end
 
-          if results.inject(0, :+) > cut_off
-            trade_on = true
-          end
-        }
+            if results.inject(0, :+) > cut_off
+              trade_on = true
+            end
+          }
 
-        winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
-        cut_off_percentage = ((cut_off.to_f / moving_average_count) * 100).round(2)
-        puts "#{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage}"
-        puts results.join('')
+          winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
+          cut_off_percentage = ((cut_off.to_f / moving_average_count) * 100).round(2)
+          puts "#{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} #{winning_percentage}% cut off percentage: #{cut_off_percentage}"
+          puts results.join('')
 
-        open(summary_file, 'a') { |f|
-          f << "#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
+          open(summary_file, 'a') { |f|
+            f << "#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
+          }
         }
       }
     }
