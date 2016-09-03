@@ -29,6 +29,8 @@ end_of_data_in_file = %w(_FadeTheBreakoutNormalDaily)
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
 data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol| time_period + symbol }
 
+date_ranges = @date_range_generator.get_ranges
+
 open(summary_file, 'a') { |f|
   f << "start_date,end_date,data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,winning_percentage,cut_off_percentage\n"
 }
@@ -40,7 +42,7 @@ minimum_profits.each { |minimum_profit|
 
     moving_average_counts.each { |moving_average_count|
 
-      @date_range_generator.get_ranges.each { |date_range|
+      date_ranges.each { |date_range|
 
         start_date = date_range.start_date
         end_date = date_range.end_date
