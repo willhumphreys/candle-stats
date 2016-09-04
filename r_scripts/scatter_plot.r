@@ -12,11 +12,15 @@ get.year <- function(date) {
 
 generate.plots.by.date <- function(start_date, end_date, data) {
 
+  #start_date <- '2015-08-02T00:00:00+00:00'
+  #end_date <- '2017-08-02T00:00:00+00:00'
+
   filtered_data <- data[data$start_date == start_date,]
   filtered_data <- filtered_data[filtered_data$end_date == end_date,]
 
-  average_per_cut_off <- aggregate(filtered_data[, 9], list(filtered_data$cut_off_percentage), mean)
-  average_per_cut_off_minimum <- aggregate(filtered_data[, 9, 4], list(filtered_data$cut_off_percentage, filtered_data$minimum_profit), mean)
+  average_per_cut_off <- aggregate(filtered_data[, c("winning_percentage")], list(filtered_data$cut_off_percentage), mean)
+  average_per_cut_off_minimum <- aggregate(filtered_data[, c("winning_percentage","minimum_profit")],
+    list(filtered_data$cut_off_percentage, filtered_data$minimum_profit), mean)
 
   start_year = get.year(start_date)
   end_year = get.year(end_date)
