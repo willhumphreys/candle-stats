@@ -4,6 +4,9 @@ library('ggplot2')
 file.in <- 'summary_high_scores.csv'
 dir.out <- 'could_of_been_better_results'
 
+#colours
+red <- "#FF9999"
+
 data <- read.table(file.in, header=T,sep=",")
 
 get.year <- function(date) {
@@ -25,12 +28,12 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   start_year = get.year(start_date)
   end_year = get.year(end_date)
 
-  ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
+  ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=winning_percentage)) +
   geom_bar(stat="identity", colour="#FF9999") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
   ggsave(file=paste(dir.out, "/average_cut_off_minimum-", start_year, "-", end_year, ".png", sep=""))
 
-  ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
+  ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=winning_percentage)) +
   geom_bar(stat="identity", colour="#FF9999") +
   scale_y_continuous(breaks=seq(0,80,3)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
