@@ -55,14 +55,6 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   generate.average.line.plot(average_per_cut_off, paste(dir.out, "/profit_by_cutoff-", start_year, "-", end_year, ".png", sep=""))
   generate.scatter.plot(filtered_data, paste(dir.out, "/scatter-", start_year, "-", end_year, ".png", sep=""))
 
-  no_japan <- filtered_data[!grepl("usdjpy", filtered_data$data_set),]
-  no_japan <- filtered_data[!grepl("eurjpy", filtered_data$data_set),]
-
-  average_per_cut_off_no_japan <- aggregate(no_japan[, 9], list(no_japan$cut_off_percentage), mean)
-
-  generate.scatter.plot(no_japan, paste(dir.out, "/scatter-", start_year, "-", end_year, ".png", sep=""))
-  generate.average.line.plot(average_per_cut_off_no_japan, paste(dir.out, "/profit_by_cutoff", start_year, "-", end_year, ".png", sep=""))
-
   generate.minimum.plots <- function(minimum_value, data) {
       filtered.data <- data[ which(data$minimum_profit==minimum_value ),]
 
