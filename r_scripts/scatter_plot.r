@@ -29,7 +29,7 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   end_year = get.year(end_date)
 
   ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=winning_percentage)) +
-  geom_bar(stat="identity", colour="#FF9999") +
+  geom_bar(stat="identity", colour=red) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
   ggsave(file=paste(dir.out, "/average_cut_off_minimum-", start_year, "-", end_year, ".png", sep=""))
 
