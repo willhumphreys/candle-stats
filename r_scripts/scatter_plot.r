@@ -72,8 +72,10 @@ generate.plots.by.date <- function(start_date, end_date, data) {
 
   }
 
+  minimum_fade_start <- 2
+  minimum_fade_end <- 36
 
-  sapply(seq(2, 36, by=2), function(x) generate.minimum.plots(x, filtered_data))
+  sapply(seq(minimum_fade_start, minimum_fade_end, by=2), function(x) generate.minimum.plots(x, filtered_data))
 
 }
 
