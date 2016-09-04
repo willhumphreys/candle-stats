@@ -11,13 +11,14 @@ sprintf("loading data from : %s", file.in)
 sprintf("outputing plots to : %s", dir.out)
 data <- read.table(file.in, header=T,sep=",")
 print('data loaded')
-get.year <- function(date) {
-    return ((strsplit(date, "-")[[1]])[1])
+get.year <- function(date, split_character) {
+    return ((strsplit(date, split_character)[[1]])[1])
 }
 
 append.year.filename <- function(filename, start_year, end_year) {
-    complete.file.name <- (paste(dir.out, filename, start_year, "-", end_year, ".png", sep=""))
-    sprintf("saving file: %s", complete.file.name)
+    complete.file.name <- (paste(dir.out, filename, get.year(start_year,"-"), "-", get.year(end_year,"-"), ".png", sep=""))
+
+    print(complete.file.name)
     return (complete.file.name)
 }
 
@@ -33,20 +34,20 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   average_per_cut_off_minimum <- aggregate(filtered_data[, c("winning_percentage","minimum_profit")],
     list(filtered_data$cut_off_percentage, filtered_data$minimum_profit), mean)
 
-  start_year = get.year(start_date)
-  end_year = get.year(end_date)
+  start_year = get.year(start_date,"_")
+  end_year = get.year(end_date,"_")
 
   ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=winning_percentage)) +
   geom_bar(stat="identity", colour=red) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
-  ggsave(file=append.year.filename("/average_cut_off_minimum-", start_year, end_year))
+  ggsave(file=append.year.filename("/average_cut_off_minimum_", start_year, end_year))
 
   ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=winning_percentage)) +
   geom_bar(stat="identity", colour="#FF9999") +
   scale_y_continuous(breaks=seq(0,80,3)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   facet_grid(. ~ Group.2)
-  ggsave(file=append.year.filename("/average_cut_off_minimum_facet-", start_year,  end_year))
+  ggsave(file=append.year.filename("/average_cut_off_minimum_facet_", start_year,  end_year))
 
   generate.average.line.plot <- function(dat, out.file) {
 
@@ -67,16 +68,16 @@ generate.plots.by.date <- function(start_date, end_date, data) {
     ggsave(file=out.file)
   }
 
-  generate.average.line.plot(average_per_cut_off, paste(dir.out, "/profit_by_cutoff-", start_year, "-", end_year, ".png", sep=""))
-  generate.scatter.plot(filtered_data, append.year.filename("/scatter-", start_year, end_year))
+  generate.average.line.plot(average_per_cut_off, append.year.filename("/profit_by_cutoff_", start_year, end_year))
+  generate.scatter.plot(filtered_data, append.year.filename("/scatter_", start_year, end_year))
 
   generate.minimum.plots <- function(minimum_value, data) {
       filtered.data <- data[ which(data$minimum_profit==minimum_value ),]
 
       average_per_cut_off <- aggregate(filtered.data[, c("winning_percentage")], list(filtered.data$cut_off_percentage), mean)
 
-      generate.average.line.plot(average_per_cut_off, paste(dir.out, "/profit_by_cutoff_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
-      generate.scatter.plot(filtered.data, paste(dir.out, "/scatter_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
+      generate.average.line.plot(average_per_cut_off, append.year.filename(paste("/profit_by_cutoff_", minimum_value, "_", sep=""), start_year, end_year))
+      generate.scatter.plot(filtered.data, append.year.filename(paste("/scatter_", minimum_value, "_",sep=""), start_year, end_year))
 
   }
 
