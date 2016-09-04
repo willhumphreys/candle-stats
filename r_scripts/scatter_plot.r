@@ -7,8 +7,10 @@ dir.out <- 'could_of_been_better_results'
 #colours
 red <- "#FF9999"
 
+sprintf("loading data from : %s", file.in)
+sprintf("outputing plots to : %s", dir.out)
 data <- read.table(file.in, header=T,sep=",")
-
+print('data loaded')
 get.year <- function(date) {
     return ((strsplit(date, "-")[[1]])[1])
 }
@@ -65,7 +67,7 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   generate.minimum.plots <- function(minimum_value, data) {
       filtered.data <- data[ which(data$minimum_profit==minimum_value ),]
 
-      average_per_cut_off <- aggregate(filtered.data[, 9], list(filtered.data$cut_off_percentage), mean)
+      average_per_cut_off <- aggregate(filtered.data[, c("winning_percentage")], list(filtered.data$cut_off_percentage), mean)
 
       generate.average.line.plot(average_per_cut_off, paste(dir.out, "/profit_by_cutoff_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
       generate.scatter.plot(filtered.data, paste(dir.out, "/scatter_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
