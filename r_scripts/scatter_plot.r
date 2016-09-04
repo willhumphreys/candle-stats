@@ -1,7 +1,10 @@
 library('ggthemes')
 library('ggplot2')
 
-data <- read.table('could_of_been_better_results/summary_high_scores.csv', header=T,sep=",")
+file.in <- 'summary_high_scores.csv'
+dir.out <- 'could_of_been_better_results'
+
+data <- read.table(file.in, header=T,sep=",")
 
 get.year <- function(date) {
     return ((strsplit(date, "-")[[1]])[1])
@@ -21,14 +24,14 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
   geom_bar(stat="identity", colour="#FF9999") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
-  ggsave(file=paste("could_of_been_better_results/average_cut_off_minimum-", start_year, "-", end_year, ".png", sep=""))
+  ggsave(file=paste(dir.out, "/average_cut_off_minimum-", start_year, "-", end_year, ".png", sep=""))
 
   ggplot(average_per_cut_off_minimum, aes(x=Group.1, y=x)) +
   geom_bar(stat="identity", colour="#FF9999") +
   scale_y_continuous(breaks=seq(0,80,3)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   facet_grid(. ~ Group.2)
-  ggsave(file=paste("could_of_been_better_results/average_cut_off_minimum_facet-", start_year, "-", end_year, ".png", sep=""))
+  ggsave(file=paste(dir.out, "/average_cut_off_minimum_facet-", start_year, "-", end_year, ".png", sep=""))
 
   generate.average.line.plot <- function(dat, out.file) {
 
@@ -49,24 +52,24 @@ generate.plots.by.date <- function(start_date, end_date, data) {
     ggsave(file=out.file)
   }
 
-  generate.average.line.plot(average_per_cut_off, paste("could_of_been_better_results/profit_by_cutoff-", start_year, "-", end_year, ".png", sep=""))
-  generate.scatter.plot(filtered_data, paste("could_of_been_better_results/scatter-", start_year, "-", end_year, ".png", sep=""))
+  generate.average.line.plot(average_per_cut_off, paste(dir.out, "/profit_by_cutoff-", start_year, "-", end_year, ".png", sep=""))
+  generate.scatter.plot(filtered_data, paste(dir.out, "/scatter-", start_year, "-", end_year, ".png", sep=""))
 
   no_japan <- filtered_data[!grepl("usdjpy", filtered_data$data_set),]
   no_japan <- filtered_data[!grepl("eurjpy", filtered_data$data_set),]
 
   average_per_cut_off_no_japan <- aggregate(no_japan[, 9], list(no_japan$cut_off_percentage), mean)
 
-  generate.scatter.plot(no_japan, paste("could_of_been_better_results/scatter-", start_year, "-", end_year, ".png", sep=""))
-  generate.average.line.plot(average_per_cut_off_no_japan, paste("could_of_been_better_results/profit_by_cutoff", start_year, "-", end_year, ".png", sep=""))
+  generate.scatter.plot(no_japan, paste(dir.out, "/scatter-", start_year, "-", end_year, ".png", sep=""))
+  generate.average.line.plot(average_per_cut_off_no_japan, paste(dir.out, "/profit_by_cutoff", start_year, "-", end_year, ".png", sep=""))
 
   generate.minimum.plots <- function(minimum_value, data) {
       filtered.data <- data[ which(data$minimum_profit==minimum_value ),]
 
       average_per_cut_off <- aggregate(filtered.data[, 9], list(filtered.data$cut_off_percentage), mean)
 
-      generate.average.line.plot(average_per_cut_off, paste("could_of_been_better_results/profit_by_cutoff_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
-      generate.scatter.plot(filtered.data, paste("could_of_been_better_results/scatter_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
+      generate.average.line.plot(average_per_cut_off, paste(dir.out, "/profit_by_cutoff_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
+      generate.scatter.plot(filtered.data, paste(dir.out, "/scatter_", minimum_value, "-", start_year, "-", end_year, ".png", sep=""))
 
   }
 
