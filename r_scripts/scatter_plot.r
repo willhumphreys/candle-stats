@@ -40,15 +40,16 @@ generate.plots.by.date <- function(start_date, end_date, data) {
 
   ggplot(average_per_cut_off, aes(x=cut_off_percentage, y=winning_percentage)) +
   geom_bar(stat="identity", colour=red) +
+  coord_cartesian(ylim=c(40, 60)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
   ggsave(file=append.year.filename("/average_cut_off_minimum_", start_year, end_year))
 
   ggplot(average_per_cut_off_minimum, aes(x=cut_off_percentage, y=winning_percentage)) +
   geom_bar(stat="identity", colour="#FF9999") +
-  scale_y_continuous(breaks=seq(0,80,3)) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  coord_cartesian(ylim=c(40, 60)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 14), axis.text.y = element_text(size = 20)) +
   facet_grid(. ~ minimum_profit) +
-  theme(axis.title=element_text(size=12))
+  theme(axis.title=element_text(size=20))
   ggsave(file=append.year.filename("/average_cut_off_minimum_facet_", start_year,  end_year), width = 21, height = 15)
 
   generate.average.line.plot <- function(dat, out.file) {
