@@ -38,85 +38,86 @@ open(summary_file, 'a') { |f|
 }
 
 
-def process_data_set(cut_off, data_set, end_date, input_directory, minimum_profit, moving_average_count, start_date, summary_file)
+def process_data_set(required_score, data_set, end_date, input_directory, minimum_profit, window_size, start_date, summary_file)
   puts data_set
 
   trade_results = @mt4_file_repo.read_quotes("#{input_directory}/#{data_set}.csv")
 
-  results = []
-
-  trade_on = false
-
+  stored_trades = []
   winners = []
   losers = []
+  trade_on = false
 
   trade_results.each { |trade_result|
 
-    if trade_result.timestamp.utc < start_date || trade_result.timestamp.utc > end_date
+    if trade_result.timestamp.utc < start_date || trade_result.timestamp.utc > end_date || trade_result.profit.abs < minimum_profit
       next
     end
 
-    # if trade_result.profit < 0
-    #   next
-    # end
-
     if trade_on
-      if trade_result.profit.abs >= minimum_profit && results.size >= moving_average_count
+      if stored_trades.size >= window_size
         if trade_result.profit >= 0
-          winners.push(trade_result.could_of_been_better)
+          winners.push(1)
         else
-          losers.push(trade_result.could_of_been_better)
+          losers.push(1)
         end
         trade_on = false
       end
     end
 
-    if trade_result.profit.abs > minimum_profit
-      results.push(1)
+    if trade_result.profit > 0
+      stored_trades.push(1)
     else
-      results.push(-1)
+      stored_trades.push(-1)
     end
 
-    if results.size > moving_average_count
-      results = results.drop(1)
+    if stored_trades.size > window_size
+      stored_trades = stored_trades.drop(1)
     end
 
-    if results.inject(0, :+) > cut_off
+    stored_trades_score = stored_trades.inject(0, :+)
+    if (required_score >= 0 && stored_trades_score >= required_score) ||
+        (required_score < 0 && stored_trades_score <= required_score)
       trade_on = true
     end
   }
 
-  winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
-  cut_off_percentage = ((cut_off.to_f / moving_average_count) * 100).round(2)
-  puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{cut_off} "\
-               "moving average count: #{moving_average_count} winners: #{winners.size} losers: #{losers.size} "\
-               "#{winning_percentage}% cut off percentage: #{cut_off_percentage}"
-  puts results.join('')
+  if !losers.empty? || !winners.empty?
 
-  open(summary_file, 'a') { |f|
-    f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{cut_off},#{moving_average_count},"\
+    winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
+    cut_off_percentage = ((required_score.to_f / window_size) * 100).round(2)
+    puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{required_score} "\
+               "moving average count: #{window_size} winners: #{winners.size} losers: #{losers.size} "\
+               "#{winning_percentage}% cut off percentage: #{cut_off_percentage}"
+    puts stored_trades.join('')
+
+    open(summary_file, 'a') { |f|
+      f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{required_score},#{window_size},"\
                  "#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
-  }
+    }
+  end
+
+
 end
 
 minimum_profits.each { |minimum_profit|
 
-  cut_offs.each { |cut_off|
+  cut_offs.each { |required_score|
 
-    moving_average_counts.each { |moving_average_count|
+    moving_average_counts.each { |window_size|
 
       date_ranges.each { |date_range|
 
         start_date = date_range.start_date
         end_date = date_range.end_date
 
-        if cut_off.abs >= moving_average_count
+        if required_score.abs >= window_size
           next
         end
 
         data_sets.each { |data_set|
 
-          process_data_set(cut_off, data_set, end_date, input_directory, minimum_profit, moving_average_count, start_date, summary_file)
+          process_data_set(required_score, data_set, end_date, input_directory, minimum_profit, window_size, start_date, summary_file)
         }
       }
     }

@@ -16,8 +16,7 @@ class FadeMapper
     Profit.new(
         timestamp: date,
         direction: row[1],
-        profit: row[6].to_i,
-        could_of_been_better: row[7].to_i
+        profit: row[6].to_i
     )
 
   end
