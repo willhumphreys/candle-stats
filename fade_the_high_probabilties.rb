@@ -27,7 +27,7 @@ cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
 minimum_profits = 2.step(36, 2).to_a # What is the minimum profit our new trade needs to be traded.
 
 end_of_data_in_file = %w(_FadeTheBreakoutNormalDaily)
-symbols = %w(audusd)
+symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
 data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol| time_period + symbol }
 
 date_ranges = @date_range_generator.get_ranges
