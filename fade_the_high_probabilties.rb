@@ -16,6 +16,7 @@ require 'active_support/all'
 @processors = Processors.new
 @date_range_generator = DateRangeGenerator.new(DateTime.new(2007, 12, 5), DateTime.new(2016, 8, 2))
 
+input_directory = 'backtesting_data'
 output_directory = 'could_of_been_better_results'
 FileUtils.rm_rf Dir.glob("#{output_directory}/*")
 summary_file = "#{output_directory}/summary_high_scores.csv"
@@ -55,7 +56,7 @@ minimum_profits.each { |minimum_profit|
 
           puts data_set
 
-          profits = @mt4_file_repo.read_quotes("backtesting_data/#{data_set}.csv")
+          profits = @mt4_file_repo.read_quotes("#{input_directory}/#{data_set}.csv")
 
           results = []
 
