@@ -66,7 +66,7 @@ class DataSetProcessor
 
       puts @stored_trades.join('')
 
-      return Results.new(winning_percentage, cut_off_percentage, winners, losers)
+      return Results.new(winning_percentage, cut_off_percentage, @winners, @losers)
     end
 
     return nil

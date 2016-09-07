@@ -1,6 +1,6 @@
 class Results
 
-  def initialize(winning_percentage: , cut_off_percentage:, winners:, losers:)
+  def initialize(winning_percentage , cut_off_percentage, winners, losers)
     @winning_percentage = winning_percentage
     @cut_off_percentage = cut_off_percentage
     @winners = winners

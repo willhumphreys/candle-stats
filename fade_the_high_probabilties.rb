@@ -35,8 +35,6 @@ date_ranges = @date_range_generator.get_ranges
 
 @results_writer.writeSummaryHeader
 
-
-
 def process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
   data_set_processor = DataSetProcessor.new(data_set, required_score, start_date, end_date, minimum_profit, window_size)
@@ -50,10 +48,7 @@ def process_data_set(data_set, required_score, start_date, end_date, minimum_pro
                "moving average count: #{window_size} winners: #{results.winners.size} losers: #{results.losers.size} "\
                "#{results.winning_percentage}% cut off percentage: #{results.cut_off_percentage}"
 
-
     @results_writer.write_summary_line(start_date, end_date, data_set, minimum_profit, required_score, window_size, results)
-
-
   end
 
 end
