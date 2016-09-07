@@ -1,4 +1,4 @@
-require_relative 'profit'
+require_relative 'trade_result'
 require 'date'
 
 class FadeMapper
@@ -13,7 +13,7 @@ class FadeMapper
 
     date = DateTime.strptime("#{row[0]}", '%Y-%m-%dT%H:%M')
 
-    Profit.new(
+    TradeResult.new(
         timestamp: date,
         direction: row[1],
         profit: row[6].to_i

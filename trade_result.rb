@@ -1,5 +1,5 @@
 
-class Profit
+class TradeResult
 
   def initialize(timestamp: , direction: , profit:)
 

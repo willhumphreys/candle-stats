@@ -1,6 +1,5 @@
 require 'csv'
 
-
 class MT4FileRepo
 
   @mt4_quote_mapper

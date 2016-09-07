@@ -8,7 +8,7 @@ require_relative 'processors'
 require_relative 'news_reader'
 require_relative 'fade_mapper'
 require_relative 'date_range_generator'
-require_relative 'data_set_processor'
+require_relative 'trade_results_processor'
 require_relative 'results'
 require_relative 'results_writer'
 require_relative 'execution_parameters'
@@ -38,11 +38,11 @@ date_ranges = @date_range_generator.get_ranges
 
 def process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
-  data_set_processor = DataSetProcessor.new(data_set, required_score, start_date, end_date, minimum_profit, window_size)
+  data_set_processor = TradeResultsProcessor.new(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
   trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{data_set}.csv")
 
-  results = data_set_processor.process(trade_results)
+  results = data_set_processor.process_trade_results(trade_results)
 
   unless results.nil?
     puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{required_score} "\
