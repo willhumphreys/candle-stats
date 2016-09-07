@@ -12,8 +12,6 @@ class DataSetProcessor
     @minimum_profit = minimum_profit
     @window_size = window_size
 
-
-
     @mt4_file_repo = MT4FileRepo.new(FadeMapper.new)
 
   end
@@ -66,11 +64,7 @@ class DataSetProcessor
 
       puts @stored_trades.join('')
 
-      return Results.new(winning_percentage, cut_off_percentage, @winners, @losers)
+      Results.new(winning_percentage, cut_off_percentage, @winners, @losers)
     end
-
-    return nil
-
   end
-
 end
