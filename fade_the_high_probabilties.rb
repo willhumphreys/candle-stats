@@ -55,13 +55,9 @@ def process_data_set(execution_parameters)
 end
 
 minimum_profits.each { |minimum_profit|
-
   cut_offs.each { |required_score|
-
     moving_average_counts.each { |window_size|
-
       date_ranges.each { |date_range|
-
         start_date = date_range.start_date
         end_date = date_range.end_date
 
@@ -70,11 +66,10 @@ minimum_profits.each { |minimum_profit|
         end
 
         data_sets.each { |data_set|
-
           execution_parameters = Execution_parameters.new(start_date, end_date, data_set, minimum_profit, required_score, window_size)
-
           process_data_set(execution_parameters)
         }
+
       }
     }
   }
