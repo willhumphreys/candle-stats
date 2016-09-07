@@ -10,14 +10,14 @@ class TradeResultProcessor
   end
 
   def process_trade_result(trade_result, trade_on, winners, losers)
-    if @trade_on
+    if trade_on
       if @stored_trades.size >= @window_size
         if trade_result.profit >= 0
           winners.push(1)
         else
           losers.push(1)
         end
-        @trade_on = false
+        trade_on = false
       end
     end
 
@@ -34,7 +34,7 @@ class TradeResultProcessor
     stored_trades_score = @stored_trades.inject(0, :+)
     if (@required_score >= 0 && stored_trades_score >= @required_score) ||
         (@required_score < 0 && stored_trades_score <= @required_score)
-      @trade_on = true
+      trade_on = true
     end
 
     trade_on

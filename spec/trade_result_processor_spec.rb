@@ -5,10 +5,10 @@ require_relative '../trade_result'
 describe 'My behaviour' do
 
   before do
-    @trade_result_processor = TradeResultProcessor.new(10, 4)
+    @trade_result_processor = TradeResultProcessor.new(10, 2)
   end
 
-  it 'should do something' do
+  it 'should return false when need a score of two but only score 1 ' do
 
     trade_result = TradeResult.new(
         timestamp: DateTime.new(2007, 12, 5),
