@@ -1,0 +1,29 @@
+class ResultsWriter
+
+
+  def initialize
+    @output_directory = 'could_of_been_better_results'
+    @summary_file = "#{@output_directory}/summary_high_scores.csv"
+
+    File.delete(@summary_file) if File.exist?(@summary_file)
+
+    FileUtils.rm_rf Dir.glob("#{@output_directory}/*")
+
+  end
+
+  def writeSummaryHeader
+    open(@summary_file, 'a') { |f|
+      f << 'start_date,end_date,data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,'\
+       "winning_percentage,cut_off_percentage\n"
+    }
+  end
+
+  def write_summary_line(start_date, end_date, data_set, minimum_profit, required_score, window_size, results)
+
+    open(@summary_file, 'a') { |f|
+      f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{required_score},#{window_size},"\
+                 "#{results.winners.size},#{results.losers.size},#{results.winning_percentage},#{results.cut_off_percentage}\n"
+    }
+
+  end
+end

@@ -10,6 +10,7 @@ require_relative 'fade_mapper'
 require_relative 'date_range_generator'
 require_relative 'data_set_processor'
 require_relative 'results'
+require_relative 'results_writer'
 require 'active_support/all'
 
 @bar_chart_file_repo = BarChartFileRepo.new
@@ -18,14 +19,7 @@ require 'active_support/all'
 @processors = Processors.new
 @date_range_generator = DateRangeGenerator.new(DateTime.new(2007, 12, 5), DateTime.new(2016, 8, 2))
 
-@output_directory = 'could_of_been_better_results'
 @input_directory = 'backtesting_data'
-@summary_file = "#{@output_directory}/summary_high_scores.csv"
-
-output_directory = 'could_of_been_better_results'
-FileUtils.rm_rf Dir.glob("#{output_directory}/*")
-summary_file = "#{output_directory}/summary_high_scores.csv"
-File.delete(summary_file) if File.exist?(summary_file)
 
 moving_average_counts = 2.step(36, 2).to_a # How big is the moving average window.
 cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
@@ -37,10 +31,11 @@ data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol|
 
 date_ranges = @date_range_generator.get_ranges
 
-open(summary_file, 'a') { |f|
-  f << 'start_date,end_date,data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,'\
-       "winning_percentage,cut_off_percentage\n"
-}
+@results_writer = ResultsWriter.new
+
+@results_writer.writeSummaryHeader
+
+
 
 def process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
@@ -56,10 +51,9 @@ def process_data_set(data_set, required_score, start_date, end_date, minimum_pro
                "#{results.winning_percentage}% cut off percentage: #{results.cut_off_percentage}"
 
 
-    open(@summary_file, 'a') { |f|
-      f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{required_score},#{window_size},"\
-                 "#{results.winners.size},#{results.losers.size},#{results.winning_percentage},#{results.cut_off_percentage}\n"
-    }
+    @results_writer.write_summary_line(start_date, end_date, data_set, minimum_profit, required_score, window_size, results)
+
+
   end
 
 end
