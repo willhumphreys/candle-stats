@@ -36,20 +36,18 @@ date_ranges = @date_range_generator.get_ranges
 
 @results_writer.writeSummaryHeader
 
-def process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
+def process_data_set(execution_parameters)
 
-  data_set_processor = TradeResultsProcessor.new(data_set, required_score, start_date, end_date, minimum_profit, window_size)
+  data_set_processor = TradeResultsProcessor.new(execution_parameters)
 
-  trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{data_set}.csv")
+  trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{execution_parameters.data_set}.csv")
 
   results = data_set_processor.process_trade_results(trade_results)
 
   unless results.nil?
-    puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{required_score} "\
-               "moving average count: #{window_size} winners: #{results.winners.size} losers: #{results.losers.size} "\
+    puts "#{execution_parameters.start_date}-#{execution_parameters.end_date} #{execution_parameters.data_set } minimum_profit: #{execution_parameters.minimum_profit} cut off: #{execution_parameters.required_score} "\
+               "moving average count: #{execution_parameters.window_size} winners: #{results.winners.size} losers: #{results.losers.size} "\
                "#{results.winning_percentage}% cut off percentage: #{results.cut_off_percentage}"
-
-    execution_parameters = Execution_parameters.new(start_date, end_date, data_set, minimum_profit, required_score, window_size)
 
     @results_writer.write_summary_line(execution_parameters, results)
   end
@@ -73,7 +71,9 @@ minimum_profits.each { |minimum_profit|
 
         data_sets.each { |data_set|
 
-          process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
+          execution_parameters = Execution_parameters.new(start_date, end_date, data_set, minimum_profit, required_score, window_size)
+
+          process_data_set(execution_parameters)
         }
       }
     }
