@@ -96,8 +96,6 @@ def process_data_set(required_score, data_set, end_date, input_directory, minimu
                  "#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
     }
   end
-
-
 end
 
 minimum_profits.each { |minimum_profit|
