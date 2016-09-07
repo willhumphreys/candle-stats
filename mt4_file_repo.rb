@@ -10,7 +10,7 @@ class MT4FileRepo
 
   end
 
-  def read_quotes(file)
+  public def read_quotes(file)
 
     mapped_quotes = Array.new
 

@@ -8,6 +8,7 @@ require_relative 'processors'
 require_relative 'news_reader'
 require_relative 'fade_mapper'
 require_relative 'date_range_generator'
+require_relative 'data_set_processor'
 require 'active_support/all'
 
 @bar_chart_file_repo = BarChartFileRepo.new
@@ -16,7 +17,6 @@ require 'active_support/all'
 @processors = Processors.new
 @date_range_generator = DateRangeGenerator.new(DateTime.new(2007, 12, 5), DateTime.new(2016, 8, 2))
 
-input_directory = 'backtesting_data'
 output_directory = 'could_of_been_better_results'
 FileUtils.rm_rf Dir.glob("#{output_directory}/*")
 summary_file = "#{output_directory}/summary_high_scores.csv"
@@ -37,65 +37,12 @@ open(summary_file, 'a') { |f|
        "winning_percentage,cut_off_percentage\n"
 }
 
+def process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
-def process_data_set(required_score, data_set, end_date, input_directory, minimum_profit, window_size, start_date, summary_file)
-  puts data_set
+  data_set_processor = DataSetProcessor.new(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
-  trade_results = @mt4_file_repo.read_quotes("#{input_directory}/#{data_set}.csv")
+  data_set_processor.process
 
-  stored_trades = []
-  winners = []
-  losers = []
-  trade_on = false
-
-  trade_results.each { |trade_result|
-
-    if trade_result.timestamp.utc < start_date || trade_result.timestamp.utc > end_date || trade_result.profit.abs < minimum_profit
-      next
-    end
-
-    if trade_on
-      if stored_trades.size >= window_size
-        if trade_result.profit >= 0
-          winners.push(1)
-        else
-          losers.push(1)
-        end
-        trade_on = false
-      end
-    end
-
-    if trade_result.profit > 0
-      stored_trades.push(1)
-    else
-      stored_trades.push(-1)
-    end
-
-    if stored_trades.size > window_size
-      stored_trades = stored_trades.drop(1)
-    end
-
-    stored_trades_score = stored_trades.inject(0, :+)
-    if (required_score >= 0 && stored_trades_score >= required_score) ||
-        (required_score < 0 && stored_trades_score <= required_score)
-      trade_on = true
-    end
-  }
-
-  if !losers.empty? || !winners.empty?
-
-    winning_percentage = ((winners.size.to_f / (losers.size + winners.size)) * 100).round(2)
-    cut_off_percentage = ((required_score.to_f / window_size) * 100).round(2)
-    puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{required_score} "\
-               "moving average count: #{window_size} winners: #{winners.size} losers: #{losers.size} "\
-               "#{winning_percentage}% cut off percentage: #{cut_off_percentage}"
-    puts stored_trades.join('')
-
-    open(summary_file, 'a') { |f|
-      f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{required_score},#{window_size},"\
-                 "#{winners.size},#{losers.size},#{winning_percentage},#{cut_off_percentage}\n"
-    }
-  end
 end
 
 minimum_profits.each { |minimum_profit|
@@ -115,7 +62,7 @@ minimum_profits.each { |minimum_profit|
 
         data_sets.each { |data_set|
 
-          process_data_set(required_score, data_set, end_date, input_directory, minimum_profit, window_size, start_date, summary_file)
+          process_data_set(data_set, required_score, start_date, end_date, minimum_profit, window_size)
         }
       }
     }
