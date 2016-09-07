@@ -9,6 +9,7 @@ require_relative 'news_reader'
 require_relative 'fade_mapper'
 require_relative 'date_range_generator'
 require_relative 'data_set_processor'
+require_relative 'results'
 require 'active_support/all'
 
 @bar_chart_file_repo = BarChartFileRepo.new
@@ -16,6 +17,10 @@ require 'active_support/all'
 @candle_ops = CandleOperations.new
 @processors = Processors.new
 @date_range_generator = DateRangeGenerator.new(DateTime.new(2007, 12, 5), DateTime.new(2016, 8, 2))
+
+@output_directory = 'could_of_been_better_results'
+@input_directory = 'backtesting_data'
+@summary_file = "#{@output_directory}/summary_high_scores.csv"
 
 output_directory = 'could_of_been_better_results'
 FileUtils.rm_rf Dir.glob("#{output_directory}/*")
@@ -41,7 +46,21 @@ def process_data_set(data_set, required_score, start_date, end_date, minimum_pro
 
   data_set_processor = DataSetProcessor.new(data_set, required_score, start_date, end_date, minimum_profit, window_size)
 
-  data_set_processor.process
+  trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{data_set}.csv")
+
+  results = data_set_processor.process(trade_results)
+
+  unless results.nil?
+    puts "#{start_date}-#{end_date} #{data_set } minimum_profit: #{minimum_profit} cut off: #{required_score} "\
+               "moving average count: #{window_size} winners: #{results.winners.size} losers: #{results.losers.size} "\
+               "#{results.winning_percentage}% cut off percentage: #{results.cut_off_percentage}"
+
+
+    open(@summary_file, 'a') { |f|
+      f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{required_score},#{window_size},"\
+                 "#{results.winners.size},#{results.losers.size},#{results.winning_percentage},#{results.cut_off_percentage}\n"
+    }
+  end
 
 end
 

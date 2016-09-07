@@ -1,7 +1,5 @@
 class DataSetProcessor
 
-
-
   def initialize(data_set, required_score, start_date, end_date, minimum_profit, window_size)
     @data_set = data_set
     @stored_trades = []
@@ -14,19 +12,15 @@ class DataSetProcessor
     @minimum_profit = minimum_profit
     @window_size = window_size
 
-    @output_directory = 'could_of_been_better_results'
-    @input_directory = 'backtesting_data'
-    @summary_file = "#{@output_directory}/summary_high_scores.csv"
+
 
     @mt4_file_repo = MT4FileRepo.new(FadeMapper.new)
 
   end
 
 
-  public def process
+  public def process(trade_results)
     puts @data_set
-
-    trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{@data_set}.csv")
 
 
     trade_on = false
@@ -69,16 +63,13 @@ class DataSetProcessor
 
       winning_percentage = ((@winners.size.to_f / (@losers.size + @winners.size)) * 100).round(2)
       cut_off_percentage = ((@required_score.to_f / @window_size) * 100).round(2)
-      puts "#{@start_date}-#{@end_date} #{@data_set } minimum_profit: #{@minimum_profit} cut off: #{@required_score} "\
-               "moving average count: #{@window_size} winners: #{@winners.size} losers: #{@losers.size} "\
-               "#{winning_percentage}% cut off percentage: #{cut_off_percentage}"
+
       puts @stored_trades.join('')
 
-      open(@summary_file, 'a') { |f|
-        f << "#{@start_date},#{@end_date},#{@data_set},#{@minimum_profit},#{@required_score},#{@window_size},"\
-                 "#{@winners.size},#{@losers.size},#{winning_percentage},#{cut_off_percentage}\n"
-      }
+      return Results.new(winning_percentage, cut_off_percentage, winners, losers)
     end
+
+    return nil
 
   end
 
