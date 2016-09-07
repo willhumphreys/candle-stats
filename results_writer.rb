@@ -18,10 +18,11 @@ class ResultsWriter
     }
   end
 
-  def write_summary_line(start_date, end_date, data_set, minimum_profit, required_score, window_size, results)
+  def write_summary_line(execution_parameters, results)
 
     open(@summary_file, 'a') { |f|
-      f << "#{start_date},#{end_date},#{data_set},#{minimum_profit},#{required_score},#{window_size},"\
+      f << "#{execution_parameters.start_date},#{execution_parameters.end_date},#{execution_parameters.data_set},
+            #{execution_parameters.minimum_profit},#{execution_parameters.required_score},#{execution_parameters.window_size},"\
                  "#{results.winners.size},#{results.losers.size},#{results.winning_percentage},#{results.cut_off_percentage}\n"
     }
 

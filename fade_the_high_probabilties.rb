@@ -11,6 +11,7 @@ require_relative 'date_range_generator'
 require_relative 'data_set_processor'
 require_relative 'results'
 require_relative 'results_writer'
+require_relative 'execution_parameters'
 require 'active_support/all'
 
 @bar_chart_file_repo = BarChartFileRepo.new
@@ -48,7 +49,9 @@ def process_data_set(data_set, required_score, start_date, end_date, minimum_pro
                "moving average count: #{window_size} winners: #{results.winners.size} losers: #{results.losers.size} "\
                "#{results.winning_percentage}% cut off percentage: #{results.cut_off_percentage}"
 
-    @results_writer.write_summary_line(start_date, end_date, data_set, minimum_profit, required_score, window_size, results)
+    execution_parameters = Execution_parameters.new(start_date, end_date, data_set, minimum_profit, required_score, window_size)
+
+    @results_writer.write_summary_line(execution_parameters, results)
   end
 
 end
