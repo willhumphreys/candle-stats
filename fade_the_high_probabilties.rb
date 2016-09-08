@@ -32,6 +32,7 @@ data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol|
 
 date_ranges = @date_range_generator.get_ranges
 
+
 @results_writer = ResultsWriter.new
 
 @results_writer.writeSummaryHeader
