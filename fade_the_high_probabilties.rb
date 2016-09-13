@@ -22,9 +22,9 @@ require 'active_support/all'
 
 @input_directory = 'backtesting_data'
 
-moving_average_counts = 2.step(4, 2).to_a # How big is the moving average window.
-cut_offs = -2.step(2, 1).to_a # How successful do the trades need to be.
-minimum_profits = 2.step(2, 2).to_a # What is the minimum profit our new trade needs to be traded.
+moving_average_counts = 2.step(36, 2).to_a # How big is the moving average window.
+cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
+minimum_profits = -34.step(2, 36).to_a # What is the minimum profit our new trade needs to be traded.
 
 end_of_data_in_file = %w(_FadeTheBreakoutNormalDaily)
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)

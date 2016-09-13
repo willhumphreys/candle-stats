@@ -25,8 +25,8 @@ append.year.filename <- function(filename, start_year, end_year) {
 
 generate.plots.by.date <- function(start_date, end_date, data) {
 
-  #start_date <- '2015-08-02T00:00:00+00:00'
-  #end_date <- '2017-08-02T00:00:00+00:00'
+  start_date <- '2015-08-02T00:00:00+00:00'
+  end_date <- '2017-08-02T00:00:00+00:00'
 
   filtered_data <- data[data$start_date == start_date,]
   filtered_data <- filtered_data[filtered_data$end_date == end_date,]
@@ -43,7 +43,6 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   geom_bar(stat="identity", colour=red) +
   #coord_cartesian(ylim=c(40, 110)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  geom_vline(0)
   ggsave(file=append.year.filename("/average_cut_off_minimum_", start_year, end_year))
 
   ggplot(average_per_cut_off_minimum, aes(x=cut_off_percentage, y=winning_percentage)) +
@@ -51,7 +50,6 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   #coord_cartesian(ylim=c(40, 110)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 14), axis.text.y = element_text(size = 20)) +
   facet_grid(. ~ minimum_profit) +
-  geom_vline(0) +
   theme(axis.title=element_text(size=20))
   ggsave(file=append.year.filename("/average_cut_off_minimum_facet_", start_year,  end_year), width = 21, height = 15)
 
