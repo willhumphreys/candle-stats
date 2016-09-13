@@ -12,8 +12,6 @@ class TradeResultsProcessor
   end
 
   public def process_trade_results(trade_results)
-    puts @execution_parameters.data_set
-
     trade_on = false
 
     trade_results.each { |trade_result|

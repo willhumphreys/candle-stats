@@ -12,6 +12,7 @@ require_relative 'trade_results_processor'
 require_relative 'results'
 require_relative 'results_writer'
 require_relative 'execution_parameters'
+require_relative 'results_with_name'
 require 'active_support/all'
 
 @bar_chart_file_repo = BarChartFileRepo.new
@@ -30,6 +31,14 @@ end_of_data_in_file = %w(_FadeTheBreakoutNormalDaily)
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
 data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol| time_period + symbol }
 
+all_results_with_names = []
+data_sets.each { |data_set|
+
+  trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{data_set}.csv")
+  all_results_with_names.push(ResultsWithName.new(data_set,trade_results))
+}
+
+
 date_ranges = @date_range_generator.get_ranges
 
 
@@ -40,10 +49,7 @@ date_ranges = @date_range_generator.get_ranges
 def process_data_set(execution_parameters)
 
   data_set_processor = TradeResultsProcessor.new(execution_parameters)
-
-  trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{execution_parameters.data_set}.csv")
-
-  results = data_set_processor.process_trade_results(trade_results)
+  results = data_set_processor.process_trade_results(execution_parameters.trade_results)
 
   unless results.nil?
     puts "#{execution_parameters.start_date}-#{execution_parameters.end_date} #{execution_parameters.data_set} minimum_profit: #{execution_parameters.minimum_profit} cut off: #{execution_parameters.required_score} "\
@@ -66,8 +72,9 @@ minimum_profits.each { |minimum_profit|
           next
         end
 
-        data_sets.each { |data_set|
-          execution_parameters = Execution_parameters.new(start_date, end_date, data_set, minimum_profit, required_score, window_size)
+        all_results_with_names.each { |results_with_name|
+          execution_parameters = Execution_parameters.new(start_date, end_date, results_with_name.name, minimum_profit,
+                                                          required_score, window_size, results_with_name.trade_results)
           process_data_set(execution_parameters)
         }
 

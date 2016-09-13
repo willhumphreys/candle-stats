@@ -68,7 +68,8 @@ generate.plots.by.date <- function(start_date, end_date, data) {
     ggplot(data=dat, aes(x=cut_off_percentage, y=winning_percentage)) +
       geom_point(shape=1)  +    # Use hollow circles
       stat_summary(aes(y = winning_percentage,group=1), fun.y=mean, colour="red", geom="line",group=1) +
-      scale_y_continuous(breaks=seq(0,100,10))
+      scale_y_continuous(breaks=seq(0,100,10)) +
+      stat_binhex()
     ggsave(file=out.file)
   }
 
