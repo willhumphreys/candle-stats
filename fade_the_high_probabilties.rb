@@ -22,9 +22,9 @@ require 'active_support/all'
 
 @input_directory = 'backtesting_data'
 
-moving_average_counts = 2.step(36, 2).to_a # How big is the moving average window.
-cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
-minimum_profits = 2.step(36, 2).to_a # What is the minimum profit our new trade needs to be traded.
+moving_average_counts = 2.step(4, 2).to_a # How big is the moving average window.
+cut_offs = -2.step(2, 1).to_a # How successful do the trades need to be.
+minimum_profits = 2.step(2, 2).to_a # What is the minimum profit our new trade needs to be traded.
 
 end_of_data_in_file = %w(_FadeTheBreakoutNormalDaily)
 symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
@@ -46,7 +46,7 @@ def process_data_set(execution_parameters)
   results = data_set_processor.process_trade_results(trade_results)
 
   unless results.nil?
-    puts "#{execution_parameters.start_date}-#{execution_parameters.end_date} #{execution_parameters.data_set } minimum_profit: #{execution_parameters.minimum_profit} cut off: #{execution_parameters.required_score} "\
+    puts "#{execution_parameters.start_date}-#{execution_parameters.end_date} #{execution_parameters.data_set} minimum_profit: #{execution_parameters.minimum_profit} cut off: #{execution_parameters.required_score} "\
                "moving average count: #{execution_parameters.window_size} winners: #{results.winners.size} losers: #{results.losers.size} "\
                "#{results.winning_percentage}% cut off percentage: #{results.cut_off_percentage}"
 
