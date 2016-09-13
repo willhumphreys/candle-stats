@@ -10,7 +10,7 @@ class ResultsWriter
 
   end
 
-  def writeSummaryHeader
+  def write_summary_header
     open(@summary_file, 'a') { |f|
       f << 'start_date,end_date,data_set,minimum_profit,cut_off,moving_average_count,winners.size,losers.size,'\
        "winning_percentage,cut_off_percentage\n"

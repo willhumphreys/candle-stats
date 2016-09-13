@@ -35,7 +35,7 @@ date_ranges = @date_range_generator.get_ranges
 
 @results_writer = ResultsWriter.new
 
-@results_writer.writeSummaryHeader
+@results_writer.write_summary_header
 
 def process_data_set(execution_parameters)
 
