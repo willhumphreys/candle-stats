@@ -1,6 +1,5 @@
 class ResultsWriter
 
-
   def initialize
     @output_directory = 'could_of_been_better_results'
     @summary_file = "#{@output_directory}/summary_high_scores.csv"
