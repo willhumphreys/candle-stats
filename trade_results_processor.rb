@@ -17,12 +17,12 @@ class TradeResultsProcessor
     trade_results.each { |trade_result|
 
       if trade_result.timestamp.utc < @execution_parameters.start_date ||
-          trade_result.timestamp.utc > @execution_parameters.end_date ||
-          trade_result.profit.abs < @execution_parameters.minimum_profit
+          trade_result.timestamp.utc > @execution_parameters.end_date #||
+         # trade_result.profit.abs < @execution_parameters.minimum_profit
         next
       end
 
-      trade_on = @trade_result_processor.process_trade_result(trade_result, trade_on, @winners, @losers)
+      trade_on = @trade_result_processor.process_trade_result(trade_result, trade_on, @winners, @losers, @execution_parameters.minimum_profit)
     }
 
     if !@losers.empty? || !@winners.empty?
