@@ -57,6 +57,7 @@ generate.plots.by.date <- function(start_date, end_date, data) {
 
     ggplot(data=dat, aes(x=cut_off_percentage, y=winning_percentage, group=1)) +
       geom_line() +
+      stat_smooth(method = "lm", formula = y ~ x, size = 1) +
       #scale_y_continuous(breaks=seq(50,80,0.3)) +
       scale_x_continuous(breaks=seq(-100,100,5))
     ggsave(file=out.file)
