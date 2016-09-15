@@ -109,4 +109,27 @@ describe 'My behaviour' do
     expect(trade_on).to equal(false)
   end
 
+  it 'should store a winner' do
+    trade_result_processor = TradeResultProcessor.new(6, 3)
+
+    winners = []
+    losers = []
+    trade_result_processor.store_new_trade_result(winners, losers, @trade_result)
+
+    expect(winners.size).to eq(1)
+    expect(losers.empty?).to eq(true)
+  end
+
+  it 'should store a lose' do
+    trade_result_processor = TradeResultProcessor.new(6, 3)
+
+    winners = []
+    losers = []
+    trade_result_processor.store_new_trade_result(winners, losers, @trade_result_loss)
+
+    expect(losers.size).to eq(1)
+    expect(winners.empty?).to eq(true)
+  end
+
+
 end

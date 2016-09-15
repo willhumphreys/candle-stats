@@ -38,9 +38,7 @@ data_sets.each { |data_set|
   all_results_with_names.push(ResultsWithName.new(data_set,trade_results))
 }
 
-
 date_ranges = @date_range_generator.get_ranges
-
 
 @results_writer = ResultsWriter.new
 
