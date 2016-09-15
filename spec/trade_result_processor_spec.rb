@@ -232,4 +232,34 @@ describe 'My behaviour' do
     trade_conditions_met = trade_result_processor.new_trade_conditions_met(minimum_profit, trade_on, @trade_result)
     expect(trade_conditions_met).to eq(false)
   end
+
+  it 'should set the new_trade flag to true if the required_score is large enough' do
+    window_size = 2
+    required_score = 1
+    trade_result_processor = TradeResultProcessor.new(window_size, required_score)
+
+    trade_result_processor.stored_trades = [1,1]
+
+    expect(trade_result_processor.set_new_trade_flag).to eq(true)
+  end
+
+  it 'should set the new_trade flag to true if the required_score is equal to the required amount' do
+    window_size = 2
+    required_score = 1
+    trade_result_processor = TradeResultProcessor.new(window_size, required_score)
+
+    trade_result_processor.stored_trades = [1,0]
+
+    expect(trade_result_processor.set_new_trade_flag).to eq(true)
+  end
+
+  it 'should set the new_trade flag to false if the required_score is not large enough' do
+    window_size = 2
+    required_score = 1
+    trade_result_processor = TradeResultProcessor.new(window_size, required_score)
+
+    trade_result_processor.stored_trades = [0,0]
+
+    expect(trade_result_processor.set_new_trade_flag).to eq(false)
+  end
 end

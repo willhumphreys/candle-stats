@@ -1,6 +1,7 @@
 class TradeResultProcessor
 
   attr_reader :stored_trades
+  attr_writer :stored_trades
 
   def initialize(window_size, required_score)
     @required_score = required_score
