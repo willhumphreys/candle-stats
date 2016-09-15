@@ -35,5 +35,4 @@ class TradeResultsProcessor
       Results.new(winning_percentage, cut_off_percentage, @winners, @losers)
     end
   end
-
 end

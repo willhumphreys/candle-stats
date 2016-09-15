@@ -24,9 +24,10 @@ append.year.filename <- function(filename, start_year, end_year) {
 }
 
 generate.plots.by.date <- function(start_date, end_date, data) {
+  print(sprintf("Going to generate plots from %s to %s", start_date, end_date))
 
-  start_date <- '2015-08-02T00:00:00+00:00'
-  end_date <- '2017-08-02T00:00:00+00:00'
+  # start_date <- '2015-08-02T00:00:00+00:00'
+  # end_date <- '2017-08-02T00:00:00+00:00'
 
   filtered_data <- data[data$start_date == start_date,]
   filtered_data <- filtered_data[filtered_data$end_date == end_date,]
@@ -39,11 +40,13 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   start_year = get.year(start_date,"_")
   end_year = get.year(end_date,"_")
 
+  plot_name <- append.year.filename("/average_cut_off_minimum_", start_year, end_year)
+  print(sprintf("Going to plot to %s", plot_name))
   ggplot(average_per_cut_off, aes(x=cut_off_percentage, y=winning_percentage)) +
   geom_bar(stat="identity", colour=red) +
   #coord_cartesian(ylim=c(40, 110)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  ggsave(file=append.year.filename("/average_cut_off_minimum_", start_year, end_year))
+  ggsave(file=plot_name)
 
   ggplot(average_per_cut_off_minimum, aes(x=cut_off_percentage, y=winning_percentage)) +
   geom_bar(stat="identity", colour="#FF9999") +
@@ -54,7 +57,7 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   ggsave(file=append.year.filename("/average_cut_off_minimum_facet_", start_year,  end_year), width = 21, height = 15)
 
   generate.average.line.plot <- function(dat, out.file) {
-
+    print(sprintf("Going to plot average line plot to %s", out.file))
     ggplot(data=dat, aes(x=cut_off_percentage, y=winning_percentage, group=1)) +
       geom_line() +
       stat_smooth(method = "lm", formula = y ~ x, size = 1) +
@@ -65,12 +68,14 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   }
 
   generate.scatter.plot <- function(dat, out.file) {
-
+    print(sprintf("Going to plot scatter plot to %s", out.file))
     ggplot(data=dat, aes(x=cut_off_percentage, y=winning_percentage)) +
       geom_point(shape=1)  +    # Use hollow circles
       stat_summary(aes(y = winning_percentage,group=1), fun.y=mean, colour="red", geom="line",group=1) +
       scale_y_continuous(breaks=seq(0,100,10))
     ggsave(file=out.file)
+    print(sprintf("Finished plotting scatter plot to %s", out.file))
+
   }
 
   generate.average.line.plot(average_per_cut_off, append.year.filename("/profit_by_cutoff_", start_year, end_year))
@@ -78,9 +83,7 @@ generate.plots.by.date <- function(start_date, end_date, data) {
 
   generate.minimum.plots <- function(minimum_value, data) {
       filtered.data <- data[ which(data$minimum_profit==minimum_value ),]
-
       average_per_cut_off <- setNames(aggregate(filtered.data[, c("winning_percentage")], list(filtered.data$cut_off_percentage), mean), c("cut_off_percentage","winning_percentage"))
-
       generate.average.line.plot(average_per_cut_off, append.year.filename(paste("/profit_by_cutoff_", minimum_value, "_", sep=""), start_year, end_year))
       generate.scatter.plot(filtered.data, append.year.filename(paste("/scatter_", minimum_value, "_",sep=""), start_year, end_year))
 
@@ -89,7 +92,7 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   minimum_fade_start <- 2
   minimum_fade_end <- 36
 
-  sapply(seq(minimum_fade_start, minimum_fade_end, by=2), function(x) generate.minimum.plots(x, filtered_data))
+  sapply(seq(minimum_fade_start, minimum_fade_end, by=4), function(x) generate.minimum.plots(x, filtered_data))
 
 }
 
