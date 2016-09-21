@@ -13,10 +13,15 @@ class FadeMapper
 
     date = DateTime.strptime("#{row[0]}", '%Y-%m-%dT%H:%M')
 
+    above_top_band_value = row[9] == 'true'
+    below_bottom_band_value = row[10] == 'true'
+
     TradeResult.new(
         timestamp: date,
         direction: row[1],
-        profit: row[6].to_i
+        profit: row[6].to_i,
+        above_top_band: above_top_band_value,
+        below_bottom_band: below_bottom_band_value
     )
 
   end

@@ -27,12 +27,11 @@ moving_average_counts = 2.step(36, 2).to_a # How big is the moving average windo
 cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
 minimum_profits = 38.step(70, 2).to_a # What is the minimum profit our new trade needs to be traded.
 
-end_of_data_in_file = %w(_FadeTheBreakoutNormalDaily)
-symbols = %w(audusd eurchf eurgbp eurusd gbpusd usdcad usdchf nzdusd usdjpy eurjpy)
-data_sets = symbols.product(end_of_data_in_file).collect { |time_period, symbol| time_period + symbol }
+
+symbols = %w(AUDUSD EURCHF EURGBP EURUSD GBPUSD USDCAD USDCHF NZDUSD USDJPY EURJPY)
 
 all_results_with_names = []
-data_sets.each { |data_set|
+symbols.each { |data_set|
 
   trade_results = @mt4_file_repo.read_quotes("#{@input_directory}/#{data_set}.csv")
   all_results_with_names.push(ResultsWithName.new(data_set,trade_results))
