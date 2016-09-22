@@ -52,6 +52,7 @@ class TradeResultProcessor
 
   def new_trade_conditions_met(minimum_profit, trade_on, trade_result)
     trade_on && trade_result.profit.abs >= minimum_profit && window_full && trade_result.is_outside_right_band
+    #trade_on && trade_result.profit.abs >= minimum_profit && window_full
   end
 
   def window_full

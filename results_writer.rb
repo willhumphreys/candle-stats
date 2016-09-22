@@ -1,12 +1,12 @@
 class ResultsWriter
 
   def initialize
-    @output_directory = 'could_of_been_better_results'
-    @summary_file = "#{@output_directory}/summary_high_scores.csv"
+    @output_directory = 'results'
+    @summary_file = "#{@output_directory}/summary_high_scores-2-100-bands.csv"
 
     File.delete(@summary_file) if File.exist?(@summary_file)
 
-    FileUtils.rm_rf Dir.glob("#{@output_directory}/*")
+    #FileUtils.rm_rf Dir.glob("#{@output_directory}/*")
 
   end
 

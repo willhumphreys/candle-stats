@@ -23,9 +23,9 @@ require 'active_support/all'
 
 @input_directory = 'backtesting_data'
 
-moving_average_counts = 2.step(36, 2).to_a # How big is the moving average window.
-cut_offs = -34.step(34, 1).to_a # How successful do the trades need to be.
-minimum_profits = 38.step(70, 2).to_a # What is the minimum profit our new trade needs to be traded.
+moving_average_counts = 2.step(10, 2).to_a # How big is the moving average window.
+cut_offs = -10.step(10, 1).to_a # How successful do the trades need to be.
+minimum_profits = 2.step(100, 5).to_a # What is the minimum profit our new trade needs to be traded.
 
 
 symbols = %w(AUDUSD EURCHF EURGBP EURUSD GBPUSD USDCAD USDCHF NZDUSD USDJPY EURJPY)
