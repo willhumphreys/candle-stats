@@ -78,7 +78,9 @@ generate.plots.by.date <- function(start_date, end_date, data) {
 
   }
 
+  cat('generate average line plot')
   generate.average.line.plot(average_per_cut_off, append.year.filename("/profit_by_cutoff_", start_year, end_year))
+  cat('generate scatter plot')
   generate.scatter.plot(filtered_data, append.year.filename("/scatter_", start_year, end_year))
 
   generate.minimum.plots <- function(minimum_value, data) {
@@ -92,7 +94,8 @@ generate.plots.by.date <- function(start_date, end_date, data) {
   minimum_fade_start <- 2
   minimum_fade_end <- 36
 
-  sapply(seq(minimum_fade_start, minimum_fade_end, by=4), function(x) generate.minimum.plots(x, filtered_data))
+  cat('generate minimum plots')
+  #sapply(seq(minimum_fade_start, minimum_fade_end, by=4), function(x) generate.minimum.plots(x, filtered_data))
 
 }
 
