@@ -5,8 +5,25 @@ dir.out <- 'plots'
 
 data <- read.table('results/summary_high_scores-2-100-bands.csv', header=T,sep=",")
 data$start_date.time=as.Date(as.POSIXct(data$start_date, tz = "UTC", format="%Y-%m-%dT%H:%M:%S"))
+data$year <- format(data$start_date.time, '%Y')
 data <- data[complete.cases(data), ]
-data <- data[data$minimum_profit > 47,]
+data <- data[data$minimum_profit == 70,]
+
+
+
+by_cut_off_min <- aggregate(cbind(winners.size, losers.size)~cut_off_percentage+year, data=data, sum, na.rm=TRUE)
+by_cut_off_min$ave <- (by_cut_off_min$winners.size / (by_cut_off_min$winners.size + by_cut_off_min$losers.size)) * 100
+
+ggplot(data=by_cut_off_min, aes(x=cut_off_percentage, y=ave)) +
+  facet_grid(year ~ .) +
+  geom_hline(aes(yintercept=30), colour="#990000", linetype="dashed") +
+  geom_hline(aes(yintercept=60), colour="#990000", linetype="dashed") +
+  geom_bar(stat="identity")
+
+
+
+
+
 
 get.year <- function(date, split_character) {
     return ((strsplit(date, split_character)[[1]])[1])
